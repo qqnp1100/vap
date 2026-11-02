@@ -20,6 +20,7 @@ import android.media.MediaExtractor
 import android.media.MediaFormat
 import com.tencent.qgame.animplayer.Constant
 import com.tencent.qgame.animplayer.file.IFileContainer
+import java.util.Locale
 import kotlin.collections.HashMap
 
 
@@ -81,7 +82,7 @@ object MediaUtil {
             isTypeMapInit = true
             getSupportType()
         }
-        return supportTypeMap.containsKey(mimeType.toLowerCase())
+        return supportTypeMap.containsKey(mimeType.lowercase(Locale.getDefault()))
     }
 
 
@@ -95,7 +96,7 @@ object MediaUtil {
                 }
                 val types = codecInfo.supportedTypes
                 for (j in types.indices) {
-                    supportTypeMap[types[j].toLowerCase()] = true
+                    supportTypeMap[types[j].lowercase(Locale.getDefault())] = true
                 }
             }
             ALog.i(TAG, "supportType=${supportTypeMap.keys}")

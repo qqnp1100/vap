@@ -30,8 +30,7 @@ import com.tencent.qgame.animplayer.inter.IAnimListener
 import com.tencent.qgame.animplayer.util.ALog
 import com.tencent.qgame.animplayer.util.IALog
 import com.tencent.qgame.animplayer.util.ScaleType
-import com.tencent.qgame.playerproj.R
-import kotlinx.android.synthetic.main.activity_anim_simple_demo.*
+import com.tencent.qgame.playerproj.databinding.ActivityAnimSimpleDemoBinding
 import java.io.File
 
 /**
@@ -56,6 +55,7 @@ class AnimSpecialSizeDemoActivity : Activity(), IAnimListener {
 
     // 动画View
     private lateinit var animView: AnimView
+    private lateinit var binding: ActivityAnimSimpleDemoBinding
 
     private val uiHandler by lazy {
         Handler(Looper.getMainLooper())
@@ -63,7 +63,8 @@ class AnimSpecialSizeDemoActivity : Activity(), IAnimListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_anim_simple_demo)
+        binding = ActivityAnimSimpleDemoBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         // 文件加载完成后会调用init方法
         loadFile()
     }
@@ -74,7 +75,7 @@ class AnimSpecialSizeDemoActivity : Activity(), IAnimListener {
         // 初始化调试开关
         initTestView()
         // 获取动画view
-        animView = playerView
+        animView = binding.playerView
         // 视频左右对齐（rgb左\alpha右）
         animView.setVideoMode(Constant.VIDEO_MODE_SPLIT_HORIZONTAL_REVERSE)
         // 兼容老版本视频资源
@@ -193,17 +194,17 @@ class AnimSpecialSizeDemoActivity : Activity(), IAnimListener {
 
 
     private fun initTestView() {
-        btnLayout.visibility = View.VISIBLE
+        binding.btnLayout.visibility = View.VISIBLE
         /**
          * 开始播放按钮
          */
-        btnPlay.setOnClickListener {
+        binding.btnPlay.setOnClickListener {
             play(videoInfo)
         }
         /**
          * 结束视频按钮
          */
-        btnStop.setOnClickListener {
+        binding.btnStop.setOnClickListener {
             animView.stopPlay()
         }
     }
