@@ -32,13 +32,4 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
 }
 
-// jcenter 上传(这个要在底部)
-// 上传需要执行此任务 IDE -> gradle-> Tasks/publishing/bintrayUpload
-// apply from: file("publish.gradle")
-
-
-// maven central
-// 上传指令./gradlew uploadArchives
-// https://s01.oss.sonatype.org/
-// Staging Repositories -> close -> release
-// apply from: "../publish-mavencentral.gradle"
+apply from: "../publish-mavencentral.gradle"
