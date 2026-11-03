@@ -16,8 +16,10 @@ import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
 import com.tencent.qgame.animplayer.AnimConfig
+import com.tencent.qgame.animplayer.AnimPlayer
 import com.tencent.qgame.animplayer.AnimView
 import com.tencent.qgame.animplayer.Constant
+import com.tencent.qgame.animplayer.Render
 import com.tencent.qgame.animplayer.file.AssetsFileContainer
 import com.tencent.qgame.animplayer.inter.IAnimListener
 import com.tencent.qgame.animplayer.inter.IFetchResource
@@ -31,6 +33,7 @@ import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.atomic.AtomicReference
+import javax.microedition.khronos.egl.EGL10
 
 /**
  * Debug-only device regression suite. Launch with:
@@ -76,6 +79,8 @@ class StabilityTestActivity : Activity() {
         var stopAtFrame = 3
         var settleMs = 180L
         var onRender: (() -> Unit)? = null
+        var onSurfaceFrame: ((Long, Int?) -> Unit)? = null
+        var onFailure: ((Int, String?) -> Unit)? = null
         var validate: () -> String? = { null }
         var deadline: Runnable? = null
         @Volatile var bitmap: Bitmap? = null
@@ -105,7 +110,14 @@ class StabilityTestActivity : Activity() {
                 }
                 Log.i(tag, msg)
             }
-            override fun d(tag: String, msg: String) { Log.d(tag, msg) }
+            override fun d(tag: String, msg: String) {
+                val callback = current?.onSurfaceFrame
+                if (callback != null && tag == "${Constant.TAG}.HardDecoder" && msg.startsWith("Surface frame ")) {
+                    val timestamp = msg.substringAfter("timestampNs=").substringBefore(' ').toLong()
+                    callback(timestamp, msg.substringAfter("index=").toIntOrNull())
+                }
+                Log.d(tag, msg)
+            }
             override fun e(tag: String, msg: String) {
                 if (tag == "${Constant.TAG}.AudioPlayer") current?.audioErrors?.incrementAndGet()
                 Log.e(TAG, "LIBRARY $tag $msg")
@@ -131,6 +143,7 @@ class StabilityTestActivity : Activity() {
 
     private fun startSuite() {
         ++suiteToken
+        ALog.isDebug = false
         current?.view?.stopPlay()
         current = null
         host.removeAllViews()
@@ -163,6 +176,83 @@ class StabilityTestActivity : Activity() {
     }
 
     private fun buildSteps() {
+        steps.add("vapx-latched-frame-alignment" to {
+            val test = beginCase("vapx-latched-frame-alignment", timeoutMs = 32_000)
+            val player = testPlayer(test.view)
+            var lastTimestamp = Long.MIN_VALUE
+            var lastIndex = -1
+            var loopStarts = 0
+            var matched = 0
+            var skipped = 0
+            var alignmentError = false
+            test.view.setLoop(2)
+            test.view.setFetchResource(source(test))
+            test.onSurfaceFrame = { timestamp, index ->
+                val fusionIndex = player.pluginManager.getMixAnimPlugin()?.curFrameIndex
+                if (timestamp <= lastTimestamp || index == null || index != fusionIndex || index !in 0..239) {
+                    alignmentError = true
+                } else {
+                    if (index == 0) {
+                        if (loopStarts > 0 && lastIndex != 239) alignmentError = true
+                        loopStarts++
+                    } else if (index <= lastIndex) {
+                        alignmentError = true
+                    } else {
+                        skipped += index - lastIndex - 1
+                    }
+                    lastIndex = index
+                    matched++
+                    // Give several decoded frames time to arrive while the render thread is busy.
+                    if (matched == 1) Thread.sleep(350)
+                }
+                lastTimestamp = timestamp
+            }
+            test.validate = {
+                line("METRIC ${test.name} matched=$matched skipped=$skipped loops=$loopStarts lastIndex=$lastIndex")
+                played(test) ?: expect(!alignmentError && loopStarts == 2 && lastIndex == 239 &&
+                    matched + skipped == 480, "latched timestamps must select the exact fusion index across both loops")
+            }
+            ALog.isDebug = true
+            test.view.setAnimListener(listener(test))
+            test.view.startPlay(assets, "vapx.mp4")
+        })
+        var eglRecoveryView: AnimView? = null
+        steps.add("egl-render-failure" to {
+            val test = beginCase("egl-render-failure")
+            eglRecoveryView = test.view
+            val player = testPlayer(test.view)
+            var restore: (() -> Unit)? = null
+            var renderFailure = false
+            test.view.setFetchResource(source(test))
+            test.onSurfaceFrame = { _, _ ->
+                if (restore == null) {
+                    val render = player.decoder?.render as Render
+                    val egl = Render::class.java.getDeclaredField("eglUtil").apply { isAccessible = true }.get(render)
+                    val surface = egl.javaClass.getDeclaredField("eglSurface").apply { isAccessible = true }
+                    val original = surface.get(egl)
+                    // Make the next real eglSwapBuffers fail, then restore ownership for cleanup.
+                    surface.set(egl, EGL10.EGL_NO_SURFACE)
+                    restore = { surface.set(egl, original) }
+                }
+            }
+            test.onFailure = { type, message ->
+                restore?.invoke()
+                renderFailure = type == Constant.REPORT_ERROR_TYPE_RENDER_EXC &&
+                    message?.contains("EGL swap failed") == true
+            }
+            test.validate = {
+                expect(renderFailure && test.errors.get() == 1 && test.destroysAfterComplete.get() == 1 &&
+                    test.releases.get() == 1 && player.decoder?.render == null,
+                    "expected one EGL error, one completion and release of renderer and fusion resources")
+            }
+            ALog.isDebug = true
+            test.view.setAnimListener(listener(test))
+            test.view.startPlay(assets, "vapx.mp4")
+        })
+        steps.add("egl-render-replay" to {
+            val test = beginCase("egl-render-replay", reuse = eglRecoveryView)
+            playThenStop(test)
+        })
         steps.add("yuv-natural-completion" to {
             val test = beginCase("yuv-natural-completion", timeoutMs = 9_000)
             test.view.enableVersion1(true)
@@ -443,6 +533,9 @@ class StabilityTestActivity : Activity() {
         if (container != null) test.view.startPlay(container) else test.view.startPlay(assets, asset)
     }
 
+    private fun testPlayer(view: AnimView): AnimPlayer =
+        AnimView::class.java.getDeclaredField("player").apply { isAccessible = true }.get(view) as AnimPlayer
+
     private fun listener(test: Case, rejectConfig: Boolean = false, throwConfig: Boolean = false,
                          throwRender: Boolean = false, throwComplete: Boolean = false,
                          throwFailure: Boolean = false, afterConfig: (() -> Unit)? = null) = object : IAnimListener {
@@ -479,6 +572,7 @@ class StabilityTestActivity : Activity() {
         }
         override fun onFailed(errorType: Int, errorMsg: String?) {
             test.errors.incrementAndGet()
+            test.onFailure?.invoke(errorType, errorMsg)
             Log.i(TAG, "EVENT ${test.name} failed type=$errorType message=$errorMsg")
             if (throwFailure) throw IllegalStateException("injected failure callback failure")
         }
@@ -523,6 +617,7 @@ class StabilityTestActivity : Activity() {
     private fun finishCase(test: Case, forcedFailure: String? = null) {
         if (test.finished || test.token != suiteToken || current !== test) return
         test.finished = true
+        ALog.isDebug = false
         test.deadline?.let { main.removeCallbacks(it) }
         val failure = forcedFailure ?: expect(test.completes.get() == test.expectedCompletes,
             "expected ${test.expectedCompletes} completion(s)")

@@ -18,13 +18,11 @@ package com.tencent.qgame.animplayer
 import android.graphics.SurfaceTexture
 import android.opengl.GLES11Ext
 import android.opengl.GLES20
+import android.opengl.Matrix
 import com.tencent.qgame.animplayer.util.GlFloatArray
 import com.tencent.qgame.animplayer.util.ShaderUtil
 import com.tencent.qgame.animplayer.util.TexCoordsUtil
 import com.tencent.qgame.animplayer.util.VertexUtil
-import java.nio.ByteBuffer
-import java.nio.ByteOrder
-import java.nio.ShortBuffer
 
 class Render(surfaceTexture: SurfaceTexture): IRenderListener {
 
@@ -42,6 +40,12 @@ class Render(surfaceTexture: SurfaceTexture): IRenderListener {
     private var shaderProgram = 0
     private var genTexture = IntArray(1)
     private var uTextureLocation: Int = 0
+    private var uVideoTransformLocation = 0
+    private val videoTransform = FloatArray(16).apply {
+        Matrix.setIdentityM(this, 0)
+        this[5] = -1f
+        this[13] = 1f
+    }
     private var aPositionLocation: Int = 0
     private var aTextureAlphaLocation: Int = 0
     private var aTextureRgbLocation: Int = 0
@@ -70,6 +74,7 @@ class Render(surfaceTexture: SurfaceTexture): IRenderListener {
     override fun initRender() {
         shaderProgram = ShaderUtil.createProgram(RenderConstant.VERTEX_SHADER, RenderConstant.FRAGMENT_SHADER)
         uTextureLocation = GLES20.glGetUniformLocation(shaderProgram, "texture")
+        uVideoTransformLocation = GLES20.glGetUniformLocation(shaderProgram, "uVideoTransform")
         aPositionLocation = GLES20.glGetAttribLocation(shaderProgram, "vPosition")
         aTextureAlphaLocation = GLES20.glGetAttribLocation(shaderProgram, "vTexCoordinateAlpha")
         aTextureRgbLocation = GLES20.glGetAttribLocation(shaderProgram, "vTexCoordinateRgb")
@@ -145,8 +150,17 @@ class Render(surfaceTexture: SurfaceTexture): IRenderListener {
         return genTexture[0]
     }
 
+    internal fun updateTextureTransform(texture: SurfaceTexture) {
+        texture.getTransformMatrix(videoTransform)
+    }
+
+    internal fun bindTextureTransform(location: Int) {
+        GLES20.glUniformMatrix4fv(location, 1, false, videoTransform, 0)
+    }
+
     private fun draw() {
         GLES20.glUseProgram(shaderProgram)
+        bindTextureTransform(uVideoTransformLocation)
         // 设置顶点坐标
         vertexArray.setVertexAttribPointer(aPositionLocation)
         // 绑定纹理

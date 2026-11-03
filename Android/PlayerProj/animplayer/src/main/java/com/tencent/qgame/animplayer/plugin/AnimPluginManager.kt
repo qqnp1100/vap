@@ -30,20 +30,12 @@ import com.tencent.qgame.animplayer.util.safeCall
 class AnimPluginManager(val player: AnimPlayer) {
     companion object {
         private const val TAG = "${Constant.TAG}.AnimPluginManager"
-        private const val DIFF_TIMES = 4
     }
 
     private val mixAnimPlugin = MixAnimPlugin(player)
     private val maskAnimPlugin = MaskAnimPlugin(player)
 
     private val plugins = listOf<IAnimPlugin>(mixAnimPlugin, maskAnimPlugin)
-
-    // 当前渲染的帧
-    private var frameIndex = 0
-    // 当前解码的帧
-    private var decodeIndex = 0
-    // 帧不相同的次数, 连续多次不同则直接使用decodeIndex
-    private var frameDiffTimes = 0
 
     fun getMixAnimPlugin(): MixAnimPlugin? {
         return mixAnimPlugin
@@ -66,40 +58,15 @@ class AnimPluginManager(val player: AnimPlayer) {
 
     fun onRenderCreate() {
         ALog.i(TAG, "onRenderCreate")
-        frameIndex = 0
-        decodeIndex = 0
         plugins.forEach {
             it.onRenderCreate()
         }
     }
 
     fun onDecoding(decodeIndex: Int) {
-        ALog.d(TAG, "onDecoding decodeIndex=$decodeIndex")
-        this.decodeIndex = decodeIndex
         plugins.forEach {
             it.onDecoding(decodeIndex)
         }
-    }
-
-    // 开始循环调用
-    fun onLoopStart() {
-        ALog.i(TAG, "onLoopStart")
-        frameIndex = 0
-        decodeIndex = 0
-    }
-
-    fun onRendering() {
-        if (decodeIndex > frameIndex + 1 || frameDiffTimes >= DIFF_TIMES) {
-            ALog.i(TAG, "jump frameIndex= $frameIndex,decodeIndex=$decodeIndex,frameDiffTimes=$frameDiffTimes")
-            frameIndex = decodeIndex
-        }
-        if (decodeIndex != frameIndex) {
-            frameDiffTimes++
-        } else {
-            frameDiffTimes = 0
-        }
-        onRendering(frameIndex)
-        frameIndex++
     }
 
     internal fun onRendering(decodedFrameIndex: Int) {

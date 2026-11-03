@@ -98,9 +98,7 @@ class EGLUtil {
     }
 
     fun swapBuffers() {
-        val api = egl ?: return
-        if (eglDisplay == null || eglDisplay == EGL10.EGL_NO_DISPLAY ||
-            eglSurface == null || eglSurface == EGL10.EGL_NO_SURFACE) return
+        val api = checkNotNull(egl) { "EGL is not initialized" }
         check(api.eglSwapBuffers(eglDisplay, eglSurface)) {
             "EGL swap failed: ${Integer.toHexString(api.eglGetError())}"
         }

@@ -39,11 +39,14 @@ class HardDecoder(player: AnimPlayer) : Decoder(player), SurfaceTexture.OnFrameA
     }
 
     private var surface: Surface? = null
-    private var glTexture: SurfaceTexture? = null
+    @Volatile private var glTexture: SurfaceTexture? = null
     private val bufferInfo by lazy { MediaCodec.BufferInfo() }
-    private var activeSessionId = 0L
+    @Volatile private var activeSessionId = 0L
     private val releaseQueued = AtomicBoolean()
+    private val failureReported = AtomicBoolean()
     private val renderPending = AtomicBoolean()
+    private var surfaceFrames: SurfaceFrameTracker? = null
+    private var lastLatchedTimestamp = Long.MIN_VALUE
     private val surfaceReleases = ArrayList<() -> Unit>()
 
     // 动画的原始尺寸
@@ -57,6 +60,7 @@ class HardDecoder(player: AnimPlayer) : Decoder(player), SurfaceTexture.OnFrameA
     override fun start(fileContainer: IFileContainer) {
         activeSessionId = player.sessionId
         releaseQueued.set(false)
+        failureReported.set(false)
         isStopReq = false
         isRunning = true
         val posted = renderThread.handler?.post {
@@ -70,31 +74,48 @@ class HardDecoder(player: AnimPlayer) : Decoder(player), SurfaceTexture.OnFrameA
     }
 
     override fun onFrameAvailable(surfaceTexture: SurfaceTexture?) {
-        if (isStopReq || surfaceTexture !== glTexture || !player.isSessionActive(activeSessionId)) return
-        ALog.d(TAG, "onFrameAvailable")
-        renderData()
-    }
-
-    private fun renderData() {
         val id = activeSessionId
+        if (surfaceTexture == null || isStopReq || surfaceTexture !== glTexture || !player.isSessionActive(id)) return
         if (!renderPending.compareAndSet(false, true)) return
         val posted = renderThread.handler?.post {
+            // Let a callback arriving during update/draw schedule the next latch.
+            renderPending.set(false)
+            if (!canRender(id) || surfaceTexture !== glTexture) return@post
             try {
-                if (!isStopReq && player.isSessionActive(id) && player.isSurfaceAvailable) {
-                    glTexture?.apply {
-                        updateTexImage()
-                        render?.renderFrame()
-                        player.pluginManager.onRendering()
-                        render?.swapBuffers()
-                    }
+                surfaceTexture.updateTexImage()
+                val timestamp = surfaceTexture.timestamp
+                val useTimestamp = Build.VERSION.SDK_INT >= 21
+                if (useTimestamp && timestamp == lastLatchedTimestamp) return@post
+                lastLatchedTimestamp = timestamp
+                val index = checkNotNull(surfaceFrames).latch(timestamp, useTimestamp)
+                val target = render as Render
+                target.updateTextureTransform(surfaceTexture)
+                target.renderFrame()
+                player.pluginManager.onRendering(index ?: -1)
+                if (ALog.isDebug) {
+                    ALog.d(TAG, "Surface frame timestampNs=$timestamp index=$index")
                 }
+                target.swapBuffers()
             } catch (e: Throwable) {
-                ALog.e(TAG, "render exception", e)
-            } finally {
-                renderPending.set(false)
+                failRendering(id, e)
             }
         }
         if (posted != true) renderPending.set(false)
+    }
+
+    private fun canRender(id: Long): Boolean =
+        !isStopReq && player.isSessionActive(id) && player.isSurfaceAvailable
+
+    private fun failRendering(id: Long, error: Throwable) {
+        if (canRender(id)) failPlayback(id, Constant.REPORT_ERROR_TYPE_RENDER_EXC, error)
+    }
+
+    private fun failPlayback(id: Long, errorType: Int, error: Throwable) {
+        if (!player.isSessionActive(id) || !failureReported.compareAndSet(false, true)) return
+        // Decode owns its in-flight codec calls. Stop it and let it enqueue the normal release.
+        player.stopPlay()
+        ALog.e(TAG, Constant.getErrorMsg(errorType), error)
+        onFailed(errorType, Constant.getErrorMsg(errorType, error.toString()))
     }
 
     private fun startPlay(fileContainer: IFileContainer) {
@@ -142,22 +163,19 @@ class HardDecoder(player: AnimPlayer) : Decoder(player), SurfaceTexture.OnFrameA
                 if (!prepareRender(needYUV)) {
                     throw RuntimeException("render create fail")
                 }
+                preparePlay(videoWidth, videoHeight)
+                if (!needYUV) {
+                    surfaceFrames = SurfaceFrameTracker()
+                    lastLatchedTimestamp = Long.MIN_VALUE
+                    glTexture = SurfaceTexture(checkNotNull(render).getExternalTexture())
+                    glTexture?.setOnFrameAvailableListener(this)
+                    glTexture?.setDefaultBufferSize(videoWidth, videoHeight)
+                }
+                render?.clearFrame()
             } catch (t: Throwable) {
                 onFailed(Constant.REPORT_ERROR_TYPE_CREATE_RENDER, "${Constant.ERROR_MSG_CREATE_RENDER} e=$t")
                 release(null, extractor)
                 return
-            }
-
-            preparePlay(videoWidth, videoHeight)
-
-            render?.apply {
-                if (!needYUV) {
-                    glTexture = SurfaceTexture(getExternalTexture()).apply {
-                        setOnFrameAvailableListener(this@HardDecoder)
-                        setDefaultBufferSize(videoWidth, videoHeight)
-                    }
-                }
-                clearFrame()
             }
 
         } catch (e: Throwable) {
@@ -184,8 +202,7 @@ class HardDecoder(player: AnimPlayer) : Decoder(player), SurfaceTexture.OnFrameA
                 try {
                     startDecode(extractor, codec)
                 } catch (e: Throwable) {
-                    ALog.e(TAG, "MediaCodec exception", e)
-                    onFailed(Constant.REPORT_ERROR_TYPE_DECODE_EXC, "${Constant.ERROR_MSG_DECODE_EXC} e=$e")
+                    failPlayback(activeSessionId, Constant.REPORT_ERROR_TYPE_DECODE_EXC, e)
                     release(codec, extractor)
                 }
             } != true) release(codec, extractor)
@@ -208,6 +225,8 @@ class HardDecoder(player: AnimPlayer) : Decoder(player), SurfaceTexture.OnFrameA
         val decoderInputBuffers = decoder.inputBuffers
         var outputBuffers = if (needYUV && Build.VERSION.SDK_INT < 21) decoder.outputBuffers else null
         var outputFormat: MediaFormat? = null
+        val frames = surfaceFrames
+        val cancelled = { isStopReq || !player.isSessionActive(activeSessionId) }
 
         while (!outputDone) {
             if (isStopReq || !player.isSessionActive(activeSessionId)) {
@@ -253,16 +272,16 @@ class HardDecoder(player: AnimPlayer) : Decoder(player), SurfaceTexture.OnFrameA
                     }
                     else -> {
                         var loop = 0
-                        if (bufferInfo.flags and MediaCodec.BUFFER_FLAG_END_OF_STREAM != 0) {
+                        val eos = bufferInfo.flags and MediaCodec.BUFFER_FLAG_END_OF_STREAM != 0
+                        if (eos) {
                             loop = player.consumeVideoLoop(this)
                             outputDone = loop <= 0
                         }
-                        val doRender = if (needYUV) {
-                            bufferInfo.size > 0 && bufferInfo.flags and MediaCodec.BUFFER_FLAG_CODEC_CONFIG == 0
-                        } else !outputDone
+                        val doRender = bufferInfo.flags and MediaCodec.BUFFER_FLAG_CODEC_CONFIG == 0 &&
+                            (bufferInfo.size > 0 || (!needYUV && !eos))
                         if (doRender) {
-                            speedControlUtil.preRender(bufferInfo.presentationTimeUs) { isStopReq || !player.isSessionActive(activeSessionId) }
-                            if (isStopReq || !player.isSessionActive(activeSessionId)) {
+                            speedControlUtil.preRender(bufferInfo.presentationTimeUs, cancelled)
+                            if (cancelled()) {
                                 decoder.releaseOutputBuffer(decoderStatus, false)
                                 release(decoder, extractor)
                                 return
@@ -275,8 +294,16 @@ class HardDecoder(player: AnimPlayer) : Decoder(player), SurfaceTexture.OnFrameA
                             } finally {
                                 decoder.releaseOutputBuffer(decoderStatus, false)
                             }
+                        } else if (doRender) {
+                            val tracker = checkNotNull(frames)
+                            val timestamp = tracker.submit(System.nanoTime(), frameIndex)
+                            if (Build.VERSION.SDK_INT >= 21) {
+                                decoder.releaseOutputBuffer(decoderStatus, timestamp)
+                            } else {
+                                decoder.releaseOutputBuffer(decoderStatus, true)
+                            }
                         } else {
-                            decoder.releaseOutputBuffer(decoderStatus, doRender)
+                            decoder.releaseOutputBuffer(decoderStatus, false)
                         }
 
                         if (!needYUV || doRender) {
@@ -285,9 +312,17 @@ class HardDecoder(player: AnimPlayer) : Decoder(player), SurfaceTexture.OnFrameA
                             onVideoRender(frameIndex, player.configManager.config)
                             frameIndex++
                         }
+                        // Drain the latest submitted image at EOS. On old APIs, keep only one
+                        // submitted image in flight because the codec cannot tag its timestamp.
+                        if (frames != null && (eos || (doRender && Build.VERSION.SDK_INT < 21)) &&
+                            !frames.awaitLatest(cancelled)) {
+                            failPlayback(activeSessionId, Constant.REPORT_ERROR_TYPE_RENDER_EXC,
+                                IllegalStateException("Timed out waiting for SurfaceTexture frame"))
+                            release(decoder, extractor)
+                            return
+                        }
                         if (loop > 0) {
                             ALog.d(TAG, "Reached EOD, looping")
-                            player.pluginManager.onLoopStart()
                             extractor.seekTo(0, MediaExtractor.SEEK_TO_CLOSEST_SYNC)
                             inputDone = false
                             decoder.flush()
@@ -329,14 +364,14 @@ class HardDecoder(player: AnimPlayer) : Decoder(player), SurfaceTexture.OnFrameA
             val id = activeSessionId
             posted = renderThread.handler?.post {
                 try {
-                    if (!isStopReq && player.isSessionActive(id) && player.isSurfaceAvailable) {
+                    if (canRender(id)) {
                         target.renderFrame(frame)
                         player.pluginManager.onRendering(frame.index)
                         target.swapBuffers()
                         pool.rendered++
                     }
                 } catch (error: Throwable) {
-                    ALog.e(TAG, "YUV render exception frame=${frame.index}, ptsUs=${frame.presentationTimeUs}", error)
+                    failRendering(id, error)
                 } finally {
                     pool.recycle(frame)
                 }
@@ -417,6 +452,7 @@ class HardDecoder(player: AnimPlayer) : Decoder(player), SurfaceTexture.OnFrameA
             safeCall("frame listener release") { glTexture?.setOnFrameAvailableListener(null) }
             safeCall("decoder texture release") { glTexture?.release() }
             glTexture = null
+            surfaceFrames = null
             speedControlUtil.reset()
             player.pluginManager.onRelease()
             safeCall("render textures release") { render?.releaseTexture() }

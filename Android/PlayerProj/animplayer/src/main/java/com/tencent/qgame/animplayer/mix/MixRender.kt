@@ -20,6 +20,7 @@ import android.opengl.GLES20
 import com.tencent.qgame.animplayer.AnimConfig
 import com.tencent.qgame.animplayer.Constant
 import com.tencent.qgame.animplayer.PointRect
+import com.tencent.qgame.animplayer.Render
 import com.tencent.qgame.animplayer.util.*
 
 /**
@@ -51,10 +52,12 @@ class MixRender(private val mixAnimPlugin: MixAnimPlugin) {
     }
 
     fun renderFrame(config:AnimConfig, frame:Frame, src: Src) {
-        val videoTextureId = mixAnimPlugin.player.decoder?.render?.getExternalTexture() ?: return
+        val videoRender = mixAnimPlugin.player.decoder?.render as? Render ?: return
+        val videoTextureId = videoRender.getExternalTexture()
         if (videoTextureId <= 0) return
         val shader = this.shader ?: return
         shader.useProgram()
+        videoRender.bindTextureTransform(shader.uVideoTransformLocation)
         // 定点坐标
         vertexArray.setArray(VertexUtil.create(config.width, config.height, frame.frame, vertexArray.array))
         vertexArray.setVertexAttribPointer(shader.aPositionLocation)

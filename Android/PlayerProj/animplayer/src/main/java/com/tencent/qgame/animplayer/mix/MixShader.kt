@@ -16,6 +16,7 @@
 package com.tencent.qgame.animplayer.mix
 
 import android.opengl.GLES20
+import com.tencent.qgame.animplayer.RenderConstant
 import com.tencent.qgame.animplayer.util.ShaderUtil
 
 class MixShader {
@@ -25,10 +26,11 @@ class MixShader {
                 "attribute vec2 a_TextureMaskCoordinates;\n" +
                 "varying vec2 v_TextureSrcCoordinates;\n" +
                 "varying vec2 v_TextureMaskCoordinates;\n" +
+                RenderConstant.VIDEO_TEXTURE_COORDS +
                 "void main()\n" +
                 "{\n" +
                 "    v_TextureSrcCoordinates = a_TextureSrcCoordinates;\n" +
-                "    v_TextureMaskCoordinates = a_TextureMaskCoordinates;\n" +
+                "    v_TextureMaskCoordinates = videoTexCoord(a_TextureMaskCoordinates);\n" +
                 "    gl_Position = a_Position;\n" +
                 "}"
 
@@ -67,6 +69,7 @@ class MixShader {
     // Uniform locations
     val uTextureSrcUnitLocation: Int
     val uTextureMaskUnitLocation: Int
+    val uVideoTransformLocation: Int
     val uIsFillLocation: Int
     val uColorLocation: Int
 
@@ -79,6 +82,7 @@ class MixShader {
         program = ShaderUtil.createProgram(VERTEX, FRAGMENT)
         uTextureSrcUnitLocation = GLES20.glGetUniformLocation(program, U_TEXTURE_SRC_UNIT)
         uTextureMaskUnitLocation = GLES20.glGetUniformLocation(program, U_TEXTURE_MASK_UNIT)
+        uVideoTransformLocation = GLES20.glGetUniformLocation(program, "uVideoTransform")
         uIsFillLocation = GLES20.glGetUniformLocation(program, U_IS_FILL)
         uColorLocation = GLES20.glGetUniformLocation(program, U_COLOR)
 
