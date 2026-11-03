@@ -98,11 +98,12 @@ class AnimPluginManager(val player: AnimPlayer) {
         } else {
             frameDiffTimes = 0
         }
-        ALog.d(TAG, "onRendering frameIndex=$frameIndex")
-        plugins.forEach {
-            it.onRendering(frameIndex) // 第一帧 0
-        }
+        onRendering(frameIndex)
         frameIndex++
+    }
+
+    internal fun onRendering(decodedFrameIndex: Int) {
+        plugins.forEach { it.onRendering(decodedFrameIndex) }
     }
 
     fun onRelease() {

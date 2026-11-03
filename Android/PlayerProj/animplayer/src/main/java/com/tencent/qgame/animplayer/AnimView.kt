@@ -346,6 +346,9 @@ open class AnimView @JvmOverloads constructor(context: Context, attrs: Attribute
         return scaleTypeUtil.getRealSize()
     }
 
+    internal fun estimateVideoSize(videoWidth: Int, videoHeight: Int): Pair<Int, Int>? =
+        scaleTypeUtil.estimateVideoSize(videoWidth, videoHeight)
+
     private fun hide() {
         val oldView = innerTextureView
         ui {

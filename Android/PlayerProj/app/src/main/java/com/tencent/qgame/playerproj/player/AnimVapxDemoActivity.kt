@@ -40,7 +40,7 @@ import java.util.*
 class AnimVapxDemoActivity : DemoActivity(), IAnimListener {
 
     companion object {
-        private const val TAG = "AnimSimpleDemoActivity"
+        private const val TAG = "AnimVapxDemoActivity"
     }
 
     private var head1Img = true
@@ -54,6 +54,14 @@ class AnimVapxDemoActivity : DemoActivity(), IAnimListener {
     private lateinit var binding: ActivityAnimSimpleDemoBinding
 
     private var lastToast: Toast? = null
+    private val startAfterLayout = object : View.OnLayoutChangeListener {
+        override fun onLayoutChange(view: View, left: Int, top: Int, right: Int, bottom: Int,
+                                    oldLeft: Int, oldTop: Int, oldRight: Int, oldBottom: Int) {
+            if (right <= left || bottom <= top) return
+            view.removeOnLayoutChangeListener(this)
+            if (isDemoActive) playFile(videoInfo.fileName, videoInfo.md5, waitForStop = true)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,9 +100,7 @@ class AnimVapxDemoActivity : DemoActivity(), IAnimListener {
                 if (srcTag.isNotEmpty()) {
                     val drawableId = if (head1Img) R.drawable.head1 else R.drawable.head2
                     head1Img = !head1Img
-                    val options = BitmapFactory.Options()
-                    options.inScaled = false
-                    result(BitmapFactory.decodeResource(resources, drawableId, options))
+                    result(decodeAvatar(drawableId, resource.targetWidth, resource.targetHeight))
                 } else {
                     result(null)
                 }
@@ -144,8 +150,44 @@ class AnimVapxDemoActivity : DemoActivity(), IAnimListener {
         animView.setAnimListener(this)
     }
 
+    private fun decodeAvatar(drawableId: Int, targetWidth: Int, targetHeight: Int): Bitmap? {
+        val options = BitmapFactory.Options().apply { inScaled = false }
+        if (targetWidth <= 0 || targetHeight <= 0) {
+            return BitmapFactory.decodeResource(resources, drawableId, options)
+        }
+
+        options.inJustDecodeBounds = true
+        BitmapFactory.decodeResource(resources, drawableId, options)
+        val originalWidth = options.outWidth
+        val originalHeight = options.outHeight
+        // Retain 25% sampling margin and choose a power of two supported by BitmapFactory.
+        val minWidth = (targetWidth * 5L + 3) / 4
+        val minHeight = (targetHeight * 5L + 3) / 4
+        var sampleSize = 1
+        while (originalWidth / (sampleSize * 2L) >= minWidth &&
+            originalHeight / (sampleSize * 2L) >= minHeight) {
+            sampleSize *= 2
+        }
+        options.inJustDecodeBounds = false
+        options.inSampleSize = sampleSize
+        return BitmapFactory.decodeResource(resources, drawableId, options)?.also { bitmap ->
+            Log.i(TAG, "VAPX image original=${originalWidth}x${originalHeight} " +
+                "target=${targetWidth}x${targetHeight} decoded=${bitmap.width}x${bitmap.height} " +
+                "sample=$sampleSize bytes=${bitmap.byteCount}")
+        }
+    }
+
     override fun onDemoResume() {
-        playFile(videoInfo.fileName, videoInfo.md5, waitForStop = true)
+        if (animView.width > 0 && animView.height > 0) {
+            playFile(videoInfo.fileName, videoInfo.md5, waitForStop = true)
+        } else {
+            animView.addOnLayoutChangeListener(startAfterLayout)
+        }
+    }
+
+    override fun onPause() {
+        animView.removeOnLayoutChangeListener(startAfterLayout)
+        super.onPause()
     }
 
     private fun play(videoInfo: VideoInfo) {
@@ -232,6 +274,7 @@ class AnimVapxDemoActivity : DemoActivity(), IAnimListener {
          * 结束视频按钮
          */
         binding.btnStop.setOnClickListener {
+            animView.removeOnLayoutChangeListener(startAfterLayout)
             stopDemoPlayback()
         }
     }

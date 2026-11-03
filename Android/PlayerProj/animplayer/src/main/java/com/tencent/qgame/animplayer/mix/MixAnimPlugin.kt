@@ -22,6 +22,7 @@ import android.os.SystemClock
 import android.view.MotionEvent
 import com.tencent.qgame.animplayer.AnimConfig
 import com.tencent.qgame.animplayer.AnimPlayer
+import com.tencent.qgame.animplayer.AnimView
 import com.tencent.qgame.animplayer.Constant
 import com.tencent.qgame.animplayer.inter.IFetchResource
 import com.tencent.qgame.animplayer.inter.OnResourceClickListener
@@ -31,6 +32,7 @@ import com.tencent.qgame.animplayer.util.BitmapUtil
 import com.tencent.qgame.animplayer.util.safeCall
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicLong
+import kotlin.math.ceil
 
 class MixAnimPlugin(val player: AnimPlayer): IAnimPlugin {
 
@@ -73,6 +75,7 @@ class MixAnimPlugin(val player: AnimPlayer): IAnimPlugin {
             return
         }
         val handler = player.decoder?.renderThread?.handler ?: return
+        val imageRequests = prepareImageRequests(sources)
         val generation = synchronized(pendingImageLock) {
             resourceSession = session
             loadGeneration.incrementAndGet()
@@ -112,7 +115,7 @@ class MixAnimPlugin(val player: AnimPlayer): IAnimPlugin {
             val seenBitmaps = java.util.IdentityHashMap<Bitmap, Boolean>()
             try {
                 when (src.srcType) {
-                    Src.SrcType.IMG -> request.fetchImage(Resource(src)) { bitmap ->
+                    Src.SrcType.IMG -> request.fetchImage(imageRequests.getValue(src.srcId)) { bitmap ->
                         // A duplicate carrying the same object must never recycle an accepted image.
                         val firstObject = bitmap == null || synchronized(seenBitmaps) {
                             seenBitmaps.put(bitmap, true) == null
@@ -169,6 +172,33 @@ class MixAnimPlugin(val player: AnimPlayer): IAnimPlugin {
                 finish(Constant.REPORT_ERROR_TYPE_CONFIG_PLUGIN_MIX)
             }
         }
+    }
+
+    private fun prepareImageRequests(sources: List<Src>): Map<String, Resource> {
+        val requests = HashMap<String, Resource>()
+        for (src in sources) {
+            if (src.srcType == Src.SrcType.IMG) requests[src.srcId] = Resource(src)
+        }
+        if (requests.isEmpty()) return requests
+        val config = player.configManager.config ?: return requests
+        val view = player.animView as? AnimView ?: return requests
+        val (videoWidth, videoHeight) = view.estimateVideoSize(config.width, config.height) ?: return requests
+        if (videoWidth <= 0 || videoHeight <= 0) return requests
+        val frames = frameAll?.map ?: return requests
+        for (index in 0 until frames.size()) {
+            for (layer in frames.valueAt(index).list) {
+                val request = requests[layer.srcId] ?: continue
+                request.targetWidth = maxOf(request.targetWidth, layer.frame.w)
+                request.targetHeight = maxOf(request.targetHeight, layer.frame.h)
+            }
+        }
+        val scaleX = videoWidth.toDouble() / config.width
+        val scaleY = videoHeight.toDouble() / config.height
+        for (request in requests.values) {
+            request.targetWidth = ceil(request.targetWidth * scaleX).toInt()
+            request.targetHeight = ceil(request.targetHeight * scaleY).toInt()
+        }
+        return requests
     }
 
     fun cancelResourceRequests(expectedSession: Long? = null) {

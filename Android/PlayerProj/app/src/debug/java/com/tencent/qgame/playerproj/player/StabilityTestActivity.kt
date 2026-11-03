@@ -62,6 +62,8 @@ class StabilityTestActivity : Activity() {
         val completes = AtomicInteger()
         val destroysAfterComplete = AtomicInteger()
         val errors = AtomicInteger()
+        val yuvRendered = AtomicInteger()
+        val yuvSlots = AtomicInteger()
         val audioWrites = AtomicInteger()
         val audioErrors = AtomicInteger()
         val releases = AtomicInteger()
@@ -90,6 +92,16 @@ class StabilityTestActivity : Activity() {
             override fun i(tag: String, msg: String) {
                 if (tag == "${Constant.TAG}.AudioPlayer" && msg == "AudioTrack first PCM write") {
                     current?.audioWrites?.incrementAndGet()
+                }
+                if (tag == "${Constant.TAG}.HardDecoder" && msg.startsWith("YUV pool ")) {
+                    val counters = msg.removePrefix("YUV pool ").split(", ").associate {
+                        it.substringBefore('=') to it.substringAfter('=')
+                    }
+                    current?.let { test ->
+                        test.yuvSlots.set(counters["slots"]?.toIntOrNull() ?: 0)
+                        test.yuvRendered.set(counters["rendered"]?.toIntOrNull() ?: 0)
+                        main.post { if (current === test) line("METRIC ${test.name} $msg") }
+                    }
                 }
                 Log.i(tag, msg)
             }
@@ -151,6 +163,48 @@ class StabilityTestActivity : Activity() {
     }
 
     private fun buildSteps() {
+        steps.add("yuv-natural-completion" to {
+            val test = beginCase("yuv-natural-completion", timeoutMs = 9_000)
+            test.view.enableVersion1(true)
+            test.view.setVideoMode(Constant.VIDEO_MODE_SPLIT_HORIZONTAL_REVERSE)
+            test.view.setAnimListener(listener(test))
+            test.validate = {
+                played(test) ?: expect(test.yuvSlots.get() in 1..2 && test.yuvRendered.get() >= 100,
+                    "expected at least 100 successful YUV draws using at most two frame slots")
+            }
+            test.view.startPlay(assets, "special_size_750.mp4")
+        })
+        steps.add("yuv-stop-and-detach" to {
+            val test = beginCase("yuv-stop-and-detach")
+            test.view.enableVersion1(true)
+            test.view.setVideoMode(Constant.VIDEO_MODE_SPLIT_HORIZONTAL_REVERSE)
+            test.stopAtFrame = 12
+            test.onRender = {
+                test.view.stopPlay()
+                host.removeView(test.view)
+            }
+            test.view.setAnimListener(listener(test))
+            test.validate = {
+                played(test) ?: expect(test.yuvSlots.get() in 1..2 && test.yuvRendered.get() >= 8,
+                    "expected YUV draws before stopping and detaching")
+            }
+            test.view.startPlay(assets, "special_size_750.mp4")
+        })
+        steps.add("vapx-resource-display-size" to {
+            val test = beginCase("vapx-resource-display-size")
+            val requestedSize = AtomicReference<Pair<Int, Int>>()
+            test.view.setFetchResource(source(test, onImage = {
+                requestedSize.set(it.targetWidth to it.targetHeight)
+            }))
+            // Resource fetch is asynchronous. Give the host its first layout before starting.
+            postFor(test, 100) {
+                playThenStop(test, "vapx.mp4") {
+                    val (width, height) = requestedSize.get() ?: (0 to 0)
+                    line("METRIC vapx requestedImage=${width}x$height")
+                    expect(width > 0 && height > 0, "expected a target size in display pixels")
+                }
+            }
+        })
         steps.add("background-start-immediate-stop" to {
             val test = beginCase("background-start-immediate-stop")
             test.expectedCompletes = 0
@@ -432,9 +486,11 @@ class StabilityTestActivity : Activity() {
 
     private fun source(test: Case, never: Boolean = false, duplicate: Boolean = false,
                        delayed: Boolean = false, throwRelease: Boolean = false,
-                       missingImage: Boolean = false) = object : IFetchResource {
+                       missingImage: Boolean = false,
+                       onImage: (Resource) -> Unit = {}) = object : IFetchResource {
         override fun fetchImage(resource: Resource, result: (Bitmap?) -> Unit) {
             if (never) return
+            onImage(resource)
             if (missingImage) {
                 result(null)
                 return

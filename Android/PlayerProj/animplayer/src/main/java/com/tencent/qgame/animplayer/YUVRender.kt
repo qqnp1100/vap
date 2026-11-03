@@ -22,6 +22,7 @@ import com.tencent.qgame.animplayer.util.ShaderUtil.createProgram
 import com.tencent.qgame.animplayer.util.TexCoordsUtil
 import com.tencent.qgame.animplayer.util.VertexUtil
 import java.nio.ByteBuffer
+import java.util.concurrent.atomic.AtomicReference
 
 class YUVRender (surfaceTexture: SurfaceTexture): IRenderListener {
 
@@ -55,17 +56,10 @@ class YUVRender (surfaceTexture: SurfaceTexture): IRenderListener {
     private var convertMatrixUniform = 0
     private var convertOffsetUniform = 0
 
-    //YUV数据
-    private var widthYUV = 0
-    private var heightYUV = 0
-    private var y: ByteBuffer? = null
-    private var u: ByteBuffer? = null
-    private var v: ByteBuffer? = null
-
-    private val eglUtil: EGLUtil = EGLUtil()
-
-    // 像素数据向GPU传输时默认以4字节对齐
-    private var unpackAlign = 4
+    private var textureWidth = 0
+    private var textureHeight = 0
+    private val stagedFrame = AtomicReference<YuvFrame?>()
+    private val eglUtil = EGLUtil()
 
     // YUV offset
     private val YUV_OFFSET = floatArrayOf(
@@ -117,13 +111,18 @@ class YUVRender (surfaceTexture: SurfaceTexture): IRenderListener {
     }
 
     override fun renderFrame() {
-        GLES20.glClearColor(0.0f, 0.0f, 0.0f, 0.0f)
+        val frame = stagedFrame.getAndSet(null) ?: return
+        renderFrame(frame)
+    }
+
+    internal fun renderFrame(frame: YuvFrame) {
+        GLES20.glClearColor(0f, 0f, 0f, 0f)
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT)
         if (surfaceSizeChanged) {
             surfaceSizeChanged = false
             GLES20.glViewport(0, 0, surfaceWidth, surfaceHeight)
         }
-        draw()
+        draw(frame)
     }
 
     override fun clearFrame() {
@@ -167,6 +166,9 @@ class YUVRender (surfaceTexture: SurfaceTexture): IRenderListener {
     override fun releaseTexture() {
         GLES20.glDeleteTextures(textureId.size, textureId, 0)
         textureId.fill(0)
+        textureWidth = 0
+        textureHeight = 0
+        stagedFrame.set(null)
     }
 
     override fun swapBuffers() {
@@ -174,61 +176,60 @@ class YUVRender (surfaceTexture: SurfaceTexture): IRenderListener {
     }
 
     override fun setYUVData(width: Int, height: Int, y: ByteArray?, u: ByteArray?, v: ByteArray?) {
-        widthYUV = width
-        heightYUV = height
-        this.y = ByteBuffer.wrap(y)
-        this.u = ByteBuffer.wrap(u)
-        this.v = ByteBuffer.wrap(v)
-
-        // 当视频帧的u或者v分量的宽度不能被4整除时，用默认的4字节对齐会导致存取最后一行时越界，所以在向GPU传输数据前指定对齐方式
-        if ((widthYUV / 2) % 4 != 0) {
-            this.unpackAlign = if ((widthYUV / 2) % 2 == 0) 2 else 1
+        if (y == null || u == null || v == null) {
+            stagedFrame.set(null)
+            return
         }
+        val frame = YuvFrame(width, height)
+        require(y.size == frame.y.capacity() && u.size == frame.u.capacity() && v.size == frame.v.capacity())
+        frame.y.put(y).flip()
+        frame.u.put(u).flip()
+        frame.v.put(v).flip()
+        stagedFrame.set(frame)
     }
 
-    private fun draw() {
-        if (widthYUV > 0 && heightYUV > 0 && y != null && u != null && v != null) {
-            GLES20.glUseProgram(shaderProgram)
-            vertexArray.setVertexAttribPointer(avPosition)
-            alphaArray.setVertexAttribPointer(alphaPosition)
-            rgbArray.setVertexAttribPointer(rgbPosition)
+    private fun draw(frame: YuvFrame) {
+        GLES20.glUseProgram(shaderProgram)
+        vertexArray.setVertexAttribPointer(avPosition)
+        alphaArray.setVertexAttribPointer(alphaPosition)
+        rgbArray.setVertexAttribPointer(rgbPosition)
 
-            GLES20.glPixelStorei(GLES20.GL_UNPACK_ALIGNMENT, unpackAlign)
+        val resize = textureWidth != frame.width || textureHeight != frame.height
+        GLES20.glPixelStorei(GLES20.GL_UNPACK_ALIGNMENT, 1)
+        try {
+            upload(0, frame.width, frame.height, frame.y, resize)
+            upload(1, frame.chromaWidth, frame.chromaHeight, frame.u, resize)
+            upload(2, frame.chromaWidth, frame.chromaHeight, frame.v, resize)
+            if (resize) {
+                val error = GLES20.glGetError()
+                check(error == GLES20.GL_NO_ERROR) { "YUV texture allocation failed: GL error $error" }
+            }
+            textureWidth = frame.width
+            textureHeight = frame.height
+        } finally {
+            GLES20.glPixelStorei(GLES20.GL_UNPACK_ALIGNMENT, 4)
+        }
 
-            //激活纹理0来绑定y数据
-            GLES20.glActiveTexture(GLES20.GL_TEXTURE0)
-            GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textureId[0])
-            GLES20.glTexImage2D(GLES20.GL_TEXTURE_2D, 0, GLES20.GL_LUMINANCE, widthYUV, heightYUV, 0, GLES20.GL_LUMINANCE, GLES20.GL_UNSIGNED_BYTE, y)
+        GLES20.glUniform1i(samplerY, 0)
+        GLES20.glUniform1i(samplerU, 1)
+        GLES20.glUniform1i(samplerV, 2)
+        GLES20.glUniform3fv(convertOffsetUniform, 1, YUV_OFFSET, 0)
+        GLES20.glUniformMatrix3fv(convertMatrixUniform, 1, false, YUV_MATRIX, 0)
+        GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, 0, 4)
+        GLES20.glDisableVertexAttribArray(avPosition)
+        GLES20.glDisableVertexAttribArray(rgbPosition)
+        GLES20.glDisableVertexAttribArray(alphaPosition)
+    }
 
-            //激活纹理1来绑定u数据
-            GLES20.glActiveTexture(GLES20.GL_TEXTURE1)
-            GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textureId[1])
-            GLES20.glTexImage2D(GLES20.GL_TEXTURE_2D, 0, GLES20.GL_LUMINANCE, widthYUV / 2, heightYUV / 2, 0, GLES20.GL_LUMINANCE, GLES20.GL_UNSIGNED_BYTE, u)
-
-            //激活纹理2来绑定v数据
-            GLES20.glActiveTexture(GLES20.GL_TEXTURE2)
-            GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textureId[2])
-            GLES20.glTexImage2D(GLES20.GL_TEXTURE_2D, 0, GLES20.GL_LUMINANCE, widthYUV / 2, heightYUV / 2, 0, GLES20.GL_LUMINANCE, GLES20.GL_UNSIGNED_BYTE, v)
-
-            //给fragment_shader里面yuv变量设置值   0 1 标识纹理x
-            GLES20.glUniform1i(samplerY, 0)
-            GLES20.glUniform1i(samplerU, 1)
-            GLES20.glUniform1i(samplerV, 2)
-
-            GLES20.glUniform3fv(convertOffsetUniform, 1, YUV_OFFSET, 0)
-            GLES20.glUniformMatrix3fv(convertMatrixUniform, 1, false, YUV_MATRIX, 0)
-
-            //绘制
-            GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, 0, 4)
-            y?.clear()
-            u?.clear()
-            v?.clear()
-            y = null
-            u = null
-            v = null
-            GLES20.glDisableVertexAttribArray(avPosition)
-            GLES20.glDisableVertexAttribArray(rgbPosition)
-            GLES20.glDisableVertexAttribArray(alphaPosition)
+    private fun upload(index: Int, width: Int, height: Int, data: ByteBuffer, resize: Boolean) {
+        GLES20.glActiveTexture(GLES20.GL_TEXTURE0 + index)
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textureId[index])
+        if (resize) {
+            GLES20.glTexImage2D(GLES20.GL_TEXTURE_2D, 0, GLES20.GL_LUMINANCE, width, height, 0,
+                GLES20.GL_LUMINANCE, GLES20.GL_UNSIGNED_BYTE, data)
+        } else {
+            GLES20.glTexSubImage2D(GLES20.GL_TEXTURE_2D, 0, 0, 0, width, height,
+                GLES20.GL_LUMINANCE, GLES20.GL_UNSIGNED_BYTE, data)
         }
     }
 }

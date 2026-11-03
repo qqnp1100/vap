@@ -91,7 +91,7 @@ class ScaleTypeFitCenter : IScaleType {
         return Pair(realWidth, realHeight)
     }
 
-    private fun getFitCenterSize(
+    internal fun getFitCenterSize(
         layoutWidth: Int,
         layoutHeight: Int,
         videoWidth: Int,
@@ -141,7 +141,7 @@ class ScaleTypeCenterCrop : IScaleType {
         return Pair(realWidth, realHeight)
     }
 
-    private fun getCenterCropSize(
+    internal fun getCenterCropSize(
         layoutWidth: Int,
         layoutHeight: Int,
         videoWidth: Int,
@@ -175,17 +175,15 @@ class ScaleTypeUtil {
     private val scaleTypeFitXY by lazy { ScaleTypeFitXY() }
     private val scaleTypeFitCenter by lazy { ScaleTypeFitCenter() }
     private val scaleTypeCenterCrop by lazy { ScaleTypeCenterCrop() }
-    private var layoutWidth = 0
-    private var layoutHeight = 0
+    @Volatile private var layoutSize = 0 to 0
     private var videoWidth = 0
     private var videoHeight = 0
 
-    var currentScaleType = ScaleType.FIT_XY
-    var scaleTypeImpl: IScaleType? = null
+    @Volatile var currentScaleType = ScaleType.FIT_XY
+    @Volatile var scaleTypeImpl: IScaleType? = null
 
     fun setLayoutSize(w: Int, h: Int) {
-        layoutWidth = w
-        layoutHeight = h
+        layoutSize = w to h
     }
 
     fun setVideoSize(w: Int, h: Int) {
@@ -203,13 +201,30 @@ class ScaleTypeUtil {
         return size
     }
 
+    /**
+     * Estimate the video pixel size before creating the TextureView. A custom scale type
+     * or an unmeasured layout has no safe estimate at resource fetch time.
+     */
+    internal fun estimateVideoSize(videoWidth: Int, videoHeight: Int): Pair<Int, Int>? {
+        val (width, height) = layoutSize
+        if (width <= 0 || height <= 0 || videoWidth <= 0 || videoHeight <= 0 || scaleTypeImpl != null) {
+            return null
+        }
+        return when (currentScaleType) {
+            ScaleType.FIT_XY -> width to height
+            ScaleType.FIT_CENTER -> scaleTypeFitCenter.getFitCenterSize(width, height, videoWidth, videoHeight)
+            ScaleType.CENTER_CROP -> scaleTypeCenterCrop.getCenterCropSize(width, height, videoWidth, videoHeight)
+        }
+    }
+
     fun getLayoutParam(view: View?): FrameLayout.LayoutParams {
+        val (layoutWidth, layoutHeight) = layoutSize
         val layoutParams = (view?.layoutParams as? FrameLayout.LayoutParams)
             ?: FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT
             )
-        if (!checkParams()) {
+        if (layoutWidth <= 0 || layoutHeight <= 0 || videoWidth <= 0 || videoHeight <= 0) {
             ALog.e(
                 TAG,
                 "params error: layoutWidth=$layoutWidth, layoutHeight=$layoutHeight, videoWidth=$videoWidth, videoHeight=$videoHeight"
@@ -239,14 +254,6 @@ class ScaleTypeUtil {
                 ScaleType.CENTER_CROP -> scaleTypeCenterCrop
             }
         }
-    }
-
-
-    private fun checkParams(): Boolean {
-        return layoutWidth > 0
-                && layoutHeight > 0
-                && videoWidth > 0
-                && videoHeight > 0
     }
 
 }

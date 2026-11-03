@@ -15,6 +15,8 @@
  */
 package com.tencent.qgame.animplayer
 
+import android.annotation.TargetApi
+import android.graphics.ImageFormat
 import android.graphics.SurfaceTexture
 import android.media.MediaCodec
 import android.media.MediaCodecInfo
@@ -26,6 +28,7 @@ import com.tencent.qgame.animplayer.file.IFileContainer
 import com.tencent.qgame.animplayer.util.ALog
 import com.tencent.qgame.animplayer.util.MediaUtil
 import com.tencent.qgame.animplayer.util.safeCall
+import java.nio.ByteBuffer
 import java.util.concurrent.atomic.AtomicBoolean
 
 class HardDecoder(player: AnimPlayer) : Decoder(player), SurfaceTexture.OnFrameAvailableListener {
@@ -47,13 +50,9 @@ class HardDecoder(player: AnimPlayer) : Decoder(player), SurfaceTexture.OnFrameA
     private var videoWidth = 0
     private var videoHeight = 0
 
-    // 动画对齐后的尺寸
-    private var alignWidth = 0
-    private var alignHeight = 0
-
-    // 动画是否需要走YUV渲染逻辑的标志位
     private var needYUV = false
-    private var outputFormat: MediaFormat? = null
+    private var yuvFrames: YuvFramePool? = null
+
 
     override fun start(fileContainer: IFileContainer) {
         activeSessionId = player.sessionId
@@ -131,15 +130,13 @@ class HardDecoder(player: AnimPlayer) : Decoder(player), SurfaceTexture.OnFrameA
 
             videoWidth = format.getInteger(MediaFormat.KEY_WIDTH)
             videoHeight = format.getInteger(MediaFormat.KEY_HEIGHT)
-            // 防止没有INFO_OUTPUT_FORMAT_CHANGED时导致alignWidth和alignHeight不会被赋值一直是0
-            alignWidth = videoWidth
-            alignHeight = videoHeight
             ALog.i(TAG, "Video size is $videoWidth x $videoHeight")
 
             // 由于使用mediacodec解码老版本素材时对宽度1500尺寸的视频进行数据对齐，解码后的宽度变成1504，导致采样点出现偏差播放异常
             // 所以当开启兼容老版本视频模式并且老版本视频的宽度不能被16整除时要走YUV渲染逻辑
             // 但是这样直接判断有风险，后期想办法改
             needYUV = videoWidth % 16 != 0 && player.enableVersion1
+            yuvFrames = if (needYUV) YuvFramePool(videoWidth, videoHeight) else null
 
             try {
                 if (!prepareRender(needYUV)) {
@@ -154,9 +151,11 @@ class HardDecoder(player: AnimPlayer) : Decoder(player), SurfaceTexture.OnFrameA
             preparePlay(videoWidth, videoHeight)
 
             render?.apply {
-                glTexture = SurfaceTexture(getExternalTexture()).apply {
-                    setOnFrameAvailableListener(this@HardDecoder)
-                    setDefaultBufferSize(videoWidth, videoHeight)
+                if (!needYUV) {
+                    glTexture = SurfaceTexture(getExternalTexture()).apply {
+                        setOnFrameAvailableListener(this@HardDecoder)
+                        setDefaultBufferSize(videoWidth, videoHeight)
+                    }
                 }
                 clearFrame()
             }
@@ -207,6 +206,8 @@ class HardDecoder(player: AnimPlayer) : Decoder(player), SurfaceTexture.OnFrameA
         var isLoop = false
 
         val decoderInputBuffers = decoder.inputBuffers
+        var outputBuffers = if (needYUV && Build.VERSION.SDK_INT < 21) decoder.outputBuffers else null
+        var outputFormat: MediaFormat? = null
 
         while (!outputDone) {
             if (isStopReq || !player.isSessionActive(activeSessionId)) {
@@ -240,22 +241,11 @@ class HardDecoder(player: AnimPlayer) : Decoder(player), SurfaceTexture.OnFrameA
                 val decoderStatus = decoder.dequeueOutputBuffer(bufferInfo, TIMEOUT_USEC)
                 when {
                     decoderStatus == MediaCodec.INFO_TRY_AGAIN_LATER -> ALog.d(TAG, "no output from decoder available")
-                    decoderStatus == MediaCodec.INFO_OUTPUT_BUFFERS_CHANGED -> ALog.d(TAG, "decoder output buffers changed")
+                    decoderStatus == MediaCodec.INFO_OUTPUT_BUFFERS_CHANGED -> {
+                        if (needYUV && Build.VERSION.SDK_INT < 21) outputBuffers = decoder.outputBuffers
+                    }
                     decoderStatus == MediaCodec.INFO_OUTPUT_FORMAT_CHANGED -> {
                         outputFormat = decoder.outputFormat
-                        outputFormat?.apply {
-                            try {
-                                // 有可能取到空值，做一层保护
-                                val stride = getInteger("stride")
-                                val sliceHeight = getInteger("slice-height")
-                                if (stride > 0 && sliceHeight > 0) {
-                                    alignWidth = stride
-                                    alignHeight = sliceHeight
-                                }
-                            } catch (t: Throwable) {
-                                ALog.e(TAG, "$t", t)
-                            }
-                        }
                         ALog.i(TAG, "decoder output format changed: $outputFormat")
                     }
                     decoderStatus < 0 -> {
@@ -267,7 +257,9 @@ class HardDecoder(player: AnimPlayer) : Decoder(player), SurfaceTexture.OnFrameA
                             loop = player.consumeVideoLoop(this)
                             outputDone = loop <= 0
                         }
-                        val doRender = !outputDone
+                        val doRender = if (needYUV) {
+                            bufferInfo.size > 0 && bufferInfo.flags and MediaCodec.BUFFER_FLAG_CODEC_CONFIG == 0
+                        } else !outputDone
                         if (doRender) {
                             speedControlUtil.preRender(bufferInfo.presentationTimeUs) { isStopReq || !player.isSessionActive(activeSessionId) }
                             if (isStopReq || !player.isSessionActive(activeSessionId)) {
@@ -277,21 +269,22 @@ class HardDecoder(player: AnimPlayer) : Decoder(player), SurfaceTexture.OnFrameA
                             }
                         }
 
-                        if (needYUV && doRender) {
-                            yuvProcess(decoder, decoderStatus)
+                        if (needYUV) {
+                            try {
+                                if (doRender) yuvProcess(decoder, decoderStatus, outputBuffers, outputFormat, frameIndex)
+                            } finally {
+                                decoder.releaseOutputBuffer(decoderStatus, false)
+                            }
+                        } else {
+                            decoder.releaseOutputBuffer(decoderStatus, doRender)
                         }
 
-                        // release & render
-                        decoder.releaseOutputBuffer(decoderStatus, doRender && !needYUV)
-
-                        if (frameIndex == 0 && !isLoop) {
-                            onVideoStart()
+                        if (!needYUV || doRender) {
+                            if (frameIndex == 0 && !isLoop) onVideoStart()
+                            player.pluginManager.onDecoding(frameIndex)
+                            onVideoRender(frameIndex, player.configManager.config)
+                            frameIndex++
                         }
-                        player.pluginManager.onDecoding(frameIndex)
-                        onVideoRender(frameIndex, player.configManager.config)
-
-                        frameIndex++
-                        ALog.d(TAG, "decode frameIndex=$frameIndex")
                         if (loop > 0) {
                             ALog.d(TAG, "Reached EOD, looping")
                             player.pluginManager.onLoopStart()
@@ -312,57 +305,105 @@ class HardDecoder(player: AnimPlayer) : Decoder(player), SurfaceTexture.OnFrameA
 
     }
 
-    /**
-     * 获取到解码后每一帧的YUV数据，裁剪出正确的尺寸
-     */
-    private fun yuvProcess(decoder: MediaCodec, outputIndex: Int) {
-        val outputBuffer = decoder.outputBuffers[outputIndex]
-        outputBuffer?.let {
-            it.position(0)
-            it.limit(bufferInfo.offset + bufferInfo.size)
-            var yuvData = ByteArray(outputBuffer.remaining())
-            outputBuffer.get(yuvData)
+    private fun yuvProcess(
+        decoder: MediaCodec,
+        outputIndex: Int,
+        outputBuffers: Array<out ByteBuffer>?,
+        outputFormat: MediaFormat?,
+        frameIndex: Int
+    ) {
+        val pool = checkNotNull(yuvFrames)
+        val frame = pool.acquire() ?: return
+        var posted = false
+        try {
+            frame.index = frameIndex
+            frame.presentationTimeUs = bufferInfo.presentationTimeUs
+            if (Build.VERSION.SDK_INT < 21 || !copyOutputImage(decoder, outputIndex, frame)) {
+                val buffer = if (Build.VERSION.SDK_INT >= 21) decoder.getOutputBuffer(outputIndex)
+                    else outputBuffers?.getOrNull(outputIndex)
+                copyOutputBuffer(checkNotNull(buffer) { "Missing YUV output buffer" },
+                    outputFormat ?: decoder.outputFormat, frame)
+            }
 
-            if (yuvData.isNotEmpty()) {
-                var yData = ByteArray(videoWidth * videoHeight)
-                var uData = ByteArray(videoWidth * videoHeight / 4)
-                var vData = ByteArray(videoWidth * videoHeight / 4)
-
-                if (outputFormat?.getInteger(MediaFormat.KEY_COLOR_FORMAT) == MediaCodecInfo.CodecCapabilities.COLOR_FormatYUV420SemiPlanar) {
-                    yuvData = yuv420spTop(yuvData)
+            val target = render as YUVRender
+            val id = activeSessionId
+            posted = renderThread.handler?.post {
+                try {
+                    if (!isStopReq && player.isSessionActive(id) && player.isSurfaceAvailable) {
+                        target.renderFrame(frame)
+                        player.pluginManager.onRendering(frame.index)
+                        target.swapBuffers()
+                        pool.rendered++
+                    }
+                } catch (error: Throwable) {
+                    ALog.e(TAG, "YUV render exception frame=${frame.index}, ptsUs=${frame.presentationTimeUs}", error)
+                } finally {
+                    pool.recycle(frame)
                 }
-
-                yuvCopy(yuvData, 0, alignWidth, alignHeight, yData, videoWidth, videoHeight)
-                yuvCopy(yuvData, alignWidth * alignHeight, alignWidth / 2, alignHeight / 2, uData, videoWidth / 2, videoHeight / 2)
-                yuvCopy(yuvData, alignWidth * alignHeight * 5 / 4, alignWidth / 2, alignHeight / 2, vData, videoWidth / 2, videoHeight / 2)
-
-                render?.setYUVData(videoWidth, videoHeight, yData, uData, vData)
-                renderData()
-            }
+            } == true
+        } finally {
+            if (!posted) pool.recycle(frame)
         }
     }
 
-    private fun yuv420spTop(yuv420sp: ByteArray): ByteArray {
-        val yuv420p = ByteArray(yuv420sp.size)
-        val ySize = alignWidth * alignHeight
-        System.arraycopy(yuv420sp, 0, yuv420p, 0, alignWidth * alignHeight)
-        var i = ySize
-        var j = ySize
-        while (i < ySize * 3 / 2) {
-            yuv420p[j] = yuv420sp[i]
-            yuv420p[j + ySize / 4] = yuv420sp[i + 1]
-            i += 2
-            j++
+    @TargetApi(21)
+    private fun copyOutputImage(decoder: MediaCodec, outputIndex: Int, frame: YuvFrame): Boolean {
+        val image = decoder.getOutputImage(outputIndex) ?: return false
+        try {
+            val planes = image.planes
+            val crop = image.cropRect
+            require(image.format == ImageFormat.YUV_420_888 && planes.size == 3) {
+                "Unsupported codec image format: ${image.format}"
+            }
+            require(crop.left >= 0 && crop.top >= 0 && crop.left % 2 == 0 && crop.top % 2 == 0 &&
+                crop.right <= image.width && crop.bottom <= image.height &&
+                crop.left.toLong() + frame.width <= crop.right &&
+                crop.top.toLong() + frame.height <= crop.bottom) {
+                "Unsupported codec image crop: $crop for ${frame.width}x${frame.height}"
+            }
+            for (index in planes.indices) {
+                val plane = planes[index]
+                val buffer = plane.buffer
+                val chroma = index != 0
+                YuvPlaneCopy.copy(buffer, buffer.position().toLong(), buffer.limit().toLong(),
+                    plane.rowStride, plane.pixelStride,
+                    if (chroma) crop.left / 2 else crop.left,
+                    if (chroma) crop.top / 2 else crop.top,
+                    if (chroma) frame.chromaWidth else frame.width,
+                    if (chroma) frame.chromaHeight else frame.height,
+                    when (index) {
+                        0 -> frame.y
+                        1 -> frame.u
+                        else -> frame.v
+                    })
+            }
+        } finally {
+            image.close()
         }
-        return yuv420p
+        return true
     }
 
-    private fun yuvCopy(src: ByteArray, srcOffset: Int, inWidth: Int, inHeight: Int, dest: ByteArray, outWidth: Int, outHeight: Int) {
-        for (h in 0 until inHeight) {
-            if (h < outHeight) {
-                System.arraycopy(src, srcOffset + h * inWidth, dest, h * outWidth, outWidth)
-            }
+    private fun copyOutputBuffer(buffer: ByteBuffer, format: MediaFormat, frame: YuvFrame) {
+        fun value(key: String, fallback: Int) = if (format.containsKey(key)) format.getInteger(key) else fallback
+        val color = value(MediaFormat.KEY_COLOR_FORMAT, 0)
+        require(color == MediaCodecInfo.CodecCapabilities.COLOR_FormatYUV420Planar ||
+            color == MediaCodecInfo.CodecCapabilities.COLOR_FormatYUV420SemiPlanar) {
+            "Unsupported YUV buffer format: $color"
         }
+        val width = value(MediaFormat.KEY_WIDTH, frame.width)
+        val height = value(MediaFormat.KEY_HEIGHT, frame.height)
+        val left = value("crop-left", 0)
+        val top = value("crop-top", 0)
+        val right = value("crop-right", width - 1)
+        val bottom = value("crop-bottom", height - 1)
+        require(left >= 0 && top >= 0 && right < width && bottom < height &&
+            left.toLong() + frame.width - 1 <= right && top.toLong() + frame.height - 1 <= bottom) {
+            "YUV frame exceeds codec output crop"
+        }
+        val stride = value("stride", width)
+        val sliceHeight = value("slice-height", height).let { if (it == 0) height else it }
+        YuvPlaneCopy.copyPacked(buffer, bufferInfo.offset, bufferInfo.size, stride, sliceHeight, left, top,
+            color == MediaCodecInfo.CodecCapabilities.COLOR_FormatYUV420SemiPlanar, frame)
     }
 
     private fun release(decoder: MediaCodec?, extractor: MediaExtractor?) {
@@ -384,6 +425,10 @@ class HardDecoder(player: AnimPlayer) : Decoder(player), SurfaceTexture.OnFrameA
             // The TextureView is removed at completion; release EGL before handing it back.
             safeCall("render destroy") { render?.destroyRender() }
             render = null
+            yuvFrames?.let { pool ->
+                ALog.i(TAG, "YUV pool slots=${pool.allocated}, rendered=${pool.rendered}, dropped=${pool.dropped}")
+            }
+            yuvFrames = null
             renderPending.set(false)
             drainSurfaceReleases(markIdle = true)
             destroyThread(id)

@@ -95,7 +95,7 @@ abstract class Decoder(val player: AnimPlayer) : IAnimListener {
             player.animView.getSurfaceTexture()?.apply {
                 if (needYUV) {
                     ALog.i(TAG, "use yuv render")
-                    render = YUVRender(this)
+                    render = YUVRender(this).apply { updateViewPort(surfaceWidth, surfaceHeight) }
                 } else {
                     render = Render(this).apply {
                         updateViewPort(surfaceWidth, surfaceHeight)

@@ -17,6 +17,7 @@ package com.tencent.qgame.animplayer.mix
 
 import android.graphics.Bitmap
 import com.tencent.qgame.animplayer.PointRect
+import com.tencent.qgame.animplayer.inter.IFetchResource
 
 /**
  * 资源描述
@@ -28,6 +29,15 @@ class Resource(src: Src) {
     var tag = ""
     var bitmap: Bitmap? = null
     var curPoint: PointRect? = null  // src在当前帧的位置信息
+
+    /**
+     * Estimated maximum layer size in display pixels, available during [IFetchResource.fetchImage].
+     * Zero means the display size is unknown. An image loader can add its own sampling margin.
+     */
+    var targetWidth: Int = 0
+        internal set
+    var targetHeight: Int = 0
+        internal set
 
     init {
         id = src.srcId
