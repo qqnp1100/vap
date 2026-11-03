@@ -15,51 +15,73 @@
  */
 package com.tencent.qgame.animplayer.file
 
-import android.content.res.AssetFileDescriptor
 import android.content.res.AssetManager
 import android.media.MediaExtractor
 import com.tencent.qgame.animplayer.Constant
 import com.tencent.qgame.animplayer.util.ALog
+import java.io.EOFException
+import java.io.IOException
+import java.io.InputStream
 
-class AssetsFileContainer(assetManager: AssetManager, assetsPath: String): IFileContainer {
+class AssetsFileContainer(private val assetManager: AssetManager, private val assetsPath: String): IFileContainer {
 
     companion object {
         private const val TAG = "${Constant.TAG}.FileContainer"
     }
 
-    private val assetFd: AssetFileDescriptor = assetManager.openFd(assetsPath)
-    private val assetsInputStream: AssetManager.AssetInputStream =
-        assetManager.open(assetsPath, AssetManager.ACCESS_STREAMING) as AssetManager.AssetInputStream
+    private var assetsInputStream: InputStream? = null
+    private val sourceLength = assetManager.openFd(assetsPath).use { it.declaredLength }
 
     init {
         ALog.i(TAG, "AssetsFileContainer init")
     }
 
     override fun setDataSource(extractor: MediaExtractor) {
-        if (assetFd.declaredLength < 0) {
-            extractor.setDataSource(assetFd.fileDescriptor)
-        } else {
-            extractor.setDataSource(assetFd.fileDescriptor, assetFd.startOffset, assetFd.declaredLength)
+        assetManager.openFd(assetsPath).use { assetFd ->
+            if (assetFd.declaredLength < 0) {
+                extractor.setDataSource(assetFd.fileDescriptor)
+            } else {
+                extractor.setDataSource(assetFd.fileDescriptor, assetFd.startOffset, assetFd.declaredLength)
+            }
         }
     }
 
     override fun startRandomRead() {
+        closeRandomRead()
+        assetsInputStream = assetManager.open(assetsPath, AssetManager.ACCESS_STREAMING)
     }
 
     override fun read(b: ByteArray, off: Int, len: Int): Int {
-        return assetsInputStream.read(b, off, len)
+        return assetsInputStream?.read(b, off, len) ?: -1
     }
 
     override fun skip(pos: Long) {
-        assetsInputStream.skip(pos)
+        skipFully(pos)
+    }
+
+    override fun getLength(): Long = sourceLength
+
+    override fun skipFully(length: Long) {
+        require(length >= 0)
+        val input = assetsInputStream ?: throw IllegalStateException("Random read is not open")
+        var remaining = length
+        while (remaining > 0) {
+            val skipped = input.skip(remaining)
+            if (skipped < 0 || skipped > remaining) throw IOException("Invalid asset skip result")
+            if (skipped == 0L) {
+                if (input.read() < 0) throw EOFException("Truncated asset while skipping")
+                remaining--
+            } else remaining -= skipped
+        }
     }
 
     override fun closeRandomRead() {
-        assetsInputStream.close()
+        val input = assetsInputStream
+        assetsInputStream = null
+        input?.close()
     }
 
     override fun close() {
-        assetFd.close()
-        assetsInputStream.close()
+        closeRandomRead()
     }
 }

@@ -15,8 +15,6 @@
  */
 package com.tencent.qgame.animplayer
 
-import android.graphics.Bitmap
-import android.graphics.MaskFilter
 import com.tencent.qgame.animplayer.mask.MaskConfig
 import com.tencent.qgame.animplayer.util.ALog
 import org.json.JSONException
@@ -29,6 +27,12 @@ class AnimConfig {
 
     companion object {
         private const val TAG = "${Constant.TAG}.AnimConfig"
+        private const val MAX_DIMENSION = 16384
+        private const val MAX_VIDEO_PIXELS = 64L * 1024 * 1024
+        private const val MAX_RESOURCE_PIXELS = 16L * 1024 * 1024
+        private const val MAX_RESOURCES = 1024
+        private const val MAX_FRAMES = 1000000
+        private const val MAX_FRAME_OBJECTS = 100000
     }
 
     val version = 2 // 不同版本号不兼容
@@ -73,12 +77,46 @@ class AnimConfig {
                 val c = getJSONArray("rgbFrame") ?: return false
                 rgbPointRect = PointRect(c.getInt(0), c.getInt(1), c.getInt(2), c.getInt(3))
             }
-            true
+            validate(json)
         } catch (e : JSONException) {
             ALog.e(TAG, "json parse fail $e", e)
             false
         }
     }
+
+    private fun validate(json: JSONObject): Boolean {
+        if (!validSize(width, height, MAX_VIDEO_PIXELS) || !validSize(videoWidth, videoHeight, MAX_VIDEO_PIXELS) ||
+            totalFrames !in 1..MAX_FRAMES || fps !in 1..240 ||
+            !insideVideo(alphaPointRect) || !insideVideo(rgbPointRect)) {
+            ALog.e(TAG, "Invalid video dimensions, frame count, fps or packed rectangles")
+            return false
+        }
+        if (!isMix) return true
+        val sources = json.getJSONArray("src")
+        val frames = json.getJSONArray("frame")
+        if (sources.length() > MAX_RESOURCES || frames.length() > totalFrames) return false
+        val ids = HashSet<String>()
+        for (index in 0 until sources.length()) {
+            val source = sources.getJSONObject(index)
+            if (!ids.add(source.getString("srcId")) ||
+                !validSize(source.getInt("w"), source.getInt("h"), MAX_RESOURCE_PIXELS)) return false
+        }
+        var objectCount = 0L
+        for (index in 0 until frames.length()) {
+            val frame = frames.getJSONObject(index)
+            if (frame.getInt("i") !in 0 until totalFrames) return false
+            objectCount += frame.getJSONArray("obj").length()
+            if (objectCount > MAX_FRAME_OBJECTS) return false
+        }
+        return true
+    }
+
+    private fun validSize(w: Int, h: Int, maxPixels: Long): Boolean =
+        w in 1..MAX_DIMENSION && h in 1..MAX_DIMENSION && w.toLong() * h <= maxPixels
+
+    private fun insideVideo(rect: PointRect): Boolean =
+        rect.x >= 0 && rect.y >= 0 && rect.w > 0 && rect.h > 0 &&
+            rect.x.toLong() + rect.w <= videoWidth && rect.y.toLong() + rect.h <= videoHeight
 
     override fun toString(): String {
         return "AnimConfig(version=$version, totalFrames=$totalFrames, width=$width, height=$height, videoWidth=$videoWidth, videoHeight=$videoHeight, orien=$orien, fps=$fps, isMix=$isMix, alphaPointRect=$alphaPointRect, rgbPointRect=$rgbPointRect, isDefaultConfig=$isDefaultConfig)"

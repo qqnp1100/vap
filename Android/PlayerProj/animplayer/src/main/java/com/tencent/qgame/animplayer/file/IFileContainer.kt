@@ -27,6 +27,19 @@ interface IFileContainer {
 
     fun skip(pos: Long)
 
+    /** Total source bytes, or -1 when unknown. The source must remain immutable during playback. */
+    fun getLength(): Long = -1L
+
+    /**
+     * Advance by [length] bytes. Built-in sources verify the advance or throw.
+     * The default delegates to legacy [skip] so existing seekable sources can still skip efficiently.
+     * Override this if [skip] can return without advancing by the requested number of bytes.
+     */
+    fun skipFully(length: Long) {
+        require(length >= 0)
+        if (length > 0L) skip(length)
+    }
+
     fun closeRandomRead()
 
     fun close()

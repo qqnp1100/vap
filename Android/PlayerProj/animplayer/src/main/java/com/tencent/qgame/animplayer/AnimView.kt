@@ -34,10 +34,12 @@ import com.tencent.qgame.animplayer.inter.OnResourceClickListener
 import com.tencent.qgame.animplayer.mask.MaskConfig
 import com.tencent.qgame.animplayer.textureview.InnerTextureView
 import com.tencent.qgame.animplayer.util.ALog
+import com.tencent.qgame.animplayer.util.safeCall
 import com.tencent.qgame.animplayer.util.IScaleType
 import com.tencent.qgame.animplayer.util.ScaleType
 import com.tencent.qgame.animplayer.util.ScaleTypeUtil
 import java.io.File
+import java.util.concurrent.atomic.AtomicLong
 
 open class AnimView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0):
     IAnimView,
@@ -51,8 +53,11 @@ open class AnimView @JvmOverloads constructor(context: Context, attrs: Attribute
 
     private val uiHandler by lazy { Handler(Looper.getMainLooper()) }
     private var surface: SurfaceTexture? = null
+    private var surfaceSession = 0L
+    private val playRequest = AtomicLong()
+    @Volatile private var resumeWhenStopped = false
     private var animListener: IAnimListener? = null
-    private var innerTextureView: InnerTextureView? = null
+    @Volatile private var innerTextureView: InnerTextureView? = null
     private var lastFile: IFileContainer? = null
     private val scaleTypeUtil = ScaleTypeUtil()
 
@@ -74,12 +79,16 @@ open class AnimView @JvmOverloads constructor(context: Context, attrs: Attribute
             }
 
             override fun onVideoComplete() {
-                hide()
+                if (resumeWhenStopped) ui {
+                    if (resumeWhenStopped && !player.isDetachedFromWindow) {
+                        resumeWhenStopped = false
+                        lastFile?.let { startPlayInternal(it, true) }
+                    }
+                }
                 animListener?.onVideoComplete()
             }
 
             override fun onVideoDestroy() {
-                hide()
                 animListener?.onVideoDestroy()
             }
 
@@ -93,31 +102,57 @@ open class AnimView @JvmOverloads constructor(context: Context, attrs: Attribute
     // 保证AnimView已经布局完成才加入TextureView
     private var onSizeChangedCalled = false
     private var needPrepareTextureView = false
+    private var preparingSession = 0L
     private val prepareTextureViewRunnable = Runnable {
-        removeAllViews()
-        innerTextureView = InnerTextureView(context).apply {
+        if (!player.isSessionActive(preparingSession) || player.isDetachedFromWindow) return@Runnable
+        innerTextureView?.let { removeView(it) }
+        val id = preparingSession
+        val textureView = InnerTextureView(context).apply {
             player = this@AnimView.player
             isOpaque = false
-            surfaceTextureListener = this@AnimView
             layoutParams = scaleTypeUtil.getLayoutParam(this)
         }
-        addView(innerTextureView)
+        textureView.surfaceTextureListener = object : TextureView.SurfaceTextureListener {
+            override fun onSurfaceTextureAvailable(surface: SurfaceTexture, width: Int, height: Int) {
+                if (innerTextureView !== textureView || !player.isSessionActive(id)) {
+                    removeView(textureView)
+                    return
+                }
+                this@AnimView.surface = surface
+                surfaceSession = id
+                player.onSurfaceTextureAvailable(width, height)
+            }
+            override fun onSurfaceTextureDestroyed(surface: SurfaceTexture): Boolean =
+                destroySurface(textureView, id, surface)
+            override fun onSurfaceTextureSizeChanged(surface: SurfaceTexture, width: Int, height: Int) {
+                if (player.isSessionActive(id)) player.onSurfaceTextureSizeChanged(width, height)
+            }
+            override fun onSurfaceTextureUpdated(surface: SurfaceTexture) = Unit
+        }
+        innerTextureView = textureView
+        addView(textureView)
     }
 
 
     init {
         hide()
         player = AnimPlayer(this)
+        player.onBeforeComplete = { hide() }
         player.animListener = animProxyListener
     }
 
 
     override fun prepareTextureView() {
-        if (onSizeChangedCalled) {
-            uiHandler.post(prepareTextureViewRunnable)
-        } else {
-            ALog.e(TAG, "onSizeChanged not called")
-            needPrepareTextureView = true
+        val id = player.sessionId
+        ui {
+            if (!player.isSessionActive(id) || player.isDetachedFromWindow) return@ui
+            preparingSession = id
+            if (onSizeChangedCalled) {
+                uiHandler.removeCallbacks(prepareTextureViewRunnable)
+                uiHandler.post(prepareTextureViewRunnable)
+            } else {
+                needPrepareTextureView = true
+            }
         }
     }
 
@@ -133,21 +168,25 @@ open class AnimView @JvmOverloads constructor(context: Context, attrs: Attribute
     override fun onSurfaceTextureUpdated(surface: SurfaceTexture) {
     }
 
-    override fun onSurfaceTextureDestroyed(surface: SurfaceTexture): Boolean {
-        ALog.i(TAG, "onSurfaceTextureDestroyed")
-        this.surface = null
-        player.onSurfaceTextureDestroyed()
+    override fun onSurfaceTextureDestroyed(surface: SurfaceTexture): Boolean =
+        destroySurface(innerTextureView.takeIf { this.surface === surface }, surfaceSession, surface)
+
+    private fun destroySurface(oldView: InnerTextureView?, ownerSession: Long, surface: SurfaceTexture): Boolean {
+        if (this.surface === surface) this.surface = null
+        player.onSurfaceTextureDestroyed({ safeCall("release view surface") { surface.release() } }, ownerSession)
         uiHandler.post {
-            innerTextureView?.surfaceTextureListener = null
-            innerTextureView = null
-            removeAllViews()
+            oldView?.surfaceTextureListener = null
+            oldView?.let { removeView(it) }
+            if (innerTextureView === oldView) innerTextureView = null
         }
-        return true
+        // We own the SurfaceTexture until render cleanup has completed.
+        return false
     }
 
     override fun onSurfaceTextureAvailable(surface: SurfaceTexture, width: Int, height: Int) {
         ALog.i(TAG, "onSurfaceTextureAvailable width=$width height=$height")
         this.surface = surface
+        surfaceSession = preparingSession
         player.onSurfaceTextureAvailable(width, height)
     }
 
@@ -168,10 +207,9 @@ open class AnimView @JvmOverloads constructor(context: Context, attrs: Attribute
         super.onAttachedToWindow()
         player.isDetachedFromWindow = false
         // 自动恢复播放
-        if (player.playLoop > 0) {
-            lastFile?.apply {
-                startPlay(this)
-            }
+        if (player.remainingLoops() > 0) {
+            if (player.isRunning()) resumeWhenStopped = true
+            else lastFile?.let { startPlayInternal(it, true) }
         }
     }
 
@@ -179,6 +217,9 @@ open class AnimView @JvmOverloads constructor(context: Context, attrs: Attribute
         ALog.i(TAG, "onDetachedFromWindow")
         super.onDetachedFromWindow()
         player.isDetachedFromWindow = true
+        playRequest.incrementAndGet()
+        uiHandler.removeCallbacks(prepareTextureViewRunnable)
+        needPrepareTextureView = false
         player.onSurfaceTextureDestroyed()
     }
 
@@ -244,7 +285,7 @@ open class AnimView @JvmOverloads constructor(context: Context, attrs: Attribute
      * @param isMute true 静音
      */
     override fun setMute(isMute: Boolean) {
-        ALog.e(TAG, "set mute=$isMute")
+        ALog.i(TAG, "set mute=$isMute")
         player.isMute = isMute
     }
 
@@ -253,8 +294,8 @@ open class AnimView @JvmOverloads constructor(context: Context, attrs: Attribute
             val fileContainer = FileContainer(file)
             startPlay(fileContainer)
         } catch (e: Throwable) {
-            animProxyListener.onFailed(Constant.REPORT_ERROR_TYPE_FILE_ERROR, Constant.ERROR_MSG_FILE_ERROR)
-            animProxyListener.onVideoComplete()
+            safeCall("onFailed") { animProxyListener.onFailed(Constant.REPORT_ERROR_TYPE_FILE_ERROR, Constant.ERROR_MSG_FILE_ERROR) }
+            safeCall("onVideoComplete") { animProxyListener.onVideoComplete() }
         }
     }
 
@@ -263,21 +304,25 @@ open class AnimView @JvmOverloads constructor(context: Context, attrs: Attribute
             val fileContainer = AssetsFileContainer(assetManager, assetsPath)
             startPlay(fileContainer)
         } catch (e: Throwable) {
-            animProxyListener.onFailed(Constant.REPORT_ERROR_TYPE_FILE_ERROR, Constant.ERROR_MSG_FILE_ERROR)
-            animProxyListener.onVideoComplete()
+            safeCall("onFailed") { animProxyListener.onFailed(Constant.REPORT_ERROR_TYPE_FILE_ERROR, Constant.ERROR_MSG_FILE_ERROR) }
+            safeCall("onVideoComplete") { animProxyListener.onVideoComplete() }
         }
     }
 
 
-    override fun startPlay(fileContainer: IFileContainer) {
+    override fun startPlay(fileContainer: IFileContainer) = startPlayInternal(fileContainer, false)
+
+    private fun startPlayInternal(fileContainer: IFileContainer, resume: Boolean) {
+        val request = playRequest.incrementAndGet()
         ui {
+            if (playRequest.get() != request || player.isDetachedFromWindow) return@ui
             if (visibility != View.VISIBLE) {
                 ALog.e(TAG, "AnimView is GONE, can't play")
                 return@ui
             }
             if (!player.isRunning()) {
                 lastFile = fileContainer
-                player.startPlay(fileContainer)
+                if (resume) player.resumePlay(fileContainer) else player.startPlay(fileContainer)
             } else {
                 ALog.e(TAG, "is running can not start")
             }
@@ -286,7 +331,11 @@ open class AnimView @JvmOverloads constructor(context: Context, attrs: Attribute
 
 
     override fun stopPlay() {
+        val request = playRequest.incrementAndGet()
+        resumeWhenStopped = false
+        uiHandler.removeCallbacks(prepareTextureViewRunnable)
         player.stopPlay()
+        ui { if (playRequest.get() == request) needPrepareTextureView = false }
     }
 
     override fun isRunning(): Boolean {
@@ -298,9 +347,10 @@ open class AnimView @JvmOverloads constructor(context: Context, attrs: Attribute
     }
 
     private fun hide() {
-        lastFile?.close()
+        val oldView = innerTextureView
         ui {
-            removeAllViews()
+            oldView?.let { removeView(it) }
+            if (innerTextureView === oldView) innerTextureView = null
         }
     }
 

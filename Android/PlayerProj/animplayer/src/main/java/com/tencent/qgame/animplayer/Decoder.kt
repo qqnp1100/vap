@@ -21,6 +21,7 @@ import android.os.Handler
 import com.tencent.qgame.animplayer.file.IFileContainer
 import com.tencent.qgame.animplayer.inter.IAnimListener
 import com.tencent.qgame.animplayer.util.ALog
+import com.tencent.qgame.animplayer.util.safeCall
 import com.tencent.qgame.animplayer.util.SpeedControlUtil
 
 
@@ -59,6 +60,7 @@ abstract class Decoder(val player: AnimPlayer) : IAnimListener {
     var render: IRenderListener? = null
     val renderThread = HandlerHolder(null, null)
     val decodeThread = HandlerHolder(null, null)
+    private val threadLock = Any()
     private var surfaceWidth = 0
     private var surfaceHeight = 0
     var fps: Int = 0
@@ -67,8 +69,8 @@ abstract class Decoder(val player: AnimPlayer) : IAnimListener {
             field = value
         }
     var playLoop = 0 // 循环播放次数
-    var isRunning = false // 是否正在运行
-    var isStopReq = false // 是否需要停止
+    @Volatile var isRunning = false // 是否正在运行
+    @Volatile var isStopReq = false // 是否需要停止
     val speedControlUtil by lazy { SpeedControlUtil() }
 
     abstract fun start(fileContainer: IFileContainer)
@@ -79,8 +81,12 @@ abstract class Decoder(val player: AnimPlayer) : IAnimListener {
 
     abstract fun destroy()
 
-    fun prepareThread(): Boolean {
-        return createThread(renderThread, "anim_render_thread") && createThread(decodeThread, "anim_decode_thread")
+    open fun releaseSurfaceWhenDone(release: (() -> Unit)?) {
+        release?.let { action -> renderThread.handler?.post { safeCall("release surface", action) } }
+    }
+
+    fun prepareThread(): Boolean = synchronized(threadLock) {
+        createThread(renderThread, "anim_render_thread") && createThread(decodeThread, "anim_decode_thread")
     }
 
     fun prepareRender(needYUV: Boolean): Boolean {
@@ -124,8 +130,11 @@ abstract class Decoder(val player: AnimPlayer) : IAnimListener {
     }
 
 
-    fun destroyThread() {
-        if (player.isDetachedFromWindow) {
+    fun destroyThread() = destroyThread(player.sessionId)
+
+    internal fun destroyThread(ownerSession: Long) {
+        synchronized(threadLock) {
+            if (!player.isDetachedFromWindow || player.sessionId != ownerSession) return
             ALog.i(TAG, "destroyThread")
             renderThread.handler?.removeCallbacksAndMessages(null)
             decodeThread.handler?.removeCallbacksAndMessages(null)
@@ -139,32 +148,32 @@ abstract class Decoder(val player: AnimPlayer) : IAnimListener {
     fun onSurfaceSizeChanged(width: Int, height: Int) {
         surfaceWidth = width
         surfaceHeight = height
-        render?.updateViewPort(width, height)
+        renderThread.handler?.post { render?.updateViewPort(width, height) }
     }
 
     override fun onVideoStart() {
         ALog.i(TAG, "onVideoStart")
-        player.animListener?.onVideoStart()
+        safeCall("onVideoStart") { player.animListener?.onVideoStart() }
     }
 
     override fun onVideoRender(frameIndex: Int, config: AnimConfig?) {
         ALog.d(TAG, "onVideoRender")
-        player.animListener?.onVideoRender(frameIndex, config)
+        safeCall("onVideoRender") { player.animListener?.onVideoRender(frameIndex, config) }
     }
 
     override fun onVideoComplete() {
         ALog.i(TAG, "onVideoComplete")
-        player.animListener?.onVideoComplete()
+        safeCall("onVideoComplete") { player.animListener?.onVideoComplete() }
     }
 
     override fun onVideoDestroy() {
         ALog.i(TAG, "onVideoDestroy")
-        player.animListener?.onVideoDestroy()
+        safeCall("onVideoDestroy") { player.animListener?.onVideoDestroy() }
     }
 
     override fun onFailed(errorType: Int, errorMsg: String?) {
         ALog.e(TAG, "onFailed errorType=$errorType, errorMsg=$errorMsg")
-        player.animListener?.onFailed(errorType, errorMsg)
+        safeCall("onFailed") { player.animListener?.onFailed(errorType, errorMsg) }
     }
 }
 

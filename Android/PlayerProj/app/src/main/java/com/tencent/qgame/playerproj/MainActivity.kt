@@ -18,15 +18,18 @@ package com.tencent.qgame.playerproj
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import com.tencent.qgame.playerproj.databinding.ActivityMainBinding
 import com.tencent.qgame.playerproj.player.AnimActiveDemoActivity
 import com.tencent.qgame.playerproj.player.AnimSimpleDemoActivity
 import com.tencent.qgame.playerproj.player.AnimSpecialSizeDemoActivity
 import com.tencent.qgame.playerproj.player.AnimVapxDemoActivity
+import com.tencent.qgame.playerproj.player.FileUtil
+import java.util.concurrent.Future
 
 
 class MainActivity : Activity(){
-
+    private var fileTask: Future<*>? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)

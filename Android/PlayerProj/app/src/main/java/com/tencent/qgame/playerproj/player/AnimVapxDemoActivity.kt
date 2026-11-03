@@ -15,19 +15,13 @@
  */
 package com.tencent.qgame.playerproj.player
 
-import android.app.Activity
-import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.os.Environment
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.tencent.qgame.animplayer.AnimConfig
-import com.tencent.qgame.animplayer.AnimView
 import com.tencent.qgame.animplayer.inter.IAnimListener
 import com.tencent.qgame.animplayer.inter.IFetchResource
 import com.tencent.qgame.animplayer.inter.OnResourceClickListener
@@ -37,23 +31,16 @@ import com.tencent.qgame.animplayer.util.IALog
 import com.tencent.qgame.animplayer.util.ScaleType
 import com.tencent.qgame.playerproj.R
 import com.tencent.qgame.playerproj.databinding.ActivityAnimSimpleDemoBinding
-import java.io.File
 import java.util.*
-
 
 /**
  * VAPX demo (融合特效Demo)
  * 必须使用组件里提供的工具才能生成VAPX动画
  */
-class AnimVapxDemoActivity : Activity(), IAnimListener {
+class AnimVapxDemoActivity : DemoActivity(), IAnimListener {
 
     companion object {
         private const val TAG = "AnimSimpleDemoActivity"
-    }
-
-    private val dir by lazy {
-        // 存放在sdcard应用缓存文件中
-        getExternalFilesDir(null)?.absolutePath ?: Environment.getExternalStorageDirectory().path
     }
 
     private var head1Img = true
@@ -64,12 +51,7 @@ class AnimVapxDemoActivity : Activity(), IAnimListener {
     private val videoInfo = VideoInfo("vapx.mp4", "f981e0f094ead842ad5ae99f1ffaa1a1")
 
     // 动画View
-    private lateinit var animView: AnimView
     private lateinit var binding: ActivityAnimSimpleDemoBinding
-
-    private val uiHandler by lazy {
-        Handler(Looper.getMainLooper())
-    }
 
     private var lastToast: Toast? = null
 
@@ -77,8 +59,8 @@ class AnimVapxDemoActivity : Activity(), IAnimListener {
         super.onCreate(savedInstanceState)
         binding = ActivityAnimSimpleDemoBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        // 文件加载完成后会调用init方法
-        loadFile()
+        animView = binding.playerView
+        init()
     }
 
     private fun init() {
@@ -86,8 +68,6 @@ class AnimVapxDemoActivity : Activity(), IAnimListener {
         initLog()
         // 初始化调试开关
         initTestView()
-        // 获取动画view
-        animView = binding.playerView
         // 居中（根据父布局按比例居中并裁剪）
         animView.setScaleType(ScaleType.CENTER_CROP)
         /**
@@ -96,9 +76,13 @@ class AnimVapxDemoActivity : Activity(), IAnimListener {
         animView.setFetchResource(object : IFetchResource {
             /**
              * 获取图片资源
-             * 无论图片是否获取成功都必须回调 result 否则会无限等待资源
+             * 图片不可用时回调 result(null)，播放器会使用透明占位图。
              */
             override fun fetchImage(resource: Resource, result: (Bitmap?) -> Unit) {
+                if (!isDemoActive) {
+                    result(null)
+                    return
+                }
                 /**
                  * srcTag是素材中的一个标记，在制作素材时定义
                  * 解析时由业务读取tag决定需要播放的内容是什么
@@ -120,6 +104,10 @@ class AnimVapxDemoActivity : Activity(), IAnimListener {
              * 获取文字资源
              */
             override fun fetchText(resource: Resource, result: (String?) -> Unit) {
+                if (!isDemoActive) {
+                    result(null)
+                    return
+                }
                 val str = "恭喜 No.${1000 + Random().nextInt(8999)}用户 升神"
                 val srcTag = resource.tag
                 if (srcTag.isNotEmpty()) { // 此tag是已经写入到动画配置中的tag
@@ -154,27 +142,14 @@ class AnimVapxDemoActivity : Activity(), IAnimListener {
 
         // 注册动画监听
         animView.setAnimListener(this)
-        /**
-         * 开始播放主流程
-         * ps: 主要流程都是对AnimView的操作，其它比如队列，或改变窗口大小等操作都不是必须的
-         */
-        play(videoInfo)
     }
 
+    override fun onDemoResume() {
+        playFile(videoInfo.fileName, videoInfo.md5, waitForStop = true)
+    }
 
     private fun play(videoInfo: VideoInfo) {
-        // 播放前强烈建议检查文件的md5是否有改变
-        // 因为下载或文件存储过程中会出现文件损坏，导致无法播放
-        Thread {
-            val file = File(dir + "/" + videoInfo.fileName)
-            val md5 = FileUtil.getFileMD5(file)
-            if (videoInfo.md5 == md5) {
-                // 开始播放动画文件
-                animView.startPlay(file)
-            } else {
-                Log.e(TAG, "md5 is not match, error md5=$md5")
-            }
-        }.start()
+        playFile(videoInfo.fileName, videoInfo.md5)
     }
 
     /**
@@ -182,7 +157,7 @@ class AnimVapxDemoActivity : Activity(), IAnimListener {
      * @return true 继续播放 false 停止播放
      */
     override fun onVideoConfigReady(config: AnimConfig): Boolean {
-        return true
+        return isDemoActive
     }
 
     /**
@@ -204,6 +179,7 @@ class AnimVapxDemoActivity : Activity(), IAnimListener {
      */
     override fun onVideoComplete() {
         Log.i(TAG, "onVideoComplete")
+        onDemoPlaybackComplete()
     }
 
     /**
@@ -222,14 +198,6 @@ class AnimVapxDemoActivity : Activity(), IAnimListener {
     override fun onFailed(errorType: Int, errorMsg: String?) {
         Log.i(TAG, "onFailed errorType=$errorType errorMsg=$errorMsg")
     }
-
-
-    override fun onPause() {
-        super.onPause()
-        // 页面切换是停止播放
-        animView.stopPlay()
-    }
-
 
     private fun initLog() {
         ALog.isDebug = false
@@ -252,7 +220,6 @@ class AnimVapxDemoActivity : Activity(), IAnimListener {
         }
     }
 
-
     private fun initTestView() {
         binding.btnLayout.visibility = View.VISIBLE
         /**
@@ -265,25 +232,9 @@ class AnimVapxDemoActivity : Activity(), IAnimListener {
          * 结束视频按钮
          */
         binding.btnStop.setOnClickListener {
-            animView.stopPlay()
+            stopDemoPlayback()
         }
     }
 
-    private fun loadFile() {
-        val files = Array(1) {
-            videoInfo.fileName
-        }
-        FileUtil.copyAssetsToStorage(this, dir, files) {
-            uiHandler.post {
-                init()
-            }
-        }
-    }
-
-
-    private fun dp2px(context: Context, dp: Float): Float {
-        val scale = context.resources.displayMetrics.density
-        return dp * scale + 0.5f
-    }
 }
 

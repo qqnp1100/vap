@@ -15,18 +15,12 @@
  */
 package com.tencent.qgame.playerproj.player
 
-import android.app.Activity
-import android.content.Context
 import android.graphics.Bitmap
 import android.os.Bundle
-import android.os.Environment
-import android.os.Handler
-import android.os.Looper
 import android.util.Base64
 import android.util.Log
 import android.view.View
 import com.tencent.qgame.animplayer.AnimConfig
-import com.tencent.qgame.animplayer.AnimView
 import com.tencent.qgame.animplayer.PointRect
 import com.tencent.qgame.animplayer.RefVec2
 import com.tencent.qgame.animplayer.inter.IAnimListener
@@ -35,65 +29,37 @@ import com.tencent.qgame.animplayer.util.ALog
 import com.tencent.qgame.animplayer.util.IALog
 import com.tencent.qgame.animplayer.util.ScaleType
 import com.tencent.qgame.playerproj.databinding.ActivityAnimSimpleDemoBinding
-import java.io.File
 import java.nio.ByteBuffer
 import java.util.zip.Inflater
 import kotlin.experimental.and
 import kotlin.math.sqrt
 
-
 /**
  * VAPX demo (融合特效Demo)
  * 必须使用组件里提供的工具才能生成VAPX动画
  */
-class AnimActiveDemoActivity : Activity(), IAnimListener {
+class AnimActiveDemoActivity : DemoActivity(), IAnimListener {
 
     companion object {
         private const val TAG = "AnimSimpleDemoActivity"
     }
-
-    private val dir by lazy {
-        // 存放在sdcard应用缓存文件中
-        getExternalFilesDir(null)?.absolutePath ?: Environment.getExternalStorageDirectory().path
-    }
-
-    private var head1Img = true
 
     // 视频信息
     data class VideoInfo(val fileName: String, val md5: String)
 
     private val videoInfo = VideoInfo("mask_trunk_demo.mp4", "74d24e6235304e3c56b12d4867ea7d30")
 
-
     // 动画View
-    private lateinit var animView: AnimView
     private lateinit var binding: ActivityAnimSimpleDemoBinding
-    var maskBitmap: Bitmap? = null
-
-
-    private val uiHandler by lazy {
-        Handler(Looper.getMainLooper())
-    }
-
-    override fun onStop() {
-        maskBitmap?.recycle()
-        maskBitmap = null
-        super.onStop()
-    }
+    // Treat the shared mask as immutable. The render thread may still be uploading after onPause.
+    private var maskBitmap: Bitmap? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAnimSimpleDemoBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        // 文件加载完成后会调用init方法
-        val files = Array(1) {
-            videoInfo.fileName
-        }
-        FileUtil.copyAssetsToStorage(this, dir, files) {
-            uiHandler.post {
-                init()
-            }
-        }
+        animView = binding.playerView
+        init()
     }
 
     private fun init() {
@@ -101,35 +67,21 @@ class AnimActiveDemoActivity : Activity(), IAnimListener {
         initLog()
         // 初始化调试开关
         initTestView()
-        // 获取动画view
-        animView = binding.playerView
         // 居中（根据父布局按比例居中并全部显示s）
         animView.setScaleType(ScaleType.FIT_CENTER)
         // 启动过滤遮罩s
         animView.supportMask(true, true)
+        prepareMaskBitmap()
         // 注册动画监听
         animView.setAnimListener(this)
-        /**
-         * 开始播放主流程
-         * ps: 主要流程都是对AnimView的操作，其它比如队列，或改变窗口大小等操作都不是必须的
-         */
-        play(videoInfo)
     }
 
+    override fun onDemoResume() {
+        playFile(videoInfo.fileName, videoInfo.md5, waitForStop = true)
+    }
 
     private fun play(videoInfo: VideoInfo) {
-        // 播放前强烈建议检查文件的md5是否有改变
-        // 因为下载或文件存储过程中会出现文件损坏，导致无法播放
-        Thread {
-            val file = File(dir + "/" + videoInfo.fileName)
-            val md5 = FileUtil.getFileMD5(file)
-            if (videoInfo.md5 == md5) {
-                // 开始播放动画文件
-                animView.startPlay(file)
-            } else {
-                Log.e(TAG, "md5 is not match, error md5=$md5")
-            }
-        }.start()
+        playFile(videoInfo.fileName, videoInfo.md5)
     }
 
     /**
@@ -137,8 +89,9 @@ class AnimActiveDemoActivity : Activity(), IAnimListener {
      * @return true 继续播放 false 停止播放
      */
     override fun onVideoConfigReady(config: AnimConfig): Boolean {
+        if (!isDemoActive) return false
         updateTestMask()
-        return true
+        return isDemoActive
     }
 
     /**
@@ -160,6 +113,7 @@ class AnimActiveDemoActivity : Activity(), IAnimListener {
      */
     override fun onVideoComplete() {
         Log.i(TAG, "onVideoComplete")
+        onDemoPlaybackComplete()
     }
 
     /**
@@ -178,14 +132,6 @@ class AnimActiveDemoActivity : Activity(), IAnimListener {
     override fun onFailed(errorType: Int, errorMsg: String?) {
         Log.i(TAG, "onFailed errorType=$errorType errorMsg=$errorMsg")
     }
-
-
-    override fun onPause() {
-        super.onPause()
-        // 页面切换是停止播放
-        animView.stopPlay()
-    }
-
 
     private fun initLog() {
         ALog.isDebug = false
@@ -208,15 +154,18 @@ class AnimActiveDemoActivity : Activity(), IAnimListener {
         }
     }
 
+    private fun prepareMaskBitmap() {
+        handleDepthMaskData("eNrt1cFtxSAMBuAgDhwZIZuU0WCTjlJGyQgckYpwn57U6kGInYQQkPq4foeAHf+epvf5P+eDcDAoM1hQ5+BQlxBQVxBR1wD49XFnDzfo9QEs4VgBxA53aHlo9xU+Pzw0dPXwWOmAt7+9m/MOe9x2c/b0pbO7bs53ue/sobPHzg6juxncbS8XgAfAIO7OurzGfWcPZ32+x+NZV2M49PatgNAX+VYAAO7y1xe0vZv++/mNAeOAuyD873obAzQTrnZ7wJ9X7fGUw2UOLZzd6KaBv77PDu5LpbvG7is9VHps7IDG2zkXd7q53uURt1h8l11X+iuXBqS36yPu3o56IWBUpeuRPKDrreSccHHAvwj/LASovNEl6YC6aO8Ga1/BBeEz4Spze9A14cnfw+s8Us7WAXmpTytn6XCsAihzTbo/5jx1RXpAfSYdKDeYy7yBPA03mRd47W67Pk/3NS7yhLvZ+SphV+4JdzXOhnOdLj/al9y/U7d5vk2vro/6DEZhLlNX6/WYeGF9G1H2H2Jpic4=")
+    }
+
     private fun updateTestMask() {
-        val bitmap = handleDepthMaskData("eNrt1cFtxSAMBuAgDhwZIZuU0WCTjlJGyQgckYpwn57U6kGInYQQkPq4foeAHf+epvf5P+eDcDAoM1hQ5+BQlxBQVxBR1wD49XFnDzfo9QEs4VgBxA53aHlo9xU+Pzw0dPXwWOmAt7+9m/MOe9x2c/b0pbO7bs53ue/sobPHzg6juxncbS8XgAfAIO7OurzGfWcPZ32+x+NZV2M49PatgNAX+VYAAO7y1xe0vZv++/mNAeOAuyD873obAzQTrnZ7wJ9X7fGUw2UOLZzd6KaBv77PDu5LpbvG7is9VHps7IDG2zkXd7q53uURt1h8l11X+iuXBqS36yPu3o56IWBUpeuRPKDrreSccHHAvwj/LASovNEl6YC6aO8Ga1/BBeEz4Spze9A14cnfw+s8Us7WAXmpTytn6XCsAihzTbo/5jx1RXpAfSYdKDeYy7yBPA03mRd47W67Pk/3NS7yhLvZ+SphV+4JdzXOhnOdLj/al9y/U7d5vk2vro/6DEZhLlNX6/WYeGF9G1H2H2Jpic4=")
+        if (!isDemoActive) return
         val maskConfig = MaskConfig()
-        maskConfig.safeSetMaskBitmapAndReleasePre(bitmap)
+        maskConfig.safeSetMaskBitmapAndReleasePre(maskBitmap)
         maskConfig.maskTexPair = Pair(PointRect(0, 0, 1080, 607), RefVec2(1080, 607))
         maskConfig.maskPositionPair = Pair(PointRect(64, 64, 128, 128), RefVec2(256, 256))
         animView.updateMaskConfig(maskConfig)
     }
-
 
     private fun initTestView() {
         binding.btnLayout.visibility = View.VISIBLE
@@ -231,7 +180,7 @@ class AnimActiveDemoActivity : Activity(), IAnimListener {
          * 结束视频按钮
          */
         binding.btnStop.setOnClickListener {
-            animView.stopPlay()
+            stopDemoPlayback()
         }
     }
 
@@ -273,10 +222,5 @@ class AnimActiveDemoActivity : Activity(), IAnimListener {
         return maskBitmap
     }
 
-
-    private fun dp2px(context: Context, dp: Float): Float {
-        val scale = context.resources.displayMetrics.density
-        return dp * scale + 0.5f
-    }
 }
 

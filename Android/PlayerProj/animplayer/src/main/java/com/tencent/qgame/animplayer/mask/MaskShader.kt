@@ -91,7 +91,7 @@ class MaskShader(edgeBlurBoolean : Boolean) {
     }
 
     // Shader program
-    private val program: Int
+    private var program: Int
 
     // Uniform locations
     val uTextureMaskUnitLocation: Int
@@ -109,6 +109,12 @@ class MaskShader(edgeBlurBoolean : Boolean) {
 
     fun useProgram() {
         GLES20.glUseProgram(program)
+    }
+
+    fun release() {
+        val oldProgram = program
+        program = 0
+        if (oldProgram > 0) GLES20.glDeleteProgram(oldProgram)
     }
 
 }

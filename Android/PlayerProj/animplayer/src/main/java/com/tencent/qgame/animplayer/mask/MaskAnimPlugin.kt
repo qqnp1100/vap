@@ -20,6 +20,7 @@ import com.tencent.qgame.animplayer.AnimPlayer
 import com.tencent.qgame.animplayer.Constant
 import com.tencent.qgame.animplayer.plugin.IAnimPlugin
 import com.tencent.qgame.animplayer.util.ALog
+import com.tencent.qgame.animplayer.util.safeCall
 
 class MaskAnimPlugin(val player: AnimPlayer): IAnimPlugin {
 
@@ -32,13 +33,14 @@ class MaskAnimPlugin(val player: AnimPlayer): IAnimPlugin {
 
 
     override fun onConfigCreate(config: AnimConfig): Int {
+        animConfig = config
         return Constant.OK
     }
 
     override fun onRenderCreate() {
         ALog.i(TAG, "mask render init")
-        maskRender = if(player.supportMaskBoolean) MaskRender(this) else return
-        maskRender?.initMaskShader(player.maskEdgeBlurBoolean)
+        if (!player.supportMaskBoolean) return
+        maskRender = MaskRender(this).also { it.initMaskShader(player.maskEdgeBlurBoolean) }
     }
 
     override fun onRendering(frameIndex: Int) {
@@ -59,8 +61,14 @@ class MaskAnimPlugin(val player: AnimPlayer): IAnimPlugin {
 
 
     private fun destroy() {
-        // 强制结束等待
-        animConfig?.maskConfig?.release()
+        val config = animConfig
+        val renderer = maskRender
+        val mask = config?.maskConfig
+        animConfig = null
+        maskRender = null
+        config?.maskConfig = null
+        safeCall("release mask texture") { mask?.release() }
+        safeCall("release mask shader") { renderer?.release() }
     }
     
 }

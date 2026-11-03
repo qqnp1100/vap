@@ -47,8 +47,13 @@ class Render(surfaceTexture: SurfaceTexture): IRenderListener {
     private var aTextureRgbLocation: Int = 0
 
     init {
-        eglUtil.start(surfaceTexture)
-        initRender()
+        try {
+            eglUtil.start(surfaceTexture)
+            initRender()
+        } catch (e: Throwable) {
+            destroyRender()
+            throw e
+        }
     }
 
     private fun setVertexBuf(config: AnimConfig) {
@@ -94,12 +99,21 @@ class Render(surfaceTexture: SurfaceTexture): IRenderListener {
     }
 
     override fun destroyRender() {
-        releaseTexture()
-        eglUtil.release()
+        try {
+            releaseTexture()
+        } finally {
+            try {
+                if (shaderProgram != 0) GLES20.glDeleteProgram(shaderProgram)
+                shaderProgram = 0
+            } finally {
+                eglUtil.release()
+            }
+        }
     }
 
     override fun releaseTexture() {
         GLES20.glDeleteTextures(genTexture.size, genTexture, 0)
+        genTexture.fill(0)
     }
 
     /**

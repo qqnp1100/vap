@@ -22,7 +22,6 @@ import com.tencent.qgame.animplayer.util.ShaderUtil.createProgram
 import com.tencent.qgame.animplayer.util.TexCoordsUtil
 import com.tencent.qgame.animplayer.util.VertexUtil
 import java.nio.ByteBuffer
-import java.nio.FloatBuffer
 
 class YUVRender (surfaceTexture: SurfaceTexture): IRenderListener {
 
@@ -35,6 +34,9 @@ class YUVRender (surfaceTexture: SurfaceTexture): IRenderListener {
     private val rgbArray = GlFloatArray()
 
     private var shaderProgram = 0
+    private var surfaceWidth = 0
+    private var surfaceHeight = 0
+    private var surfaceSizeChanged = false
 
     //顶点位置
     private var avPosition = 0
@@ -78,8 +80,13 @@ class YUVRender (surfaceTexture: SurfaceTexture): IRenderListener {
     )
 
     init {
-        eglUtil.start(surfaceTexture)
-        initRender()
+        try {
+            eglUtil.start(surfaceTexture)
+            initRender()
+        } catch (e: Throwable) {
+            destroyRender()
+            throw e
+        }
     }
 
     override fun initRender() {
@@ -102,8 +109,8 @@ class YUVRender (surfaceTexture: SurfaceTexture): IRenderListener {
         //绑定纹理
         for (id in textureId) {
             GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, id)
-            GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_S, GLES20.GL_REPEAT)
-            GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_T, GLES20.GL_REPEAT)
+            GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_S, GLES20.GL_CLAMP_TO_EDGE)
+            GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_T, GLES20.GL_CLAMP_TO_EDGE)
             GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_LINEAR)
             GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_LINEAR)
         }
@@ -112,6 +119,10 @@ class YUVRender (surfaceTexture: SurfaceTexture): IRenderListener {
     override fun renderFrame() {
         GLES20.glClearColor(0.0f, 0.0f, 0.0f, 0.0f)
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT)
+        if (surfaceSizeChanged) {
+            surfaceSizeChanged = false
+            GLES20.glViewport(0, 0, surfaceWidth, surfaceHeight)
+        }
         draw()
     }
 
@@ -122,8 +133,16 @@ class YUVRender (surfaceTexture: SurfaceTexture): IRenderListener {
     }
 
     override fun destroyRender() {
-        releaseTexture()
-        eglUtil.release()
+        try {
+            releaseTexture()
+        } finally {
+            try {
+                if (shaderProgram != 0) GLES20.glDeleteProgram(shaderProgram)
+                shaderProgram = 0
+            } finally {
+                eglUtil.release()
+            }
+        }
     }
 
     override fun setAnimConfig(config: AnimConfig) {
@@ -134,12 +153,20 @@ class YUVRender (surfaceTexture: SurfaceTexture): IRenderListener {
         rgbArray.setArray(rgb)
     }
 
+    override fun updateViewPort(width: Int, height: Int) {
+        if (width <= 0 || height <= 0) return
+        surfaceWidth = width
+        surfaceHeight = height
+        surfaceSizeChanged = true
+    }
+
     override fun getExternalTexture(): Int {
         return textureId[0]
     }
 
     override fun releaseTexture() {
         GLES20.glDeleteTextures(textureId.size, textureId, 0)
+        textureId.fill(0)
     }
 
     override fun swapBuffers() {
@@ -188,7 +215,7 @@ class YUVRender (surfaceTexture: SurfaceTexture): IRenderListener {
             GLES20.glUniform1i(samplerU, 1)
             GLES20.glUniform1i(samplerV, 2)
 
-            GLES20.glUniform3fv(convertOffsetUniform, 1, FloatBuffer.wrap(YUV_OFFSET))
+            GLES20.glUniform3fv(convertOffsetUniform, 1, YUV_OFFSET, 0)
             GLES20.glUniformMatrix3fv(convertMatrixUniform, 1, false, YUV_MATRIX, 0)
 
             //绘制

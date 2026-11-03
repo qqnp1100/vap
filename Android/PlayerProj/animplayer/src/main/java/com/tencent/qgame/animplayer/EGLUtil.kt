@@ -42,24 +42,25 @@ class EGLUtil {
 
     fun start(surfaceTexture: SurfaceTexture) {
         try {
-            egl = EGLContext.getEGL() as EGL10
-            eglDisplay = egl?.eglGetDisplay(EGL10.EGL_DEFAULT_DISPLAY)
-            val version = IntArray(2)
-            egl?.eglInitialize(eglDisplay, version)
-            eglConfig = chooseConfig()
+            val api = EGLContext.getEGL() as EGL10
+            egl = api
+            eglDisplay = api.eglGetDisplay(EGL10.EGL_DEFAULT_DISPLAY)
+            check(eglDisplay != null && eglDisplay != EGL10.EGL_NO_DISPLAY) { "No EGL display" }
+            check(api.eglInitialize(eglDisplay, IntArray(2))) { "EGL initialization failed" }
+            eglConfig = checkNotNull(chooseConfig()) { "No matching EGL config" }
             surface = Surface(surfaceTexture)
-            eglSurface = egl?.eglCreateWindowSurface(eglDisplay, eglConfig, surface, null)
-            eglContext = createContext(egl, eglDisplay, eglConfig)
-            if (eglSurface == null || eglSurface == EGL10.EGL_NO_SURFACE) {
-                ALog.e(TAG, "error:${Integer.toHexString(egl?.eglGetError() ?: 0)}")
-                return
+            eglSurface = api.eglCreateWindowSurface(eglDisplay, eglConfig, surface, null)
+            check(eglSurface != null && eglSurface != EGL10.EGL_NO_SURFACE) {
+                "EGL surface creation failed: ${Integer.toHexString(api.eglGetError())}"
             }
-
-            if (egl?.eglMakeCurrent(eglDisplay, eglSurface, eglSurface, eglContext) == false) {
-                ALog.e(TAG, "make current error:${Integer.toHexString(egl?.eglGetError() ?: 0)}")
+            eglContext = createContext(api, eglDisplay, eglConfig)
+            check(eglContext != null && eglContext != EGL10.EGL_NO_CONTEXT) { "EGL context creation failed" }
+            check(api.eglMakeCurrent(eglDisplay, eglSurface, eglSurface, eglContext)) {
+                "EGL make current failed: ${Integer.toHexString(api.eglGetError())}"
             }
         } catch (e: Throwable) {
-            ALog.e(TAG, "error:$e", e)
+            release()
+            throw e
         }
     }
 
@@ -69,7 +70,7 @@ class EGLUtil {
         val configs = arrayOfNulls<EGLConfig>(1)
         val attributes =getAttributes()
         val confSize = 1
-        if (egl?.eglChooseConfig(eglDisplay, attributes, configs, confSize, configsCount) == true) {
+        if (egl?.eglChooseConfig(eglDisplay, attributes, configs, confSize, configsCount) == true && configsCount[0] > 0) {
             return configs[0]
         }
         return null
@@ -97,19 +98,46 @@ class EGLUtil {
     }
 
     fun swapBuffers() {
-        if (eglDisplay == null || eglSurface == null) return
-        egl?.eglSwapBuffers(eglDisplay, eglSurface)
-    }
-
-    fun release() {
-        egl?.apply {
-            eglMakeCurrent(eglDisplay, EGL10.EGL_NO_SURFACE, EGL10.EGL_NO_SURFACE, EGL10.EGL_NO_CONTEXT)
-            eglDestroySurface(eglDisplay, eglSurface)
-            eglDestroyContext(eglDisplay, eglContext)
-            eglTerminate(eglDisplay)
-            surface?.release()
-            surface = null
+        val api = egl ?: return
+        if (eglDisplay == null || eglDisplay == EGL10.EGL_NO_DISPLAY ||
+            eglSurface == null || eglSurface == EGL10.EGL_NO_SURFACE) return
+        check(api.eglSwapBuffers(eglDisplay, eglSurface)) {
+            "EGL swap failed: ${Integer.toHexString(api.eglGetError())}"
         }
     }
 
+    private fun cleanup(name: String, action: () -> Unit) {
+        try {
+            action()
+        } catch (e: Throwable) {
+            ALog.e(TAG, "release $name failed", e)
+        }
+    }
+
+    fun release() {
+        val api = egl
+        val display = eglDisplay
+        val window = eglSurface
+        val context = eglContext
+        val nativeSurface = surface
+        egl = null
+        eglDisplay = EGL10.EGL_NO_DISPLAY
+        eglSurface = EGL10.EGL_NO_SURFACE
+        eglContext = EGL10.EGL_NO_CONTEXT
+        eglConfig = null
+        surface = null
+        if (api != null && display != null && display != EGL10.EGL_NO_DISPLAY) {
+            cleanup("current context") {
+                api.eglMakeCurrent(display, EGL10.EGL_NO_SURFACE, EGL10.EGL_NO_SURFACE, EGL10.EGL_NO_CONTEXT)
+            }
+            if (window != null && window != EGL10.EGL_NO_SURFACE) {
+                cleanup("surface") { api.eglDestroySurface(display, window) }
+            }
+            if (context != null && context != EGL10.EGL_NO_CONTEXT) {
+                cleanup("context") { api.eglDestroyContext(display, context) }
+            }
+            cleanup("display") { api.eglTerminate(display) }
+        }
+        cleanup("native surface") { nativeSurface?.release() }
+    }
 }

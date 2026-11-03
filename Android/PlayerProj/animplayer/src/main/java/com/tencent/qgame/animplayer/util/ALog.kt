@@ -22,21 +22,21 @@ object ALog {
     var log: IALog? = null
 
     fun i(tag: String, msg: String) {
-        log?.i(tag, msg)
+        try { log?.i(tag, msg) } catch (_: Throwable) { /* Application loggers are callbacks too. */ }
     }
 
     fun d(tag: String, msg: String) {
         if (isDebug) {
-            log?.d(tag, msg)
+            try { log?.d(tag, msg) } catch (_: Throwable) { /* Application loggers are callbacks too. */ }
         }
     }
 
     fun e(tag: String, msg: String) {
-        log?.e(tag, msg)
+        try { log?.e(tag, msg) } catch (_: Throwable) { /* Application loggers are callbacks too. */ }
     }
 
     fun e(tag: String, msg: String, tr: Throwable) {
-        log?.e(tag, msg, tr)
+        try { log?.e(tag, msg, tr) } catch (_: Throwable) { /* Application loggers are callbacks too. */ }
     }
 }
 

@@ -15,7 +15,6 @@
  */
 package com.tencent.qgame.animplayer.mask
 
-import android.opengl.GLES11Ext
 import android.opengl.GLES20
 import com.tencent.qgame.animplayer.AnimConfig
 import com.tencent.qgame.animplayer.Constant
@@ -61,6 +60,10 @@ class MaskRender(private val maskAnimPlugin: MaskAnimPlugin) {
         )
         val maskPositionRefVec2 =
             config.maskConfig?.maskPositionPair?.second ?: RefVec2(config.width, config.height)
+        if (maskTexRefVec2.w <= 0 || maskTexRefVec2.h <= 0 ||
+            maskPositionRefVec2.w <= 0 || maskPositionRefVec2.h <= 0 ||
+            maskTexRect.w <= 0 || maskTexRect.h <= 0 ||
+            maskPositionRect.w <= 0 || maskPositionRect.h <= 0) return
         shader.useProgram()
         // 顶点坐标
         vertexArray.setArray(
@@ -100,12 +103,12 @@ class MaskRender(private val maskAnimPlugin: MaskAnimPlugin) {
                 GLES20.GL_LINEAR.toFloat()
             )
             GLES20.glTexParameteri(
-                GLES11Ext.GL_TEXTURE_EXTERNAL_OES,
+                GLES20.GL_TEXTURE_2D,
                 GLES20.GL_TEXTURE_WRAP_S,
                 GLES20.GL_CLAMP_TO_EDGE
             )
             GLES20.glTexParameteri(
-                GLES11Ext.GL_TEXTURE_EXTERNAL_OES,
+                GLES20.GL_TEXTURE_2D,
                 GLES20.GL_TEXTURE_WRAP_T,
                 GLES20.GL_CLAMP_TO_EDGE
             )
@@ -125,6 +128,12 @@ class MaskRender(private val maskAnimPlugin: MaskAnimPlugin) {
             GLES20.glDisable(GLES20.GL_BLEND)
         }
 
+    }
+
+    fun release() {
+        val shader = maskShader
+        maskShader = null
+        shader?.release()
     }
 
 }

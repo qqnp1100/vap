@@ -1,0 +1,245 @@
+SUITE STARTED cases=118 filter=all
+METRIC start-after-gc fd=173 threads=38 javaUsedBytes=6366136 totalPssKiB=55112
+RUN background-start-immediate-stop
+PASS background-start-immediate-stop config=0 start=0 decodedCallbacks=0 frameZeroCallbacks=0 complete=0 error=0 release=0 running=false
+RUN reject-config
+PASS reject-config config=1 start=0 decodedCallbacks=0 frameZeroCallbacks=0 complete=1 error=0 release=0 running=false
+RUN replay-after-reject
+PASS replay-after-reject config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN resource-timeout
+PASS resource-timeout config=0 start=0 decodedCallbacks=0 frameZeroCallbacks=0 complete=1 error=1 release=0 running=false
+RUN duplicate-resource-callbacks
+PASS duplicate-resource-callbacks config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=1 running=false
+RUN stop-loading-late-callback
+PASS stop-loading-late-callback config=0 start=0 decodedCallbacks=0 frameZeroCallbacks=0 complete=1 error=0 release=1 running=false
+RUN stop-before-layout
+PASS stop-before-layout config=1 start=0 decodedCallbacks=0 frameZeroCallbacks=0 complete=1 error=0 release=0 running=false
+RUN throw-config-callback
+PASS throw-config-callback config=1 start=0 decodedCallbacks=0 frameZeroCallbacks=0 complete=1 error=0 release=0 running=false
+RUN throw-render-callback
+PASS throw-render-callback config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN throw-complete-callback
+PASS throw-complete-callback config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN throw-release-callback
+PASS throw-release-callback config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=1 running=false
+RUN invalid-mp4
+PASS invalid-mp4 config=0 start=0 decodedCallbacks=0 frameZeroCallbacks=0 complete=1 error=1 release=0 running=false
+RUN throw-failure-callback
+PASS throw-failure-callback config=0 start=0 decodedCallbacks=0 frameZeroCallbacks=0 complete=1 error=1 release=0 running=false
+RUN assets-first-use
+PASS assets-first-use config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN assets-reuse-after-close
+PASS assets-reuse-after-close config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN rapid-detach-auto-resume
+PASS rapid-detach-auto-resume config=2 start=2 decodedCallbacks=6 frameZeroCallbacks=2 complete=2 error=0 release=0 running=false
+RUN natural-eos-two-loops
+PASS natural-eos-two-loops config=1 start=1 decodedCallbacks=162 frameZeroCallbacks=2 complete=1 error=0 release=0 running=false
+RUN audible-vapx-smoke
+PASS audible-vapx-smoke config=1 start=1 decodedCallbacks=25 frameZeroCallbacks=1 complete=1 error=0 release=1 running=false
+RUN detach-attach-1
+PASS detach-attach-1 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+METRIC cycle-1 fd=153 threads=38 javaUsedBytes=6159328 totalPssKiB=56825
+RUN detach-attach-2
+PASS detach-attach-2 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-3
+PASS detach-attach-3 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-4
+PASS detach-attach-4 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-5
+PASS detach-attach-5 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-6
+PASS detach-attach-6 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-7
+PASS detach-attach-7 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-8
+PASS detach-attach-8 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-9
+PASS detach-attach-9 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-10
+PASS detach-attach-10 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-11
+PASS detach-attach-11 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-12
+PASS detach-attach-12 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-13
+PASS detach-attach-13 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-14
+PASS detach-attach-14 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-15
+PASS detach-attach-15 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-16
+PASS detach-attach-16 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-17
+PASS detach-attach-17 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-18
+PASS detach-attach-18 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-19
+PASS detach-attach-19 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-20
+PASS detach-attach-20 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-21
+PASS detach-attach-21 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-22
+PASS detach-attach-22 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-23
+PASS detach-attach-23 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-24
+PASS detach-attach-24 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-25
+PASS detach-attach-25 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+METRIC cycle-25 fd=172 threads=38 javaUsedBytes=6117640 totalPssKiB=61485
+RUN detach-attach-26
+PASS detach-attach-26 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-27
+PASS detach-attach-27 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-28
+PASS detach-attach-28 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-29
+PASS detach-attach-29 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-30
+PASS detach-attach-30 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-31
+PASS detach-attach-31 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-32
+PASS detach-attach-32 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-33
+PASS detach-attach-33 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-34
+PASS detach-attach-34 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-35
+PASS detach-attach-35 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-36
+PASS detach-attach-36 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-37
+PASS detach-attach-37 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-38
+PASS detach-attach-38 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-39
+PASS detach-attach-39 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-40
+PASS detach-attach-40 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-41
+PASS detach-attach-41 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-42
+PASS detach-attach-42 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-43
+PASS detach-attach-43 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-44
+PASS detach-attach-44 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-45
+PASS detach-attach-45 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-46
+PASS detach-attach-46 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-47
+PASS detach-attach-47 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-48
+PASS detach-attach-48 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-49
+PASS detach-attach-49 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-50
+PASS detach-attach-50 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+METRIC cycle-50 fd=172 threads=38 javaUsedBytes=6881944 totalPssKiB=65060
+RUN detach-attach-51
+PASS detach-attach-51 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-52
+PASS detach-attach-52 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-53
+PASS detach-attach-53 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-54
+PASS detach-attach-54 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-55
+PASS detach-attach-55 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-56
+PASS detach-attach-56 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-57
+PASS detach-attach-57 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-58
+PASS detach-attach-58 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-59
+PASS detach-attach-59 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-60
+PASS detach-attach-60 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-61
+PASS detach-attach-61 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-62
+PASS detach-attach-62 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-63
+PASS detach-attach-63 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-64
+PASS detach-attach-64 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-65
+PASS detach-attach-65 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-66
+PASS detach-attach-66 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-67
+PASS detach-attach-67 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-68
+PASS detach-attach-68 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-69
+PASS detach-attach-69 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-70
+PASS detach-attach-70 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-71
+PASS detach-attach-71 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-72
+PASS detach-attach-72 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-73
+PASS detach-attach-73 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-74
+PASS detach-attach-74 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-75
+PASS detach-attach-75 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+METRIC cycle-75 fd=189 threads=38 javaUsedBytes=6924752 totalPssKiB=64788
+RUN detach-attach-76
+PASS detach-attach-76 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-77
+PASS detach-attach-77 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-78
+PASS detach-attach-78 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-79
+PASS detach-attach-79 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-80
+PASS detach-attach-80 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-81
+PASS detach-attach-81 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-82
+PASS detach-attach-82 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-83
+PASS detach-attach-83 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-84
+PASS detach-attach-84 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-85
+PASS detach-attach-85 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-86
+PASS detach-attach-86 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-87
+PASS detach-attach-87 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-88
+PASS detach-attach-88 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-89
+PASS detach-attach-89 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-90
+PASS detach-attach-90 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-91
+PASS detach-attach-91 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-92
+PASS detach-attach-92 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-93
+PASS detach-attach-93 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-94
+PASS detach-attach-94 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-95
+PASS detach-attach-95 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-96
+PASS detach-attach-96 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-97
+PASS detach-attach-97 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-98
+PASS detach-attach-98 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-99
+PASS detach-attach-99 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+RUN detach-attach-100
+PASS detach-attach-100 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 error=0 release=0 running=false
+METRIC cycle-100 fd=191 threads=38 javaUsedBytes=7758784 totalPssKiB=66445
+METRIC settled-after-gc fd=191 threads=38 javaUsedBytes=7857088 totalPssKiB=63077
+SUITE FINISHED passed=118 failed=0 durationMs=92916

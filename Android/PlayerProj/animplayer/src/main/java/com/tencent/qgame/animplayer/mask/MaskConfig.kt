@@ -34,21 +34,25 @@ class MaskConfig() {
     fun getMaskTexId() : Int {
         return maskTexId
     }
+
+    /** Called only by the owning render thread while its GL context is current. */
     fun updateMaskTex() : Int {
-        maskTexId = TextureLoadUtil.loadTexture(alphaMaskBitmap)
+        if (maskTexId > 0) return maskTexId
+        val bitmap = alphaMaskBitmap ?: return 0
+        if (bitmap.isRecycled) return 0
+        maskTexId = TextureLoadUtil.loadTexture(bitmap)
         return  maskTexId
     }
 
+    // Borrowed from the caller; replacing/releasing this config never recycles the Bitmap.
     var alphaMaskBitmap: Bitmap? = null //遮罩
         private set(value) {
             field = value
         }
     
+    /** Render-thread-owned once a texture has been created. */
     fun safeSetMaskBitmapAndReleasePre(bitmap: Bitmap?) {
-        if (maskTexId > 0)  { //释放
-            TextureLoadUtil.releaseTexure(maskTexId)
-            maskTexId = 0
-        }
+        releaseTexture()
         alphaMaskBitmap = bitmap
     }
     
@@ -57,16 +61,23 @@ class MaskConfig() {
         alphaMaskBitmap = null
         maskTexPair = null
         maskPositionPair = null
+        releaseTexture()
+    }
+
+    private fun releaseTexture() {
+        val texture = maskTexId
+        maskTexId = 0
+        if (texture > 0) TextureLoadUtil.releaseTexure(texture)
     }
 
     override fun equals(other: Any?): Boolean {
-        return other is MaskConfig && this.alphaMaskBitmap != other.alphaMaskBitmap
-                && this.maskTexPair?.first != other.maskTexPair?.first && this.maskTexPair?.second != other.maskTexPair?.second
-                && this.maskPositionPair?.first != other.maskPositionPair?.first && this.maskPositionPair?.second != other.maskPositionPair?.second
+        if (this === other) return true
+        return other is MaskConfig && alphaMaskBitmap === other.alphaMaskBitmap &&
+            maskTexPair == other.maskTexPair && maskPositionPair == other.maskPositionPair
     }
 
     override fun hashCode(): Int {
-        var result = alphaMaskBitmap?.hashCode() ?: 0
+        var result = alphaMaskBitmap?.let { System.identityHashCode(it) } ?: 0
         result = 31 * result + (maskTexPair?.hashCode() ?: 0)
         result = 31 * result + (maskPositionPair?.hashCode() ?: 0)
         return result

@@ -23,9 +23,16 @@ object ShaderUtil {
 
 
     fun createProgram(vertexSource: String, fragmentSource: String): Int {
-        val vertexShaderHandle = compileShader(GLES20.GL_VERTEX_SHADER, vertexSource)
-        val fragmentShaderHandle = compileShader(GLES20.GL_FRAGMENT_SHADER, fragmentSource)
-        return createAndLinkProgram(vertexShaderHandle, fragmentShaderHandle)
+        var vertexShaderHandle = 0
+        var fragmentShaderHandle = 0
+        try {
+            vertexShaderHandle = compileShader(GLES20.GL_VERTEX_SHADER, vertexSource)
+            fragmentShaderHandle = compileShader(GLES20.GL_FRAGMENT_SHADER, fragmentSource)
+            return createAndLinkProgram(vertexShaderHandle, fragmentShaderHandle)
+        } finally {
+            if (vertexShaderHandle != 0) GLES20.glDeleteShader(vertexShaderHandle)
+            if (fragmentShaderHandle != 0) GLES20.glDeleteShader(fragmentShaderHandle)
+        }
     }
 
 

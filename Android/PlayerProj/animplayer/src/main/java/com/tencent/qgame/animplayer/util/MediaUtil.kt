@@ -35,8 +35,17 @@ object MediaUtil {
 
     fun getExtractor(file: IFileContainer): MediaExtractor {
         val extractor = MediaExtractor()
-        file.setDataSource(extractor)
-        return extractor
+        try {
+            file.setDataSource(extractor)
+            return extractor
+        } catch (error: Throwable) {
+            try {
+                extractor.release()
+            } catch (releaseError: Throwable) {
+                ALog.e(TAG, "extractor release after data source failure", releaseError)
+            }
+            throw error
+        }
     }
 
     /**

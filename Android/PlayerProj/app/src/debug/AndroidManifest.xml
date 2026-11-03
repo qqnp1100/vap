@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application>
+        <activity
+            android:name=".player.StabilityTestActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <!-- Debug-only entry points for adb quick-exit lifecycle regression. -->
+        <activity android:name=".player.AnimSimpleDemoActivity" android:exported="true" />
+        <activity android:name=".player.AnimVapxDemoActivity" android:exported="true" />
+        <activity android:name=".player.AnimActiveDemoActivity" android:exported="true" />
+        <activity android:name=".player.AnimSpecialSizeDemoActivity" android:exported="true" />
+    </application>
+</manifest>

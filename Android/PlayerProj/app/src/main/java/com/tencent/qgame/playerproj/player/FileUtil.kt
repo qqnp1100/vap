@@ -16,94 +16,123 @@
 package com.tencent.qgame.playerproj.player
 
 import android.content.Context
-import java.io.*
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
+import java.io.IOException
+import java.io.InputStream
+import java.io.InterruptedIOException
 import java.security.MessageDigest
+import java.util.concurrent.ArrayBlockingQueue
+import java.util.concurrent.Future
+import java.util.concurrent.ThreadPoolExecutor
+import java.util.concurrent.TimeUnit
 
 object FileUtil {
+    // Serialise preparation of shared demo assets and put an upper bound on queued I/O.
+    private val executor = ThreadPoolExecutor(1, 1, 30, TimeUnit.SECONDS,
+        ArrayBlockingQueue(16)) { task -> Thread(task, "demo_file_io") }.apply {
+        allowCoreThreadTimeOut(true)
+    }
+    private data class VerifiedFile(val length: Long, val modified: Long, val md5: String)
+    private val verifiedFiles = object : LinkedHashMap<String, VerifiedFile>(16, 0.75f, true) {
+        override fun removeEldestEntry(eldest: MutableMap.MutableEntry<String, VerifiedFile>?): Boolean = size > 16
+    }
 
-    private val hexDigits = charArrayOf('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f')
+    fun prepareAsset(context: Context, directory: File, name: String, md5: String,
+                     ready: (File) -> Unit, failed: (Exception) -> Unit): Future<*> {
+        val assets = context.applicationContext.assets
+        executor.purge()
+        return executor.submit {
+            try {
+                val file = installVerifiedFile(File(directory, name), md5) { assets.open(name) }
+                checkCancelled()
+                ready(file)
+            } catch (e: InterruptedIOException) {
+                // The page has left or a newer play request superseded this request.
+            } catch (e: Exception) {
+                if (!Thread.currentThread().isInterrupted) failed(e)
+            }
+        }
+    }
 
-    fun copyAssetsToStorage(context: Context, dir: String, files: Array<String>, loadSuccess:()->Unit) {
-        Thread {
-            var outputStream: OutputStream
-            var inputStream: InputStream
-            val buf = ByteArray(4096)
-            files.forEach {
-                try {
-                    if (File("$dir/$it").exists()) {
-                        return@forEach
+    internal fun installVerifiedFile(destination: File, expectedMd5: String,
+                                     source: () -> InputStream): File {
+        checkCancelled()
+        if (getFileMD5(destination) == expectedMd5) return destination
+        val directory = destination.parentFile ?: throw IOException("Missing asset directory")
+        if (!directory.isDirectory && !directory.mkdirs()) throw IOException("Cannot create $directory")
+        val temporary = File.createTempFile(destination.name, ".part", directory)
+        try {
+            val digest = MessageDigest.getInstance("MD5")
+            source().use { input ->
+                FileOutputStream(temporary).use { output ->
+                    val buffer = ByteArray(16 * 1024)
+                    while (true) {
+                        checkCancelled()
+                        val count = input.read(buffer)
+                        if (count < 0) break
+                        if (count == 0) continue
+                        output.write(buffer, 0, count)
+                        digest.update(buffer, 0, count)
                     }
-                    inputStream = context.assets.open(it)
-                    outputStream = FileOutputStream("$dir/$it")
-                    var length = inputStream.read(buf)
-                    while (length > 0) {
-                        outputStream.write(buf, 0, length)
-                        length = inputStream.read(buf)
-                    }
-                    outputStream.close()
-                    inputStream.close()
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                    return@Thread
+                    output.fd.sync()
                 }
             }
-            loadSuccess.invoke()
-        }.start()
-
+            checkCancelled()
+            if (toHex(digest.digest()) != expectedMd5) throw IOException("Asset checksum mismatch: ${destination.name}")
+            // Both files are in the same directory, so readers see only the complete replacement.
+            if (!temporary.renameTo(destination)) throw IOException("Cannot install ${destination.name}")
+            remember(destination, expectedMd5)
+            return destination
+        } finally {
+            temporary.delete()
+        }
     }
 
     fun getFileMD5(file: File): String? {
-        if (!file.exists() || !file.isFile || file.length() <= 0) {
-            return null
+        checkCancelled()
+        if (!file.isFile || file.length() <= 0) return null
+        val key = file.absolutePath
+        val length = file.length()
+        val modified = file.lastModified()
+        synchronized(verifiedFiles) {
+            verifiedFiles[key]?.let { if (it.length == length && it.modified == modified) return it.md5 }
         }
-        var inputStream: InputStream? = null
-        try {
-            val md = MessageDigest.getInstance("MD5")
-            inputStream = FileInputStream(file)
-            val dataBytes = ByteArray(4096)
-            var iRd: Int
-            iRd = inputStream.read(dataBytes)
-            while (iRd != -1) {
-                md.update(dataBytes, 0, iRd)
-                iRd = inputStream.read(dataBytes)
-            }
-            inputStream.close()
-            val digest = md.digest()
-            if (digest != null) {
-                return bufferToHex(digest)
-            }
-        } catch (t: Throwable) {
-            t.printStackTrace()
-        } finally {
-            if (inputStream != null) {
-                try {
-                    inputStream.close()
-                } catch (e: Throwable) {
-                    e.printStackTrace()
-                }
-
+        val digest = MessageDigest.getInstance("MD5")
+        FileInputStream(file).use { input ->
+            val buffer = ByteArray(16 * 1024)
+            while (true) {
+                checkCancelled()
+                val count = input.read(buffer)
+                if (count < 0) break
+                if (count > 0) digest.update(buffer, 0, count)
             }
         }
-        return null
+        val result = toHex(digest.digest())
+        // Do not cache a checksum if a writer changed the file during verification.
+        if (file.length() == length && file.lastModified() == modified) remember(file, result)
+        return result
     }
 
-    private fun bufferToHex(bytes: ByteArray): String {
-        return bufferToHex(bytes, 0, bytes.size)
-    }
-
-    private fun bufferToHex(bytes: ByteArray, m: Int, n: Int): String {
-        val sb = StringBuffer(2 * n)
-        val k = m + n
-        for (l in m until k) {
-            appendHexPair(bytes[l], sb)
+    private fun remember(file: File, md5: String) {
+        synchronized(verifiedFiles) {
+            verifiedFiles[file.absolutePath] = VerifiedFile(file.length(), file.lastModified(), md5)
         }
-        return sb.toString()
     }
 
-    private fun appendHexPair(bt: Byte, sb: StringBuffer) {
-        val c0 = hexDigits[bt.toInt() and 0xf0 ushr 4]
-        val c1 = hexDigits[bt.toInt() and 0x0f]
-        sb.append(c0)
-        sb.append(c1)
+    private fun checkCancelled() {
+        if (Thread.currentThread().isInterrupted) throw InterruptedIOException("Asset preparation cancelled")
+    }
+
+    private fun toHex(bytes: ByteArray): String {
+        val hex = "0123456789abcdef"
+        return buildString(bytes.size * 2) {
+            bytes.forEach { value ->
+                val unsigned = value.toInt() and 0xff
+                append(hex[unsigned ushr 4])
+                append(hex[unsigned and 15])
+            }
+        }
     }
 }

@@ -17,6 +17,7 @@ package com.tencent.qgame.animplayer
 
 import android.os.SystemClock
 import com.tencent.qgame.animplayer.file.IFileContainer
+import com.tencent.qgame.animplayer.file.VapcBoxReader
 import com.tencent.qgame.animplayer.util.ALog
 import org.json.JSONObject
 import java.nio.charset.Charset
@@ -31,7 +32,7 @@ class AnimConfigManager(val player: AnimPlayer) {
     }
 
     var config: AnimConfig? = null
-    var isParsingConfig = false // 是否正在读取配置
+    @Volatile var isParsingConfig = false // 是否正在读取配置
 
     /**
      * 解析配置
@@ -52,16 +53,12 @@ class AnimConfigManager(val player: AnimPlayer) {
                 isParsingConfig = false
                 return Constant.REPORT_ERROR_TYPE_PARSE_CONFIG
             }
-            // 插件解析配置
-            val resultCode = config?.let {
-                player.pluginManager.onConfigCreate(it)
-            } ?: Constant.OK
-            isParsingConfig = false
-            return resultCode
+            return Constant.OK
         } catch (e : Throwable) {
             ALog.e(TAG, "parseConfig error $e", e)
-            isParsingConfig = false
             return Constant.REPORT_ERROR_TYPE_PARSE_CONFIG
+        } finally {
+            isParsingConfig = false
         }
     }
 
@@ -120,23 +117,8 @@ class AnimConfigManager(val player: AnimPlayer) {
         this.config = config
 
 
-        // 查找vapc box
-        fileContainer.startRandomRead()
-        val boxHead = ByteArray(8)
-        var head: BoxHead? = null
-        var vapcStartIndex: Long = 0
-        while (fileContainer.read(boxHead, 0, boxHead.size) == 8) {
-            val h = parseBoxHead(boxHead) ?: break
-            if ("vapc" == h.type) {
-                h.startIndex = vapcStartIndex
-                head = h
-                break
-            }
-            vapcStartIndex += h.length
-            fileContainer.skip(h.length - 8L)
-        }
-
-        if (head == null) {
+        val vapcBuf = VapcBoxReader.read(fileContainer)
+        if (vapcBuf == null) {
             ALog.e(TAG, "vapc box head not found")
             // 按照默认配置生成config
             config.apply {
@@ -148,11 +130,6 @@ class AnimConfigManager(val player: AnimPlayer) {
             return true
         }
 
-        // 读取vapc box
-        val vapcBuf = ByteArray(head.length - 8) // ps: OOM exception
-        fileContainer.read(vapcBuf, 0 , vapcBuf.size)
-        fileContainer.closeRandomRead()
-
         val json = String(vapcBuf, 0, vapcBuf.size, Charset.forName("UTF-8"))
         val jsonObj = JSONObject(json)
         config.jsonConfig = jsonObj
@@ -163,26 +140,5 @@ class AnimConfigManager(val player: AnimPlayer) {
         player.fps = config.fps
         return result
     }
-
-    private fun parseBoxHead(boxHead: ByteArray): BoxHead? {
-        if (boxHead.size != 8) return null
-        val head = BoxHead()
-        var length: Int = 0
-        length = length or (boxHead[0].toInt() and 0xff shl 24)
-        length = length or (boxHead[1].toInt() and 0xff shl 16)
-        length = length or (boxHead[2].toInt() and 0xff shl 8)
-        length = length or (boxHead[3].toInt() and 0xff)
-        head.length = length
-        head.type = String(boxHead, 4, 4, Charset.forName("US-ASCII"))
-        return head
-    }
-
-    private class BoxHead {
-        var startIndex: Long = 0
-        var length: Int = 0
-        var type: String? = null
-    }
-
-
 
 }

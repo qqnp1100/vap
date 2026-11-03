@@ -20,6 +20,7 @@ import com.tencent.qgame.animplayer.Constant
 import com.tencent.qgame.animplayer.util.ALog
 import java.io.File
 import java.io.FileNotFoundException
+import java.io.EOFException
 import java.io.RandomAccessFile
 
 class FileContainer(private val file: File) : IFileContainer {
@@ -40,6 +41,7 @@ class FileContainer(private val file: File) : IFileContainer {
     }
 
     override fun startRandomRead() {
+        closeRandomRead()
         randomAccessFile = RandomAccessFile(file, "r")
     }
 
@@ -48,13 +50,26 @@ class FileContainer(private val file: File) : IFileContainer {
     }
 
     override fun skip(pos: Long) {
-        randomAccessFile?.skipBytes(pos.toInt())
+        skipFully(pos)
+    }
+
+    override fun getLength(): Long = file.length()
+
+    override fun skipFully(length: Long) {
+        require(length >= 0)
+        val input = randomAccessFile ?: throw IllegalStateException("Random read is not open")
+        val current = input.filePointer
+        if (length > input.length() - current) throw EOFException("Truncated file while skipping")
+        input.seek(current + length)
     }
 
     override fun closeRandomRead() {
-        randomAccessFile?.close()
+        val input = randomAccessFile
+        randomAccessFile = null
+        input?.close()
     }
 
     override fun close() {
+        closeRandomRead()
     }
 }

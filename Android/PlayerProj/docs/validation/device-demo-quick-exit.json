@@ -1,0 +1,23 @@
+{
+  "demos": [
+    {
+      "activity": "AnimSimpleDemoActivity",
+      "quickExitRounds": 5
+    },
+    {
+      "activity": "AnimVapxDemoActivity",
+      "quickExitRounds": 5
+    },
+    {
+      "activity": "AnimActiveDemoActivity",
+      "quickExitRounds": 5
+    },
+    {
+      "activity": "AnimSpecialSizeDemoActivity",
+      "quickExitRounds": 5
+    }
+  ],
+  "unhandledCrashLog": "",
+  "mediaErrorLog": "--------- beginning of main\n11-02 20:02:27.425 23125 31921 E AnimPlayer.AnimConfigManager: vapc box head not found\n11-02 20:02:27.723 23125 31975 E AnimPlayer.AnimConfigManager: vapc box head not found\n11-02 20:02:28.068 23125 32045 E AnimPlayer.AnimConfigManager: vapc box head not found\n11-02 20:02:28.401 23125 32116 E AnimPlayer.AnimConfigManager: vapc box head not found\n11-02 20:02:28.747 23125 32190 E AnimPlayer.AnimConfigManager: vapc box head not found\n",
+  "pidAfter": "23125"
+}

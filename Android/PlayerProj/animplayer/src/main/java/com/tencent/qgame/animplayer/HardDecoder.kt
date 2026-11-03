@@ -25,6 +25,8 @@ import android.view.Surface
 import com.tencent.qgame.animplayer.file.IFileContainer
 import com.tencent.qgame.animplayer.util.ALog
 import com.tencent.qgame.animplayer.util.MediaUtil
+import com.tencent.qgame.animplayer.util.safeCall
+import java.util.concurrent.atomic.AtomicBoolean
 
 class HardDecoder(player: AnimPlayer) : Decoder(player), SurfaceTexture.OnFrameAvailableListener {
 
@@ -36,7 +38,10 @@ class HardDecoder(player: AnimPlayer) : Decoder(player), SurfaceTexture.OnFrameA
     private var surface: Surface? = null
     private var glTexture: SurfaceTexture? = null
     private val bufferInfo by lazy { MediaCodec.BufferInfo() }
-    private var needDestroy = false
+    private var activeSessionId = 0L
+    private val releaseQueued = AtomicBoolean()
+    private val renderPending = AtomicBoolean()
+    private val surfaceReleases = ArrayList<() -> Unit>()
 
     // 动画的原始尺寸
     private var videoWidth = 0
@@ -51,33 +56,46 @@ class HardDecoder(player: AnimPlayer) : Decoder(player), SurfaceTexture.OnFrameA
     private var outputFormat: MediaFormat? = null
 
     override fun start(fileContainer: IFileContainer) {
+        activeSessionId = player.sessionId
+        releaseQueued.set(false)
         isStopReq = false
-        needDestroy = false
         isRunning = true
-        renderThread.handler?.post {
-            startPlay(fileContainer)
+        val posted = renderThread.handler?.post {
+            if (player.isSessionActive(activeSessionId)) startPlay(fileContainer)
+            else release(null, null)
+        }
+        if (posted != true) {
+            isRunning = false
+            player.failPreparation(activeSessionId, Constant.REPORT_ERROR_TYPE_CREATE_THREAD)
         }
     }
 
     override fun onFrameAvailable(surfaceTexture: SurfaceTexture?) {
-        if (isStopReq) return
+        if (isStopReq || surfaceTexture !== glTexture || !player.isSessionActive(activeSessionId)) return
         ALog.d(TAG, "onFrameAvailable")
         renderData()
     }
 
     private fun renderData() {
-        renderThread.handler?.post {
+        val id = activeSessionId
+        if (!renderPending.compareAndSet(false, true)) return
+        val posted = renderThread.handler?.post {
             try {
-                glTexture?.apply {
-                    updateTexImage()
-                    render?.renderFrame()
-                    player.pluginManager.onRendering()
-                    render?.swapBuffers()
+                if (!isStopReq && player.isSessionActive(id) && player.isSurfaceAvailable) {
+                    glTexture?.apply {
+                        updateTexImage()
+                        render?.renderFrame()
+                        player.pluginManager.onRendering()
+                        render?.swapBuffers()
+                    }
                 }
             } catch (e: Throwable) {
-                ALog.e(TAG, "render exception=$e", e)
+                ALog.e(TAG, "render exception", e)
+            } finally {
+                renderPending.set(false)
             }
         }
+        if (posted != true) renderPending.set(false)
     }
 
     private fun startPlay(fileContainer: IFileContainer) {
@@ -106,7 +124,7 @@ class HardDecoder(player: AnimPlayer) : Decoder(player), SurfaceTexture.OnFrameA
                         "${Constant.ERROR_MSG_HEVC_NOT_SUPPORT} " +
                                 "sdk:${Build.VERSION.SDK_INT}" +
                                 ",support hevc:" + MediaUtil.checkSupportCodec(MediaUtil.MIME_HEVC))
-                    release(null, null)
+                    release(null, extractor)
                     return
                 }
             }
@@ -129,7 +147,7 @@ class HardDecoder(player: AnimPlayer) : Decoder(player), SurfaceTexture.OnFrameA
                 }
             } catch (t: Throwable) {
                 onFailed(Constant.REPORT_ERROR_TYPE_CREATE_RENDER, "${Constant.ERROR_MSG_CREATE_RENDER} e=$t")
-                release(null, null)
+                release(null, extractor)
                 return
             }
 
@@ -153,29 +171,25 @@ class HardDecoder(player: AnimPlayer) : Decoder(player), SurfaceTexture.OnFrameA
         try {
             val mime = format.getString(MediaFormat.KEY_MIME) ?: ""
             ALog.i(TAG, "Video MIME is $mime")
-            decoder = MediaCodec.createDecoderByType(mime).apply {
-                if (needYUV) {
-                    format.setInteger(
-                            MediaFormat.KEY_COLOR_FORMAT,
-                            MediaCodecInfo.CodecCapabilities.COLOR_FormatYUV420Planar
-                    )
-                    configure(format, null, null, 0)
-                } else {
-                    surface = Surface(glTexture)
-                    configure(format, surface, null, 0)
-                }
-
-                start()
-                decodeThread.handler?.post {
-                    try {
-                        startDecode(extractor, this)
-                    } catch (e: Throwable) {
-                        ALog.e(TAG, "MediaCodec exception e=$e", e)
-                        onFailed(Constant.REPORT_ERROR_TYPE_DECODE_EXC, "${Constant.ERROR_MSG_DECODE_EXC} e=$e")
-                        release(decoder, extractor)
-                    }
-                }
+            val codec = MediaCodec.createDecoderByType(mime)
+            decoder = codec // Own it before configure/start, either of which may throw.
+            if (needYUV) {
+                format.setInteger(MediaFormat.KEY_COLOR_FORMAT, MediaCodecInfo.CodecCapabilities.COLOR_FormatYUV420Planar)
+                codec.configure(format, null, null, 0)
+            } else {
+                surface = Surface(glTexture)
+                codec.configure(format, surface, null, 0)
             }
+            codec.start()
+            if (decodeThread.handler?.post {
+                try {
+                    startDecode(extractor, codec)
+                } catch (e: Throwable) {
+                    ALog.e(TAG, "MediaCodec exception", e)
+                    onFailed(Constant.REPORT_ERROR_TYPE_DECODE_EXC, "${Constant.ERROR_MSG_DECODE_EXC} e=$e")
+                    release(codec, extractor)
+                }
+            } != true) release(codec, extractor)
         } catch (e: Throwable) {
             ALog.e(TAG, "MediaCodec configure exception e=$e", e)
             onFailed(Constant.REPORT_ERROR_TYPE_DECODE_EXC, "${Constant.ERROR_MSG_DECODE_EXC} e=$e")
@@ -195,7 +209,7 @@ class HardDecoder(player: AnimPlayer) : Decoder(player), SurfaceTexture.OnFrameA
         val decoderInputBuffers = decoder.inputBuffers
 
         while (!outputDone) {
-            if (isStopReq) {
+            if (isStopReq || !player.isSessionActive(activeSessionId)) {
                 ALog.i(TAG, "stop decode")
                 release(decoder, extractor)
                 return
@@ -250,13 +264,17 @@ class HardDecoder(player: AnimPlayer) : Decoder(player), SurfaceTexture.OnFrameA
                     else -> {
                         var loop = 0
                         if (bufferInfo.flags and MediaCodec.BUFFER_FLAG_END_OF_STREAM != 0) {
-                            loop = --playLoop
-                            player.playLoop = playLoop // 消耗loop次数 自动恢复后能有正确的loop次数
-                            outputDone = playLoop <= 0
+                            loop = player.consumeVideoLoop(this)
+                            outputDone = loop <= 0
                         }
                         val doRender = !outputDone
                         if (doRender) {
-                            speedControlUtil.preRender(bufferInfo.presentationTimeUs)
+                            speedControlUtil.preRender(bufferInfo.presentationTimeUs) { isStopReq || !player.isSessionActive(activeSessionId) }
+                            if (isStopReq || !player.isSessionActive(activeSessionId)) {
+                                decoder.releaseOutputBuffer(decoderStatus, false)
+                                release(decoder, extractor)
+                                return
+                            }
                         }
 
                         if (needYUV && doRender) {
@@ -348,50 +366,66 @@ class HardDecoder(player: AnimPlayer) : Decoder(player), SurfaceTexture.OnFrameA
     }
 
     private fun release(decoder: MediaCodec?, extractor: MediaExtractor?) {
+        if (!releaseQueued.compareAndSet(false, true)) return
+        val id = activeSessionId
         renderThread.handler?.post {
-            render?.clearFrame()
-            try {
-                ALog.i(TAG, "release")
-                decoder?.apply {
-                    stop()
-                    release()
-                }
-                extractor?.release()
-                glTexture?.release()
-                glTexture = null
-                speedControlUtil.reset()
-                player.pluginManager.onRelease()
-                render?.releaseTexture()
-                surface?.release()
-                surface = null
-            } catch (e: Throwable) {
-                ALog.e(TAG, "release e=$e", e)
-            }
-            isRunning = false
-            onVideoComplete()
-            if (needDestroy) {
-                destroyInner()
-            }
+            ALog.i(TAG, "release session=$id")
+            safeCall("codec stop") { decoder?.stop() }
+            safeCall("codec release") { decoder?.release() }
+            safeCall("extractor release") { extractor?.release() }
+            safeCall("frame listener release") { glTexture?.setOnFrameAvailableListener(null) }
+            safeCall("decoder texture release") { glTexture?.release() }
+            glTexture = null
+            speedControlUtil.reset()
+            player.pluginManager.onRelease()
+            safeCall("render textures release") { render?.releaseTexture() }
+            safeCall("codec surface release") { surface?.release() }
+            surface = null
+            // The TextureView is removed at completion; release EGL before handing it back.
+            safeCall("render destroy") { render?.destroyRender() }
+            render = null
+            renderPending.set(false)
+            drainSurfaceReleases(markIdle = true)
+            destroyThread(id)
+            player.onPlaybackComplete(id, ::onVideoDestroy)
         }
     }
 
     override fun destroy() {
-        if (isRunning) {
-            needDestroy = true
-            stop()
-        } else {
-            destroyInner()
+        if (isRunning) stop() else destroyInner()
+    }
+
+    override fun releaseSurfaceWhenDone(release: (() -> Unit)?) {
+        if (release == null) return
+        synchronized(surfaceReleases) {
+            if (isRunning) {
+                surfaceReleases.add(release)
+                return
+            }
         }
+        // isRunning becomes false under this same lock only after GL has been destroyed.
+        // Execute directly: a detached decoder may be removing all queued thread messages.
+        safeCall("release SurfaceTexture", release)
+    }
+
+    private fun drainSurfaceReleases(markIdle: Boolean = false) {
+        val releases = synchronized(surfaceReleases) {
+            if (markIdle) isRunning = false
+            surfaceReleases.toList().also { surfaceReleases.clear() }
+        }
+        releases.forEach { safeCall("release SurfaceTexture", it) }
     }
 
     private fun destroyInner() {
-        ALog.i(TAG, "destroyInner")
-        renderThread.handler?.post {
+        val id = player.sessionId
+        val action = Runnable {
+            if (isRunning || player.sessionId != id) return@Runnable
             player.pluginManager.onDestroy()
-            render?.destroyRender()
+            safeCall("render destroy") { render?.destroyRender() }
             render = null
-            onVideoDestroy()
-            destroyThread()
+            drainSurfaceReleases()
+            destroyThread(id)
         }
+        renderThread.handler?.post(action)
     }
 }

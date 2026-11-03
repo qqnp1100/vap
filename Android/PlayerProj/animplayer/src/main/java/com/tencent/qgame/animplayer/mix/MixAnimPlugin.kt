@@ -28,6 +28,9 @@ import com.tencent.qgame.animplayer.inter.OnResourceClickListener
 import com.tencent.qgame.animplayer.plugin.IAnimPlugin
 import com.tencent.qgame.animplayer.util.ALog
 import com.tencent.qgame.animplayer.util.BitmapUtil
+import com.tencent.qgame.animplayer.util.safeCall
+import java.util.concurrent.atomic.AtomicBoolean
+import java.util.concurrent.atomic.AtomicLong
 
 class MixAnimPlugin(val player: AnimPlayer): IAnimPlugin {
 
@@ -35,54 +38,152 @@ class MixAnimPlugin(val player: AnimPlayer): IAnimPlugin {
         private const val TAG = "${Constant.TAG}.MixAnimPlugin"
     }
     var resourceRequest: IFetchResource? = null
+    private var resourceOwner: IFetchResource? = null
+    private val imagePlaceholders = HashSet<Src>()
     var resourceClickListener: OnResourceClickListener? = null
     var srcMap: SrcMap? = null
     var frameAll: FrameAll? = null
     var curFrameIndex = -1 // 当前帧
-    private var resultCbCount = 0 // 回调次数
     private var mixRender:MixRender? = null
     private val mixTouch by lazy { MixTouch(this) }
     var autoTxtColorFill = true // 是否启动自动文字填充 默认开启
 
-    // 同步锁
-    private val lock = Object()
-    private var forceStopLock = false
-
+    private val loadGeneration = AtomicLong()
+    @Volatile private var timeoutTask: Runnable? = null
+    private val pendingImageLock = Any()
+    private var resourceSession = 0L
+    private val pendingImages = HashSet<() -> Unit>()
+    /** Upper bound for application resource callbacks, including callbacks that never arrive. */
+    var resourceTimeoutMs = 10_000L
 
     override fun onConfigCreate(config: AnimConfig): Int {
-        if (!config.isMix) return Constant.OK
-        if (resourceRequest == null) {
-            ALog.e(TAG, "IFetchResource is empty")
-            // 没有设置IFetchResource 当成普通视频播放
-            return Constant.OK
-        }
-        // step 1 parse src
+        if (!config.isMix || resourceRequest == null) return Constant.OK
+        resourceOwner = resourceRequest
         parseSrc(config)
-
-        // step 2 parse frame
         parseFrame(config)
+        return Constant.OK
+    }
 
-        // step 3 fetch resource
-        fetchResourceSync()
-
-        // step 4 生成文字bitmap
-        val result = createBitmap()
-        if (!result) {
-            return Constant.REPORT_ERROR_TYPE_CONFIG_PLUGIN_MIX
+    /** Gather on the render handler without blocking it, so stop/destroy can always run. */
+    fun fetchResources(session: Long, complete: (Int) -> Unit) {
+        val request = resourceOwner
+        val sources = srcMap?.map?.values?.toList().orEmpty()
+        if (request == null || sources.isEmpty()) {
+            complete(Constant.OK)
+            return
         }
-
-        // step 5 check resource
-        ALog.i(TAG, "load resource $resultCbCount")
-        srcMap?.map?.values?.forEach {
-            if (it.bitmap == null) {
-                ALog.e(TAG, "missing src $it")
-                return Constant.REPORT_ERROR_TYPE_CONFIG_PLUGIN_MIX
-            } else if (it.bitmap?.config == Bitmap.Config.ALPHA_8) {
-                ALog.e(TAG, "src $it bitmap must not be ALPHA_8")
-                return Constant.REPORT_ERROR_TYPE_CONFIG_PLUGIN_MIX
+        val handler = player.decoder?.renderThread?.handler ?: return
+        val generation = synchronized(pendingImageLock) {
+            resourceSession = session
+            loadGeneration.incrementAndGet()
+        }
+        var remaining = sources.size
+        var finished = false
+        fun current() = generation == loadGeneration.get() && player.isSessionActive(session)
+        fun finish(result: Int) {
+            if (finished || !current()) return
+            finished = true
+            timeoutTask?.let { handler.removeCallbacks(it) }
+            timeoutTask = null
+            // Invalidate callbacks arriving after failure/timeout.
+            if (result != Constant.OK) cancelResourceRequests()
+            complete(result)
+        }
+        fun received(valid: Boolean) {
+            if (!current() || finished) return
+            if (!valid) {
+                finish(Constant.REPORT_ERROR_TYPE_CONFIG_PLUGIN_MIX)
+                return
+            }
+            remaining--
+            if (remaining == 0) {
+                val validBitmaps = createBitmap() && sources.all {
+                    it.bitmap != null && it.bitmap?.isRecycled == false && it.bitmap?.config != Bitmap.Config.ALPHA_8
+                }
+                finish(if (validBitmaps) Constant.OK else Constant.REPORT_ERROR_TYPE_CONFIG_PLUGIN_MIX)
             }
         }
-        return Constant.OK
+        timeoutTask = Runnable { finish(Constant.REPORT_ERROR_TYPE_CONFIG_PLUGIN_MIX) }.also {
+            handler.postDelayed(it, resourceTimeoutMs.coerceAtLeast(1L))
+        }
+        sources.forEach { src ->
+            if (!current() || finished) return@forEach
+            val once = AtomicBoolean()
+            val seenBitmaps = java.util.IdentityHashMap<Bitmap, Boolean>()
+            try {
+                when (src.srcType) {
+                    Src.SrcType.IMG -> request.fetchImage(Resource(src)) { bitmap ->
+                        // A duplicate carrying the same object must never recycle an accepted image.
+                        val firstObject = bitmap == null || synchronized(seenBitmaps) {
+                            seenBitmaps.put(bitmap, true) == null
+                        }
+                        if (!firstObject) return@fetchImage
+                        val first = once.compareAndSet(false, true)
+                        fun releaseUnused() {
+                            if (bitmap != null) safeCall("release late image") {
+                                request.releaseResource(listOf(Resource(src).apply { this.bitmap = bitmap }))
+                            }
+                        }
+                        val delivered = AtomicBoolean()
+                        lateinit var discard: () -> Unit
+                        discard = {
+                            if (delivered.compareAndSet(false, true)) {
+                                synchronized(pendingImageLock) { pendingImages.remove(discard) }
+                                releaseUnused()
+                            }
+                        }
+                        val enqueue = synchronized(pendingImageLock) {
+                            if (first && current()) {
+                                pendingImages.add(discard)
+                                true
+                            } else false
+                        }
+                        if (!enqueue) {
+                            discard()
+                        } else if (!handler.post {
+                            if (delivered.compareAndSet(false, true)) {
+                                synchronized(pendingImageLock) { pendingImages.remove(discard) }
+                                if (!current() || finished) {
+                                    releaseUnused()
+                                } else {
+                                    src.bitmap = bitmap
+                                    received(bitmap == null || !bitmap.isRecycled)
+                                }
+                            }
+                        }) {
+                            discard()
+                        }
+                    }
+                    Src.SrcType.TXT -> request.fetchText(Resource(src)) { text ->
+                        if (once.compareAndSet(false, true)) handler.post {
+                            if (current() && !finished) {
+                                src.txt = text ?: ""
+                                received(true)
+                            }
+                        }
+                    }
+                    else -> received(false)
+                }
+            } catch (error: Throwable) {
+                ALog.e(TAG, "fetch resource ${src.srcId}", error)
+                finish(Constant.REPORT_ERROR_TYPE_CONFIG_PLUGIN_MIX)
+            }
+        }
+    }
+
+    fun cancelResourceRequests(expectedSession: Long? = null) {
+        val timeout: Runnable?
+        val pending: List<() -> Unit>
+        synchronized(pendingImageLock) {
+            if (expectedSession != null && resourceSession != expectedSession) return
+            loadGeneration.incrementAndGet()
+            timeout = timeoutTask
+            timeoutTask = null
+            pending = pendingImages.toList()
+            pendingImages.clear()
+        }
+        timeout?.let { player.decoder?.renderThread?.handler?.removeCallbacks(it) }
+        pending.forEach { it() }
     }
 
     override fun onRenderCreate() {
@@ -118,7 +219,7 @@ class MixAnimPlugin(val player: AnimPlayer): IAnimPlugin {
         }
         mixTouch.onTouchEvent(ev)?.let {resource ->
             Handler(Looper.getMainLooper()).post {
-                resourceClickListener?.onClick(resource)
+                safeCall("onResourceClick") { resourceClickListener?.onClick(resource) }
             }
         }
         // 只要注册监听则拦截所有事件
@@ -126,24 +227,32 @@ class MixAnimPlugin(val player: AnimPlayer): IAnimPlugin {
     }
 
     private fun destroy() {
-        // 强制结束等待
-        forceStopLockThread()
-        if (player.configManager.config?.isMix == false) return
-        val resources = ArrayList<Resource>()
-        srcMap?.map?.values?.forEach {src ->
-            mixRender?.release(src.srcTextureId)
-            when(src.srcType) {
-                Src.SrcType.IMG -> resources.add(Resource(src))
-                Src.SrcType.TXT -> src.bitmap?.recycle()
-                else -> {}
-            }
-        }
-        resourceRequest?.releaseResource(resources)
-
-        // 清理
+        cancelResourceRequests()
+        val sources = srcMap?.map?.values?.toList().orEmpty()
+        val renderer = mixRender
+        val owner = resourceOwner
+        resourceOwner = null
+        srcMap = null
+        frameAll = null
+        mixRender = null
         curFrameIndex = -1
-        srcMap?.map?.clear()
-        frameAll?.map?.clear()
+        val resources = ArrayList<Resource>()
+        sources.forEach { src ->
+            safeCall("release mix texture") { renderer?.release(src.srcTextureId) }
+            src.srcTextureId = 0
+            when (src.srcType) {
+                Src.SrcType.IMG -> if (imagePlaceholders.remove(src)) {
+                    safeCall("release placeholder bitmap") { src.bitmap?.recycle() }
+                } else if (src.bitmap != null) resources.add(Resource(src))
+                Src.SrcType.TXT -> safeCall("release text bitmap") { src.bitmap?.recycle() }
+                else -> Unit
+            }
+            src.bitmap = null
+        }
+        renderer?.shader?.program?.let { program ->
+            safeCall("release mix shader") { android.opengl.GLES20.glDeleteProgram(program) }
+        }
+        if (resources.isNotEmpty()) safeCall("releaseResource") { owner?.releaseResource(resources) }
     }
 
     private fun parseSrc(config: AnimConfig) {
@@ -160,64 +269,14 @@ class MixAnimPlugin(val player: AnimPlayer): IAnimPlugin {
     }
 
 
-    private fun fetchResourceSync() {
-        synchronized(lock) {
-            forceStopLock = false // 开始时不会强制关闭
-        }
-        val time = SystemClock.elapsedRealtime()
-        val totalSrc = srcMap?.map?.size ?: 0
-        ALog.i(TAG, "load resource totalSrc = $totalSrc")
-
-        resultCbCount = 0
-        srcMap?.map?.values?.forEach {src ->
-            if (src.srcType == Src.SrcType.IMG) {
-                ALog.i(TAG, "fetch image ${src.srcId}")
-                resourceRequest?.fetchImage(Resource(src)) {
-                    src.bitmap = if (it == null) {
-                        ALog.e(TAG, "fetch image ${src.srcId} bitmap return null")
-                        BitmapUtil.createEmptyBitmap()
-                    } else it
-                    ALog.i(TAG, "fetch image ${src.srcId} finish bitmap is ${it?.hashCode()}")
-                    resultCall()
-                }
-            } else if (src.srcType == Src.SrcType.TXT) {
-                ALog.i(TAG, "fetch txt ${src.srcId}")
-                resourceRequest?.fetchText(Resource(src)) {
-                    src.txt = it ?: ""
-                    ALog.i(TAG, "fetch text ${src.srcId} finish txt is $it")
-                    resultCall()
-                }
-            }
-        }
-
-        // 同步等待所有资源完成
-        synchronized(lock) {
-            while (resultCbCount < totalSrc && !forceStopLock) {
-                lock.wait()
-            }
-        }
-        ALog.i(TAG, "fetchResourceSync cost=${SystemClock.elapsedRealtime() - time}ms")
-    }
-
-    private fun forceStopLockThread() {
-        synchronized(lock) {
-            forceStopLock = true
-            lock.notifyAll()
-        }
-    }
-
-    private fun resultCall() {
-        synchronized(lock) {
-            resultCbCount++
-            lock.notifyAll()
-        }
-    }
-
     private fun createBitmap(): Boolean {
         return try {
             srcMap?.map?.values?.forEach { src ->
                 if (src.srcType == Src.SrcType.TXT) {
                     src.bitmap = BitmapUtil.createTxtBitmap(src)
+                } else if (src.srcType == Src.SrcType.IMG && src.bitmap == null) {
+                    imagePlaceholders.add(src)
+                    src.bitmap = BitmapUtil.createEmptyBitmap()
                 }
             }
             true

@@ -22,6 +22,7 @@ import com.tencent.qgame.animplayer.Constant
 import com.tencent.qgame.animplayer.mask.MaskAnimPlugin
 import com.tencent.qgame.animplayer.mix.MixAnimPlugin
 import com.tencent.qgame.animplayer.util.ALog
+import com.tencent.qgame.animplayer.util.safeCall
 
 /**
  * 动画插件管理
@@ -107,14 +108,14 @@ class AnimPluginManager(val player: AnimPlayer) {
     fun onRelease() {
         ALog.i(TAG, "onRelease")
         plugins.forEach {
-            it.onRelease()
+            safeCall("plugin onRelease") { it.onRelease() }
         }
     }
 
     fun onDestroy() {
         ALog.i(TAG, "onDestroy")
         plugins.forEach {
-            it.onDestroy()
+            safeCall("plugin onDestroy") { it.onDestroy() }
         }
     }
 

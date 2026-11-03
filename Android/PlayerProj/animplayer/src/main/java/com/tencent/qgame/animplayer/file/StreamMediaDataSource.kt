@@ -26,24 +26,15 @@ class StreamMediaDataSource(val bytes: ByteArray) : MediaDataSource() {
     }
 
     override fun readAt(position: Long, buffer: ByteArray, offset: Int, size: Int): Int {
-        var newSize = size
-        synchronized(StreamMediaDataSource::class) {
-            val length = bytes.size
-            if (position >= length) {
-                return -1
-            }
-            if (position + newSize > length) {
-                newSize -= (position + newSize).toInt() - length
-            }
-            System.arraycopy(bytes, position.toInt(), buffer, offset, newSize)
-            return newSize
-        }
-
+        require(position >= 0 && offset >= 0 && size >= 0 && offset <= buffer.size && size <= buffer.size - offset)
+        if (size == 0) return 0
+        if (position >= bytes.size) return -1
+        val count = minOf(size.toLong(), bytes.size.toLong() - position).toInt()
+        System.arraycopy(bytes, position.toInt(), buffer, offset, count)
+        return count
     }
 
     override fun getSize(): Long {
-        synchronized(StreamMediaDataSource::class) {
-            return bytes.size.toLong()
-        }
+        return bytes.size.toLong()
     }
 }

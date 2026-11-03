@@ -30,11 +30,10 @@ class SpeedControlUtil {
     private var loopReset = true
 
     fun setFixedPlaybackRate(fps: Int) {
-        if (fps <=0) return
-        fixedFrameDurationUsec = ONE_MILLION / fps
+        fixedFrameDurationUsec = if (fps > 0) ONE_MILLION / fps else 0
     }
 
-    fun preRender(presentationTimeUsec: Long) {
+    fun preRender(presentationTimeUsec: Long, cancelled: () -> Boolean = { false }) {
         if (prevMonoUsec == 0L) {
             prevMonoUsec = System.nanoTime() / 1000
             prevPresentUsec = presentationTimeUsec
@@ -57,14 +56,16 @@ class SpeedControlUtil {
             val desiredUsec = prevMonoUsec + frameDelta
             var nowUsec = System.nanoTime() / 1000
             while (nowUsec < desiredUsec - 100 ) {
+                if (cancelled()) return
                 var sleepTimeUsec = desiredUsec - nowUsec
-                if (sleepTimeUsec > 500000) {
-                    sleepTimeUsec = 500000
+                if (sleepTimeUsec > 10000) {
+                    sleepTimeUsec = 10000
                 }
                 try {
                     Thread.sleep(sleepTimeUsec / 1000, (sleepTimeUsec % 1000).toInt() * 1000)
                 } catch (e: InterruptedException) {
-                    ALog.e(TAG, "e=$e", e)
+                    Thread.currentThread().interrupt()
+                    return
                 }
                 nowUsec = System.nanoTime() / 1000
             }
@@ -77,5 +78,6 @@ class SpeedControlUtil {
     fun reset() {
         prevPresentUsec = 0
         prevMonoUsec = 0
+        loopReset = true
     }
 }
