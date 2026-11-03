@@ -10,9 +10,9 @@ if (localPropertiesText != null) {
 
 def centralGroup = 'io.github.qqnp1100'
 def centralArtifact = 'vap'
-def centralVersion = providers.gradleProperty('vapPublishingVersion').orElse('2.0.29').get()
+def centralVersion = providers.gradleProperty('vapPublishingVersion').orElse('2.0.30').get()
 if (!(centralVersion ==~ /[0-9]+\.[0-9]+\.[0-9]+/)) {
-    throw new GradleException('vapPublishingVersion must be a release version such as 2.0.29.')
+    throw new GradleException('vapPublishingVersion must be a release version such as 2.0.30.')
 }
 
 def scmUrl = 'https://github.com/qqnp1100/vap'
