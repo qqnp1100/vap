@@ -1,0 +1,260 @@
+
+=== surface ===
+--------- beginning of main
+11-03 18:50:50.166  8773  8773 I VAP-Compose-Demo: M2 SUITE STARTED scenario=surface cycles=40
+11-03 18:50:50.232  8773  8773 I VAP-Compose-Demo: M2 first-frame starts=1
+11-03 18:50:51.912  8773  8773 I VAP-Compose-Demo: M2 PASS recompose=100 resize=2 transform=1 starts=1
+11-03 18:50:51.927  8773  8773 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=1967
+11-03 18:50:52.145  8773  8773 I VAP-Compose-Demo: M2 first-frame starts=2
+11-03 18:50:52.158  8773  8773 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=366
+11-03 18:50:52.351  8773  8773 I VAP-Compose-Demo: M2 first-frame starts=3
+11-03 18:50:52.356  8773  8773 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=308
+11-03 18:50:52.570  8773  8773 I VAP-Compose-Demo: M2 first-frame starts=4
+11-03 18:50:52.591  8773  8773 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=310
+11-03 18:50:52.783  8773  8773 I VAP-Compose-Demo: M2 first-frame starts=5
+11-03 18:50:52.791  8773  8773 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=312
+11-03 18:50:52.998  8773  8773 I VAP-Compose-Demo: M2 first-frame starts=6
+11-03 18:50:53.006  8773  8773 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=255
+11-03 18:50:53.224  8773  8773 I VAP-Compose-Demo: M2 first-frame starts=7
+11-03 18:50:53.241  8773  8773 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=361
+11-03 18:50:53.437  8773  8773 I VAP-Compose-Demo: M2 first-frame starts=8
+11-03 18:50:53.457  8773  8773 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=377
+11-03 18:50:53.644  8773  8773 I VAP-Compose-Demo: M2 first-frame starts=9
+11-03 18:50:53.656  8773  8773 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=300
+11-03 18:50:53.851  8773  8773 I VAP-Compose-Demo: M2 first-frame starts=10
+11-03 18:50:53.856  8773  8773 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=307
+11-03 18:50:54.071  8773  8773 I VAP-Compose-Demo: M2 first-frame starts=11
+11-03 18:50:54.089  8773  8773 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=390
+11-03 18:50:54.286  8773  8773 I VAP-Compose-Demo: M2 first-frame starts=12
+11-03 18:50:54.305  8773  8773 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=307
+11-03 18:50:54.488  8773  8773 I VAP-Compose-Demo: M2 first-frame starts=13
+11-03 18:50:54.505  8773  8773 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=424
+11-03 18:50:54.673  8773  8773 I VAP-Compose-Demo: M2 first-frame starts=14
+11-03 18:50:54.685  8773  8773 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=270
+11-03 18:50:54.875  8773  8773 I VAP-Compose-Demo: M2 first-frame starts=15
+11-03 18:50:54.887  8773  8773 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=334
+11-03 18:50:55.079  8773  8773 I VAP-Compose-Demo: M2 first-frame starts=16
+11-03 18:50:55.087  8773  8773 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=325
+11-03 18:50:55.301  8773  8773 I VAP-Compose-Demo: M2 first-frame starts=17
+11-03 18:50:55.319  8773  8773 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=324
+11-03 18:50:55.512  8773  8773 I VAP-Compose-Demo: M2 first-frame starts=18
+11-03 18:50:55.517  8773  8773 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=239
+11-03 18:50:55.731  8773  8773 I VAP-Compose-Demo: M2 first-frame starts=19
+11-03 18:50:55.736  8773  8773 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=268
+11-03 18:50:55.947  8773  8773 I VAP-Compose-Demo: M2 first-frame starts=20
+11-03 18:50:55.952  8773  8773 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=211
+11-03 18:50:56.158  8773  8773 I VAP-Compose-Demo: M2 first-frame starts=21
+11-03 18:50:56.167  8773  8773 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=283
+11-03 18:50:56.367  8773  8773 I VAP-Compose-Demo: M2 first-frame starts=22
+11-03 18:50:56.384  8773  8773 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=372
+11-03 18:50:56.574  8773  8773 I VAP-Compose-Demo: M2 first-frame starts=23
+11-03 18:50:56.583  8773  8773 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=429
+11-03 18:50:56.800  8773  8773 I VAP-Compose-Demo: M2 first-frame starts=24
+11-03 18:50:56.817  8773  8773 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=421
+11-03 18:50:57.018  8773  8773 I VAP-Compose-Demo: M2 first-frame starts=25
+11-03 18:50:57.033  8773  8773 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=296
+11-03 18:50:57.222  8773  8773 I VAP-Compose-Demo: M2 first-frame starts=26
+11-03 18:50:57.233  8773  8773 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=391
+11-03 18:50:57.434  8773  8773 I VAP-Compose-Demo: M2 first-frame starts=27
+11-03 18:50:57.449  8773  8773 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=340
+11-03 18:50:57.651  8773  8773 I VAP-Compose-Demo: M2 first-frame starts=28
+11-03 18:50:57.665  8773  8773 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=357
+11-03 18:50:57.858  8773  8773 I VAP-Compose-Demo: M2 first-frame starts=29
+11-03 18:50:57.864  8773  8773 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=293
+11-03 18:50:58.079  8773  8773 I VAP-Compose-Demo: M2 first-frame starts=30
+11-03 18:50:58.098  8773  8773 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=465
+11-03 18:50:58.295  8773  8773 I VAP-Compose-Demo: M2 first-frame starts=31
+11-03 18:50:58.314  8773  8773 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=335
+11-03 18:50:58.506  8773  8773 I VAP-Compose-Demo: M2 first-frame starts=32
+11-03 18:50:58.512  8773  8773 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=313
+11-03 18:50:58.729  8773  8773 I VAP-Compose-Demo: M2 first-frame starts=33
+11-03 18:50:58.747  8773  8773 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=377
+11-03 18:50:58.939  8773  8773 I VAP-Compose-Demo: M2 first-frame starts=34
+11-03 18:50:58.945  8773  8773 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=284
+11-03 18:50:59.164  8773  8773 I VAP-Compose-Demo: M2 first-frame starts=35
+11-03 18:50:59.179  8773  8773 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=312
+11-03 18:50:59.373  8773  8773 I VAP-Compose-Demo: M2 first-frame starts=36
+11-03 18:50:59.378  8773  8773 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=273
+11-03 18:50:59.588  8773  8773 I VAP-Compose-Demo: M2 first-frame starts=37
+11-03 18:50:59.594  8773  8773 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=274
+11-03 18:50:59.810  8773  8773 I VAP-Compose-Demo: M2 first-frame starts=38
+11-03 18:50:59.828  8773  8773 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=425
+11-03 18:51:00.028  8773  8773 I VAP-Compose-Demo: M2 first-frame starts=39
+11-03 18:51:00.044  8773  8773 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=359
+11-03 18:51:00.243  8773  8773 I VAP-Compose-Demo: M2 first-frame starts=40
+11-03 18:51:00.260  8773  8773 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=311
+11-03 18:51:00.470  8773  8773 I VAP-Compose-Demo: M2 first-frame starts=41
+11-03 18:51:00.472  8773  8773 I VAP-Compose-Demo: M2 PASS surface-recreate cycles=40 starts=41
+11-03 18:51:00.475  8773  8773 I VapComposeSurface: detach reason=request elapsedUs=246
+11-03 18:51:00.549  8773  8773 I VAP-Compose-Demo: M2 first-frame starts=42
+11-03 18:51:03.784  8773  8773 I VAP-Compose-Demo: M2 completed completes=1
+11-03 18:51:03.785  8773  8773 I VAP-Compose-Demo: M2 SUITE PASSED cycles=40 starts=42 completes=1 failures=0
+
+=== lifecycle ===
+--------- beginning of main
+11-03 18:51:04.474  9069  9069 I VAP-Compose-Demo: M2 SUITE STARTED scenario=lifecycle cycles=40
+11-03 18:51:04.536  9069  9069 I VAP-Compose-Demo: M2 first-frame starts=1
+11-03 18:51:08.666  9069  9069 I VapComposeSurface: detach reason=host-inactive elapsedUs=650
+11-03 18:51:08.668  9069  9069 I VAP-Compose-Demo: M3 lifecycle suspended requestId=1 completed=1
+11-03 18:51:08.829  9069  9069 I VAP-Compose-Demo: M2 first-frame starts=2
+11-03 18:51:12.070  9069  9069 I VAP-Compose-Demo: M2 completed completes=1
+11-03 18:51:12.071  9069  9069 I VAP-Compose-Demo: M3 SUITE PASSED scenario=lifecycle requestId=1 completed=2 starts=2
+
+=== controls ===
+--------- beginning of main
+11-03 18:51:12.783 11229 11229 I VAP-Compose-Demo: M2 SUITE STARTED scenario=controls cycles=40
+11-03 18:51:12.844 11229 11229 I VAP-Compose-Demo: M2 first-frame starts=1
+11-03 18:51:19.818 11229 11229 I VAP-Compose-Demo: M2 completed completes=1
+11-03 18:51:19.842 11229 11229 I VapComposeSurface: detach reason=request elapsedUs=25
+11-03 18:51:19.941 11229 11229 I VAP-Compose-Demo: M2 first-frame starts=2
+11-03 18:51:26.353 11229 11229 I VAP-Compose-Demo: M3 SUITE PASSED scenario=controls pause=1 maskChanges=2 finite=2 infiniteObserved=2
+11-03 18:51:26.364 11229 11229 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=788
+
+=== mask ===
+--------- beginning of main
+11-03 18:51:27.095 12497 12497 I VAP-Compose-Demo: M2 SUITE STARTED scenario=mask cycles=40
+11-03 18:51:27.156 12497 12497 I VAP-Compose-Demo: M2 first-frame starts=1
+11-03 18:51:28.070 12497 12497 I VAP-Compose-Demo: M3 mask screenshot=reference
+11-03 18:51:29.972 12497 12497 I VAP-Compose-Demo: M3 mask screenshot=applied
+11-03 18:51:31.874 12497 12497 I VAP-Compose-Demo: M3 mask screenshot=removed
+11-03 18:51:33.576 12497 12497 I VAP-Compose-Demo: M3 SUITE PASSED scenario=mask paused=true
+
+=== vapx ===
+--------- beginning of main
+11-03 18:51:34.373 12909 12909 I VAP-Compose-Demo: M2 SUITE STARTED scenario=vapx cycles=40
+11-03 18:51:34.459 12909 13327 I VapSurfaceAudio: Extractor selected track 1 (audio/mp4a-latm): {max-bitrate=112000, sample-rate=44100, track-id=2, mime=audio/mp4a-latm, profile=2, bitrate=110862, language=und, aac-profile=2, encoder-delay=1024, durationUs=11988000, channel-count=1, encoder-padding=4, max-input-size=557, csd-0=java.nio.HeapByteBuffer[pos=0 lim=5 cap=5]}
+11-03 18:51:34.466 12909 13350 I VapSurfaceAudio: Extractor selected track 1 (audio/mp4a-latm): {max-bitrate=112000, sample-rate=44100, track-id=2, mime=audio/mp4a-latm, profile=2, bitrate=110862, language=und, aac-profile=2, encoder-delay=1024, durationUs=11988000, channel-count=1, encoder-padding=4, max-input-size=557, csd-0=java.nio.HeapByteBuffer[pos=0 lim=5 cap=5]}
+11-03 18:51:34.477 12909 12909 I VAP-Compose-Demo: M2 first-frame starts=1
+11-03 18:51:34.496 12909 13350 I VapSurfaceAudio: supportType=[audio/mihc, audio/aivc, audio/vorbis, video/x-vnd.on2.vp8, audio/raw, video/x-vnd.on2.vp9, audio/eac3, audio/g711-mlaw, video/mp4v-es, audio/aihc, video/avc, video/hevc, audio/mp4a-latm, audio/iamf, video/3gpp, audio/opus, video/av01, audio/flac, audio/mpeg, video/apv, audio/amr-wb, audio/g711-alaw, audio/3gpp, audio/eac3-joc, video/dolby-vision, audio/ac3, audio/ac4]
+11-03 18:51:34.602 12909 13350 I VapSurfaceAudio: AudioTrack first PCM write
+11-03 18:51:42.799 12909 12909 I VAP-Compose-Demo: M3 resource-click sourceId=2 tag=[sImg1]
+11-03 18:51:42.917 12909 12909 I VAP-Compose-Demo: M3 resource-click sourceId=1 tag=[sTxt1]
+11-03 18:51:43.031 12909 12909 I VAP-Compose-Demo: M3 resource-click sourceId=2 tag=[sImg1]
+11-03 18:51:47.118 12909 13325 I VapSurfaceAudio: destroyThread
+11-03 18:51:47.121 12909 12909 I VAP-Compose-Demo: M2 completed completes=1
+11-03 18:51:47.123 12909 12909 I VAP-Compose-Demo: M3 SUITE PASSED scenario=vapx images=1 texts=1 releases=1
+
+=== uri ===
+--------- beginning of main
+11-03 18:51:47.764 13183 13183 I VAP-Compose-Demo: M2 SUITE STARTED scenario=uri cycles=40
+11-03 18:51:47.828 13183 13183 I VAP-Compose-Demo: M2 first-frame starts=1
+11-03 18:51:51.065 13183 13183 I VAP-Compose-Demo: M2 completed completes=1
+11-03 18:51:51.089 13183 13183 I VapComposeSurface: detach reason=request elapsedUs=22
+11-03 18:51:51.104 13183 13183 E VAP-Compose-Demo: Playback failed failures=1 kind=SourceNotSeekable stage=Source
+11-03 18:51:51.104 13183 13183 E VAP-Compose-Demo: com.tencent.qgame.vap.core.spi.SourceNotSeekableException: The VAP source does not support random access: content://com.tencent.qgame.vap.compose.demo.samples/pipe
+11-03 18:51:51.104 13183 13183 E VAP-Compose-Demo: 	at com.tencent.qgame.vap.core.spi.UriMediaInput.descriptorLength(UriMediaInput.kt:93)
+11-03 18:51:51.104 13183 13183 E VAP-Compose-Demo: 	at com.tencent.qgame.vap.core.spi.UriMediaInput.startRandomRead(UriMediaInput.kt:44)
+11-03 18:51:51.104 13183 13183 E VAP-Compose-Demo: 	at com.tencent.qgame.vap.core.internal.config.VapcBoxReader.read(VapcBoxReader.kt:16)
+11-03 18:51:51.104 13183 13183 E VAP-Compose-Demo: 	at com.tencent.qgame.vap.core.spi.VapConfigInputKt.readVapConfig(VapConfigInput.kt:24)
+11-03 18:51:51.104 13183 13183 E VAP-Compose-Demo: 	at com.tencent.qgame.vap.core.internal.engine.SurfacePlaybackController$Session.prepare(SurfacePlaybackController.kt:228)
+11-03 18:51:51.104 13183 13183 E VAP-Compose-Demo: 	at com.tencent.qgame.vap.core.internal.engine.SurfacePlaybackController$Session.access$prepare(SurfacePlaybackController.kt:131)
+11-03 18:51:51.104 13183 13183 E VAP-Compose-Demo: 	at com.tencent.qgame.vap.core.internal.engine.SurfacePlaybackController$Session$startDecodeWorker$worker$1.onLooperPrepared(SurfacePlaybackController.kt:208)
+11-03 18:51:51.104 13183 13183 E VAP-Compose-Demo: 	at android.os.HandlerThread.run(HandlerThread.java:138)
+11-03 18:51:51.104 13183 13183 E VAP-Compose-Demo: Caused by: android.system.ErrnoException: lseek failed: ESPIPE (Illegal seek)
+11-03 18:51:51.104 13183 13183 E VAP-Compose-Demo: 	at libcore.io.Linux.lseek(Native Method)
+11-03 18:51:51.104 13183 13183 E VAP-Compose-Demo: 	at libcore.io.ForwardingOs.lseek(ForwardingOs.java:480)
+11-03 18:51:51.104 13183 13183 E VAP-Compose-Demo: 	at libcore.io.BlockGuardOs.lseek(BlockGuardOs.java:243)
+11-03 18:51:51.104 13183 13183 E VAP-Compose-Demo: 	at libcore.io.ForwardingOs.lseek(ForwardingOs.java:480)
+11-03 18:51:51.104 13183 13183 E VAP-Compose-Demo: 	at android.system.Os.lseek(Os.java:463)
+11-03 18:51:51.104 13183 13183 E VAP-Compose-Demo: 	at com.tencent.qgame.vap.core.spi.UriMediaInput.descriptorLength(UriMediaInput.kt:86)
+11-03 18:51:51.104 13183 13183 E VAP-Compose-Demo: 	... 7 more
+11-03 18:51:51.105 13183 13183 I VAP-Compose-Demo: M3 SUITE PASSED scenario=uri seekable=1 nonSeekableRejected=1
+
+=== legacy ===
+--------- beginning of main
+11-03 18:51:51.725 13409 13409 I VAP-Compose-Demo: M2 SUITE STARTED scenario=legacy cycles=40
+11-03 18:51:51.726 13409 13409 E VAP-Compose-Demo: Playback failed failures=1 kind=InvalidVapConfig stage=Config
+11-03 18:51:51.726 13409 13409 E VAP-Compose-Demo: java.lang.IllegalArgumentException: Playback requires a VAP v2 vapc box
+11-03 18:51:51.726 13409 13409 E VAP-Compose-Demo: 	at com.tencent.qgame.vap.core.internal.engine.SurfacePlaybackController$Session.prepare(SurfacePlaybackController.kt:228)
+11-03 18:51:51.726 13409 13409 E VAP-Compose-Demo: 	at com.tencent.qgame.vap.core.internal.engine.SurfacePlaybackController$Session.access$prepare(SurfacePlaybackController.kt:131)
+11-03 18:51:51.726 13409 13409 E VAP-Compose-Demo: 	at com.tencent.qgame.vap.core.internal.engine.SurfacePlaybackController$Session$startDecodeWorker$worker$1.onLooperPrepared(SurfacePlaybackController.kt:208)
+11-03 18:51:51.726 13409 13409 E VAP-Compose-Demo: 	at android.os.HandlerThread.run(HandlerThread.java:138)
+11-03 18:51:51.727 13409 13409 I VAP-Compose-Demo: M2 SUITE PASSED scenario=legacy starts=0 completes=0 failures=1
+
+=== invalid-request ===
+--------- beginning of main
+11-03 18:51:52.587 13645 13645 E VAP-Compose-Demo: Playback failed failures=1 kind=InvalidRequest stage=Request
+11-03 18:51:52.587 13645 13645 E VAP-Compose-Demo: java.lang.IllegalArgumentException: iterations must be positive or -1
+11-03 18:51:52.587 13645 13645 E VAP-Compose-Demo: 	at com.tencent.qgame.vap.compose.SurfaceHost.updateRequest(SurfaceHost.kt:101)
+11-03 18:51:52.587 13645 13645 E VAP-Compose-Demo: 	at com.tencent.qgame.vap.compose.VapAnimationKt.VapAnimation$lambda$4$0(VapAnimation.kt:85)
+11-03 18:51:52.587 13645 13645 E VAP-Compose-Demo: 	at com.tencent.qgame.vap.compose.VapAnimationKt.$r8$lambda$HNv_sgy2Af7NQgKFUIfMUHQsLZA(VapAnimation.kt:0)
+11-03 18:51:52.587 13645 13645 E VAP-Compose-Demo: 	at com.tencent.qgame.vap.compose.VapAnimationKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+11-03 18:51:52.587 13645 13645 E VAP-Compose-Demo: 	at androidx.compose.runtime.internal.RememberEventDispatcher.dispatchSideEffects(RememberEventDispatcher.kt:260)
+11-03 18:51:52.587 13645 13645 E VAP-Compose-Demo: 	at androidx.compose.runtime.CompositionImpl.applyChangesInLocked(Composition.kt:1124)
+11-03 18:51:52.587 13645 13645 E VAP-Compose-Demo: 	at androidx.compose.runtime.CompositionImpl.applyChanges(Composition.kt:1150)
+11-03 18:51:52.587 13645 13645 E VAP-Compose-Demo: 	at androidx.compose.runtime.Recomposer.composeInitial$runtime(Recomposer.kt:1266)
+11-03 18:51:52.587 13645 13645 E VAP-Compose-Demo: 	at androidx.compose.runtime.CompositionImpl.composeInitial(Composition.kt:672)
+11-03 18:51:52.587 13645 13645 E VAP-Compose-Demo: 	at androidx.compose.runtime.CompositionImpl.setContent(Composition.kt:639)
+11-03 18:51:52.587 13645 13645 E VAP-Compose-Demo: 	at androidx.compose.ui.platform.WrappedComposition$setContent$1.invoke(Wrapper.android.kt:123)
+11-03 18:51:52.587 13645 13645 E VAP-Compose-Demo: 	at androidx.compose.ui.platform.WrappedComposition$setContent$1.invoke(Wrapper.android.kt:114)
+11-03 18:51:52.587 13645 13645 E VAP-Compose-Demo: 	at androidx.compose.ui.platform.AndroidComposeView.setOnViewTreeOwnersAvailable(AndroidComposeView.android.kt:1990)
+11-03 18:51:52.587 13645 13645 E VAP-Compose-Demo: 	at androidx.compose.ui.platform.WrappedComposition.setContent(Wrapper.android.kt:114)
+11-03 18:51:52.587 13645 13645 E VAP-Compose-Demo: 	at androidx.compose.ui.platform.WrappedComposition.onStateChanged(Wrapper.android.kt:168)
+11-03 18:51:52.587 13645 13645 E VAP-Compose-Demo: 	at androidx.lifecycle.LifecycleRegistry$ObserverWithState.dispatchEvent(LifecycleRegistry.jvm.kt:313)
+11-03 18:51:52.587 13645 13645 E VAP-Compose-Demo: 	at androidx.lifecycle.LifecycleRegistry.addObserver(LifecycleRegistry.jvm.kt:191)
+11-03 18:51:52.587 13645 13645 E VAP-Compose-Demo: 	at androidx.compose.ui.platform.WrappedComposition$setContent$1.invoke(Wrapper.android.kt:121)
+11-03 18:51:52.587 13645 13645 E VAP-Compose-Demo: 	at androidx.compose.ui.platform.WrappedComposition$setContent$1.invoke(Wrapper.android.kt:114)
+11-03 18:51:52.587 13645 13645 E VAP-Compose-Demo: 	at androidx.compose.ui.platform.AndroidComposeView.onAttachedToWindow(AndroidComposeView.android.kt:2077)
+11-03 18:51:52.587 13645 13645 E VAP-Compose-Demo: 	at android.view.View.dispatchAttachedToWindow(View.java:24321)
+11-03 18:51:52.587 13645 13645 E VAP-Compose-Demo: 	at android.view.ViewGroup.dispatchAttachedToWindow(ViewGroup.java:3658)
+11-03 18:51:52.587 13645 13645 E VAP-Compose-Demo: 	at android.view.ViewGroup.dispatchAttachedToWindow(ViewGroup.java:3665)
+11-03 18:51:52.587 13645 13645 E VAP-Compose-Demo: 	at android.view.ViewGroup.dispatchAttachedToWindow(ViewGroup.java:3665)
+11-03 18:51:52.587 13645 13645 E VAP-Compose-Demo: 	at android.view.ViewGroup.dispatchAttachedToWindow(ViewGroup.java:3665)
+11-03 18:51:52.587 13645 13645 E VAP-Compose-Demo: 	at android.view.ViewGroup.dispatchAttachedToWindow(ViewGroup.java:3665)
+11-03 18:51:52.587 13645 13645 E VAP-Compose-Demo: 	at android.view.ViewRootImpl.performTraversals(ViewRootImpl.java:5079)
+11-03 18:51:52.587 13645 13645 E VAP-Compose-Demo: 	at android.view.ViewRootImpl.doTraversal(ViewRootImpl.java:4270)
+11-03 18:51:52.587 13645 13645 E VAP-Compose-Demo: 	at android.view.ViewRootImpl$TraversalCallback.onVsync(ViewRootImpl.java:13498)
+11-03 18:51:52.587 13645 13645 E VAP-Compose-Demo: 	at android.view.Choreographer$CallbackRecord.run(Choreographer.java:2264)
+11-03 18:51:52.587 13645 13645 E VAP-Compose-Demo: 	at android.view.Choreographer.doCallbacks(Choreographer.java:1700)
+11-03 18:51:52.587 13645 13645 E VAP-Compose-Demo: 	at android.view.Choreographer.doFrame(Choreographer.java:1590)
+11-03 18:51:52.587 13645 13645 E VAP-Compose-Demo: 	at android.view.Choreographer$FrameHandler.handleMessage(Choreographer.java:2050)
+11-03 18:51:52.587 13645 13645 E VAP-Compose-Demo: 	at android.os.Handler.dispatchMessageImpl(Handler.java:146)
+11-03 18:51:52.587 13645 13645 E VAP-Compose-Demo: 	at android.os.Handler.dispatchMessage(Handler.java:129)
+11-03 18:51:52.587 13645 13645 E VAP-Compose-Demo: 	at android.os.Looper.loopOnce(Looper.java:315)
+11-03 18:51:52.587 13645 13645 E VAP-Compose-Demo: 	at android.os.Looper.loop(Looper.java:419)
+11-03 18:51:52.587 13645 13645 E VAP-Compose-Demo: 	at android.app.ActivityThread.main(ActivityThread.java:10847)
+11-03 18:51:52.587 13645 13645 E VAP-Compose-Demo: 	at java.lang.reflect.Method.invoke(Native Method)
+11-03 18:51:52.587 13645 13645 E VAP-Compose-Demo: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:598)
+11-03 18:51:52.587 13645 13645 E VAP-Compose-Demo: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:1150)
+11-03 18:51:52.614 13645 13645 I VAP-Compose-Demo: M2 SUITE STARTED scenario=invalid-request cycles=40
+11-03 18:51:52.614 13645 13645 I VAP-Compose-Demo: M3 SUITE PASSED scenario=invalid-request kind=InvalidRequest stage=Request cancellations=0
+
+=== resource-timeout ===
+--------- beginning of main
+11-03 18:51:53.503 13835 13835 I VAP-Compose-Demo: M2 SUITE STARTED scenario=resource-timeout cycles=40
+11-03 18:52:03.541 13835 13835 E VAP-Compose-Demo: Playback failed failures=1 kind=ResourceTimeout stage=Resource
+11-03 18:52:03.541 13835 13835 E VAP-Compose-Demo: java.util.concurrent.TimeoutException: VAPX resource loading exceeded 10000ms
+11-03 18:52:03.541 13835 13835 E VAP-Compose-Demo: 	at com.tencent.qgame.vap.core.spi.MixResourceLoader.load$lambda$2$0(MixResourceLoader.kt:116)
+11-03 18:52:03.541 13835 13835 E VAP-Compose-Demo: 	at com.tencent.qgame.vap.core.spi.MixResourceLoader.$r8$lambda$fEJYJ7IMCKoMYEW8-3iZsRU3Gxc(MixResourceLoader.kt:0)
+11-03 18:52:03.541 13835 13835 E VAP-Compose-Demo: 	at com.tencent.qgame.vap.core.spi.MixResourceLoader$$ExternalSyntheticLambda3.run(D8$$SyntheticClass:0)
+11-03 18:52:03.541 13835 13835 E VAP-Compose-Demo: 	at android.os.Handler.handleCallback(Handler.java:1129)
+11-03 18:52:03.541 13835 13835 E VAP-Compose-Demo: 	at android.os.Handler.dispatchMessageImpl(Handler.java:139)
+11-03 18:52:03.541 13835 13835 E VAP-Compose-Demo: 	at android.os.Handler.dispatchMessage(Handler.java:129)
+11-03 18:52:03.541 13835 13835 E VAP-Compose-Demo: 	at android.os.Looper.loopOnce(Looper.java:315)
+11-03 18:52:03.541 13835 13835 E VAP-Compose-Demo: 	at android.os.Looper.loop(Looper.java:419)
+11-03 18:52:03.541 13835 13835 E VAP-Compose-Demo: 	at android.os.HandlerThread.run(HandlerThread.java:139)
+11-03 18:52:03.641 13835 13835 I VAP-Compose-Demo: M3 SUITE PASSED scenario=resource-timeout kind=ResourceTimeout stage=Resource cancellations=1
+
+=== audio-short ===
+--------- beginning of main
+11-03 18:52:04.423 13950 13950 I VAP-Compose-Demo: M2 SUITE STARTED scenario=audio-short cycles=40
+11-03 18:52:04.494 13950 14216 I VapSurfaceAudio: Extractor selected track 1 (audio/mp4a-latm): {max-bitrate=113764, sample-rate=44100, track-id=2, mime=audio/mp4a-latm, profile=2, bitrate=113764, language=und, aac-profile=2, encoder-delay=1024, durationUs=1022000, channel-count=1, encoder-padding=30, max-input-size=557, csd-0=java.nio.HeapByteBuffer[pos=0 lim=5 cap=5]}
+11-03 18:52:04.496 13950 13950 I VAP-Compose-Demo: M2 first-frame starts=1
+11-03 18:52:04.498 13950 14245 I VapSurfaceAudio: Extractor selected track 1 (audio/mp4a-latm): {max-bitrate=113764, sample-rate=44100, track-id=2, mime=audio/mp4a-latm, profile=2, bitrate=113764, language=und, aac-profile=2, encoder-delay=1024, durationUs=1022000, channel-count=1, encoder-padding=30, max-input-size=557, csd-0=java.nio.HeapByteBuffer[pos=0 lim=5 cap=5]}
+11-03 18:52:04.530 13950 14245 I VapSurfaceAudio: supportType=[audio/mihc, audio/aivc, audio/vorbis, video/x-vnd.on2.vp8, audio/raw, video/x-vnd.on2.vp9, audio/eac3, audio/g711-mlaw, video/mp4v-es, audio/aihc, video/avc, video/hevc, audio/mp4a-latm, audio/iamf, video/3gpp, audio/opus, video/av01, audio/flac, audio/mpeg, video/apv, audio/amr-wb, audio/g711-alaw, audio/3gpp, audio/eac3-joc, video/dolby-vision, audio/ac3, audio/ac4]
+11-03 18:52:04.641 13950 14245 I VapSurfaceAudio: AudioTrack first PCM write
+11-03 18:52:07.941 13950 14213 I VapSurfaceAudio: destroyThread
+11-03 18:52:07.947 13950 13950 I VAP-Compose-Demo: M2 completed completes=1
+11-03 18:52:07.949 13950 13950 I VAP-Compose-Demo: M3 SUITE PASSED scenario=audio-short elapsedMs=3526
+
+=== audio-long ===
+--------- beginning of main
+11-03 18:52:08.687 14074 14074 I VAP-Compose-Demo: M2 SUITE STARTED scenario=audio-long cycles=40
+11-03 18:52:08.755 14074 14437 I VapSurfaceAudio: Extractor selected track 1 (audio/mp4a-latm): {max-bitrate=110862, sample-rate=44100, track-id=2, mime=audio/mp4a-latm, profile=2, bitrate=110862, language=und, aac-profile=2, encoder-delay=1024, durationUs=11965000, channel-count=1, encoder-padding=4, max-input-size=557, csd-0=java.nio.HeapByteBuffer[pos=0 lim=5 cap=5]}
+11-03 18:52:08.757 14074 14074 I VAP-Compose-Demo: M2 first-frame starts=1
+11-03 18:52:08.759 14074 14463 I VapSurfaceAudio: Extractor selected track 1 (audio/mp4a-latm): {max-bitrate=110862, sample-rate=44100, track-id=2, mime=audio/mp4a-latm, profile=2, bitrate=110862, language=und, aac-profile=2, encoder-delay=1024, durationUs=11965000, channel-count=1, encoder-padding=4, max-input-size=557, csd-0=java.nio.HeapByteBuffer[pos=0 lim=5 cap=5]}
+11-03 18:52:08.786 14074 14463 I VapSurfaceAudio: supportType=[audio/mihc, audio/aivc, audio/vorbis, video/x-vnd.on2.vp8, audio/raw, video/x-vnd.on2.vp9, audio/eac3, audio/g711-mlaw, video/mp4v-es, audio/aihc, video/avc, video/hevc, audio/mp4a-latm, audio/iamf, video/3gpp, audio/opus, video/av01, audio/flac, audio/mpeg, video/apv, audio/amr-wb, audio/g711-alaw, audio/3gpp, audio/eac3-joc, video/dolby-vision, audio/ac3, audio/ac4]
+11-03 18:52:08.894 14074 14463 I VapSurfaceAudio: AudioTrack first PCM write
+11-03 18:52:12.129 14074 14434 I VapSurfaceAudio: destroyThread
+11-03 18:52:12.140 14074 14074 I VAP-Compose-Demo: M2 completed completes=1
+11-03 18:52:12.141 14074 14074 I VAP-Compose-Demo: M3 SUITE PASSED scenario=audio-long elapsedMs=3455

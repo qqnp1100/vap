@@ -18,57 +18,53 @@ package com.tencent.qgame.animplayer.mask
 import android.graphics.Bitmap
 import com.tencent.qgame.animplayer.PointRect
 import com.tencent.qgame.animplayer.RefVec2
-import com.tencent.qgame.animplayer.util.TextureLoadUtil
+import com.tencent.qgame.animplayer.legacyRenderLogger
+import com.tencent.qgame.vap.core.spi.MaskLayerTexture
+import com.tencent.qgame.vap.core.spi.MaskRegion
+import com.tencent.qgame.vap.core.spi.VideoRect
 
 class MaskConfig() {
-    var maskTexPair: Pair<PointRect, RefVec2>? = null //遮罩坐标矩形
-    var maskPositionPair: Pair<PointRect, RefVec2>? = null //内容坐标矩形
+    var maskTexPair: Pair<PointRect, RefVec2>? = null
+        set(value) {
+            field = value
+            textureRegion = value?.toRegion()
+        }
+    var maskPositionPair: Pair<PointRect, RefVec2>? = null
+        set(value) {
+            field = value
+            positionRegion = value?.toRegion()
+        }
 
-    constructor(bitmap: Bitmap?, positionPair :Pair<PointRect, RefVec2>?, texPair: Pair<PointRect, RefVec2>?) : this() {
+    internal var textureRegion: MaskRegion? = null
+        private set
+    internal var positionRegion: MaskRegion? = null
+        private set
+    internal val texture = MaskLayerTexture(legacyRenderLogger)
+
+    constructor(bitmap: Bitmap?, positionPair: Pair<PointRect, RefVec2>?, texPair: Pair<PointRect, RefVec2>?) : this() {
         maskPositionPair = positionPair
         maskTexPair = texPair
-        alphaMaskBitmap = bitmap
+        texture.replaceBitmap(bitmap)
     }
 
-    private var maskTexId = 0
-    fun getMaskTexId() : Int {
-        return maskTexId
-    }
+    fun getMaskTexId(): Int = texture.textureId
 
     /** Called only by the owning render thread while its GL context is current. */
-    fun updateMaskTex() : Int {
-        if (maskTexId > 0) return maskTexId
-        val bitmap = alphaMaskBitmap ?: return 0
-        if (bitmap.isRecycled) return 0
-        maskTexId = TextureLoadUtil.loadTexture(bitmap)
-        return  maskTexId
-    }
+    fun updateMaskTex(): Int = texture.updateTexture()
 
-    // Borrowed from the caller; replacing/releasing this config never recycles the Bitmap.
-    var alphaMaskBitmap: Bitmap? = null //遮罩
-        private set(value) {
-            field = value
-        }
-    
+    val alphaMaskBitmap: Bitmap? get() = texture.bitmap
+
     /** Render-thread-owned once a texture has been created. */
-    fun safeSetMaskBitmapAndReleasePre(bitmap: Bitmap?) {
-        releaseTexture()
-        alphaMaskBitmap = bitmap
-    }
-    
+    fun safeSetMaskBitmapAndReleasePre(bitmap: Bitmap?) = texture.replaceBitmap(bitmap)
 
     fun release() {
-        alphaMaskBitmap = null
         maskTexPair = null
         maskPositionPair = null
-        releaseTexture()
+        texture.release()
     }
 
-    private fun releaseTexture() {
-        val texture = maskTexId
-        maskTexId = 0
-        if (texture > 0) TextureLoadUtil.releaseTexure(texture)
-    }
+    private fun Pair<PointRect, RefVec2>.toRegion(): MaskRegion =
+        MaskRegion(VideoRect(first.x, first.y, first.w, first.h), second.w, second.h)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

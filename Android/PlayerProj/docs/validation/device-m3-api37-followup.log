@@ -1,0 +1,443 @@
+
+=== surface ===
+--------- beginning of main
+11-03 18:41:27.748 23786 23786 I VAP-Compose-Demo: M2 SUITE STARTED scenario=surface cycles=40
+11-03 18:41:27.819 23786 23786 I VAP-Compose-Demo: M2 first-frame starts=1
+11-03 18:41:29.508 23786 23786 I VAP-Compose-Demo: M2 PASS recompose=100 resize=2 transform=1 starts=1
+11-03 18:41:29.522 23786 23786 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=1854
+11-03 18:41:29.709 23786 23786 I VAP-Compose-Demo: M2 first-frame starts=2
+11-03 18:41:29.718 23786 23786 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=220
+11-03 18:41:29.916 23786 23786 I VAP-Compose-Demo: M2 first-frame starts=3
+11-03 18:41:29.919 23786 23786 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=216
+11-03 18:41:30.133 23786 23786 I VAP-Compose-Demo: M2 first-frame starts=4
+11-03 18:41:30.152 23786 23786 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=239
+11-03 18:41:30.340 23786 23786 I VAP-Compose-Demo: M2 first-frame starts=5
+11-03 18:41:30.353 23786 23786 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=291
+11-03 18:41:30.567 23786 23786 I VAP-Compose-Demo: M2 first-frame starts=6
+11-03 18:41:30.586 23786 23786 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=350
+11-03 18:41:30.779 23786 23786 I VAP-Compose-Demo: M2 first-frame starts=7
+11-03 18:41:30.785 23786 23786 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=252
+11-03 18:41:31.008 23786 23786 I VAP-Compose-Demo: M2 first-frame starts=8
+11-03 18:41:31.017 23786 23786 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=317
+11-03 18:41:31.228 23786 23786 I VAP-Compose-Demo: M2 first-frame starts=9
+11-03 18:41:31.233 23786 23786 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=206
+11-03 18:41:31.448 23786 23786 I VAP-Compose-Demo: M2 first-frame starts=10
+11-03 18:41:31.467 23786 23786 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=319
+11-03 18:41:31.646 23786 23786 I VAP-Compose-Demo: M2 first-frame starts=11
+11-03 18:41:31.667 23786 23786 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=333
+11-03 18:41:31.864 23786 23786 I VAP-Compose-Demo: M2 first-frame starts=12
+11-03 18:41:31.882 23786 23786 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=481
+11-03 18:41:32.051 23786 23786 I VAP-Compose-Demo: M2 first-frame starts=13
+11-03 18:41:32.066 23786 23786 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=249
+11-03 18:41:32.252 23786 23786 I VAP-Compose-Demo: M2 first-frame starts=14
+11-03 18:41:32.264 23786 23786 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=230
+11-03 18:41:32.460 23786 23786 I VAP-Compose-Demo: M2 first-frame starts=15
+11-03 18:41:32.465 23786 23786 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=290
+11-03 18:41:32.677 23786 23786 I VAP-Compose-Demo: M2 first-frame starts=16
+11-03 18:41:32.682 23786 23786 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=305
+11-03 18:41:32.902 23786 23786 I VAP-Compose-Demo: M2 first-frame starts=17
+11-03 18:41:32.914 23786 23786 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=426
+11-03 18:41:33.108 23786 23786 I VAP-Compose-Demo: M2 first-frame starts=18
+11-03 18:41:33.114 23786 23786 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=334
+11-03 18:41:33.310 23786 23786 I VAP-Compose-Demo: M2 first-frame starts=19
+11-03 18:41:33.331 23786 23786 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=346
+11-03 18:41:33.512 23786 23786 I VAP-Compose-Demo: M2 first-frame starts=20
+11-03 18:41:33.531 23786 23786 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=324
+11-03 18:41:33.716 23786 23786 I VAP-Compose-Demo: M2 first-frame starts=21
+11-03 18:41:33.730 23786 23786 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=303
+11-03 18:41:33.923 23786 23786 I VAP-Compose-Demo: M2 first-frame starts=22
+11-03 18:41:33.928 23786 23786 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=213
+11-03 18:41:34.141 23786 23786 I VAP-Compose-Demo: M2 first-frame starts=23
+11-03 18:41:34.146 23786 23786 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=278
+11-03 18:41:34.361 23786 23786 I VAP-Compose-Demo: M2 first-frame starts=24
+11-03 18:41:34.379 23786 23786 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=338
+11-03 18:41:34.578 23786 23786 I VAP-Compose-Demo: M2 first-frame starts=25
+11-03 18:41:34.596 23786 23786 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=313
+11-03 18:41:34.789 23786 23786 I VAP-Compose-Demo: M2 first-frame starts=26
+11-03 18:41:34.795 23786 23786 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=270
+11-03 18:41:34.989 23786 23786 I VAP-Compose-Demo: M2 first-frame starts=27
+11-03 18:41:34.994 23786 23786 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=250
+11-03 18:41:35.195 23786 23786 I VAP-Compose-Demo: M2 first-frame starts=28
+11-03 18:41:35.211 23786 23786 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=318
+11-03 18:41:35.400 23786 23786 I VAP-Compose-Demo: M2 first-frame starts=29
+11-03 18:41:35.409 23786 23786 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=210
+11-03 18:41:35.614 23786 23786 I VAP-Compose-Demo: M2 first-frame starts=30
+11-03 18:41:35.627 23786 23786 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=304
+11-03 18:41:35.819 23786 23786 I VAP-Compose-Demo: M2 first-frame starts=31
+11-03 18:41:35.825 23786 23786 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=189
+11-03 18:41:36.040 23786 23786 I VAP-Compose-Demo: M2 first-frame starts=32
+11-03 18:41:36.060 23786 23786 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=331
+11-03 18:41:36.244 23786 23786 I VAP-Compose-Demo: M2 first-frame starts=33
+11-03 18:41:36.259 23786 23786 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=335
+11-03 18:41:36.456 23786 23786 I VAP-Compose-Demo: M2 first-frame starts=34
+11-03 18:41:36.476 23786 23786 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=333
+11-03 18:41:36.670 23786 23786 I VAP-Compose-Demo: M2 first-frame starts=35
+11-03 18:41:36.675 23786 23786 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=386
+11-03 18:41:36.873 23786 23786 I VAP-Compose-Demo: M2 first-frame starts=36
+11-03 18:41:36.893 23786 23786 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=337
+11-03 18:41:37.072 23786 23786 I VAP-Compose-Demo: M2 first-frame starts=37
+11-03 18:41:37.092 23786 23786 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=286
+11-03 18:41:37.274 23786 23786 I VAP-Compose-Demo: M2 first-frame starts=38
+11-03 18:41:37.291 23786 23786 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=286
+11-03 18:41:37.486 23786 23786 I VAP-Compose-Demo: M2 first-frame starts=39
+11-03 18:41:37.489 23786 23786 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=189
+11-03 18:41:37.705 23786 23786 I VAP-Compose-Demo: M2 first-frame starts=40
+11-03 18:41:37.724 23786 23786 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=343
+11-03 18:41:37.926 23786 23786 I VAP-Compose-Demo: M2 first-frame starts=41
+11-03 18:41:37.928 23786 23786 I VAP-Compose-Demo: M2 PASS surface-recreate cycles=40 starts=41
+11-03 18:41:37.940 23786 23786 I VapComposeSurface: detach reason=request elapsedUs=275
+11-03 18:41:38.005 23786 23786 I VAP-Compose-Demo: M2 first-frame starts=42
+11-03 18:41:41.233 23786 23786 I VAP-Compose-Demo: M2 completed completes=1
+11-03 18:41:41.234 23786 23786 I VAP-Compose-Demo: M2 SUITE PASSED cycles=40 starts=42 completes=1 failures=0
+
+=== lifecycle ===
+--------- beginning of main
+11-03 18:41:42.155 26199 26199 I VAP-Compose-Demo: M2 SUITE STARTED scenario=lifecycle cycles=40
+11-03 18:41:42.215 26199 26199 I VAP-Compose-Demo: M2 first-frame starts=1
+11-03 18:41:46.318 26199 26199 I VapComposeSurface: detach reason=host-inactive elapsedUs=569
+11-03 18:41:46.323 26199 26199 I VAP-Compose-Demo: M3 lifecycle suspended requestId=1 completed=1
+11-03 18:41:46.551 26199 26199 I VAP-Compose-Demo: M2 first-frame starts=2
+11-03 18:41:49.790 26199 26199 I VAP-Compose-Demo: M2 completed completes=1
+11-03 18:41:49.790 26199 26199 I VAP-Compose-Demo: M3 SUITE PASSED scenario=lifecycle requestId=1 completed=2 starts=2
+
+=== mask ===
+--------- beginning of main
+11-03 18:41:50.590 26555 26555 I VAP-Compose-Demo: M2 SUITE STARTED scenario=mask cycles=40
+11-03 18:41:50.651 26555 26555 I VAP-Compose-Demo: M2 first-frame starts=1
+11-03 18:41:51.564 26555 26555 I VAP-Compose-Demo: M3 mask screenshot=reference
+11-03 18:41:53.467 26555 26555 I VAP-Compose-Demo: M3 mask screenshot=applied
+11-03 18:41:55.369 26555 26555 I VAP-Compose-Demo: M3 mask screenshot=removed
+11-03 18:41:57.070 26555 26555 I VAP-Compose-Demo: M3 SUITE PASSED scenario=mask paused=true
+
+=== vapx ===
+--------- beginning of main
+11-03 18:41:57.819 27929 27929 I VAP-Compose-Demo: M2 SUITE STARTED scenario=vapx cycles=40
+11-03 18:41:57.895 27929 28499 I VapSurfaceAudio: Extractor selected track 1 (audio/mp4a-latm): {max-bitrate=112000, sample-rate=44100, track-id=2, mime=audio/mp4a-latm, profile=2, bitrate=110862, language=und, aac-profile=2, encoder-delay=1024, durationUs=11988000, channel-count=1, encoder-padding=4, max-input-size=557, csd-0=java.nio.HeapByteBuffer[pos=0 lim=5 cap=5]}
+11-03 18:41:57.896 27929 27929 I VAP-Compose-Demo: M2 first-frame starts=1
+11-03 18:41:57.898 27929 28524 I VapSurfaceAudio: Extractor selected track 1 (audio/mp4a-latm): {max-bitrate=112000, sample-rate=44100, track-id=2, mime=audio/mp4a-latm, profile=2, bitrate=110862, language=und, aac-profile=2, encoder-delay=1024, durationUs=11988000, channel-count=1, encoder-padding=4, max-input-size=557, csd-0=java.nio.HeapByteBuffer[pos=0 lim=5 cap=5]}
+11-03 18:41:57.920 27929 28524 I VapSurfaceAudio: supportType=[audio/mihc, audio/aivc, audio/vorbis, video/x-vnd.on2.vp8, audio/raw, video/x-vnd.on2.vp9, audio/eac3, audio/g711-mlaw, video/mp4v-es, audio/aihc, video/avc, video/hevc, audio/mp4a-latm, audio/iamf, video/3gpp, audio/opus, video/av01, audio/flac, audio/mpeg, video/apv, audio/amr-wb, audio/g711-alaw, audio/3gpp, audio/eac3-joc, video/dolby-vision, audio/ac3, audio/ac4]
+11-03 18:41:57.963 27929 28524 D VapAvSync: audio mute=false
+11-03 18:41:58.025 27929 28524 D VapAvSync: audio state=playing positionUs=null
+11-03 18:41:58.027 27929 28524 I VapSurfaceAudio: AudioTrack first PCM write
+11-03 18:41:58.190 27929 28499 D VapAvSync: submission videoPtsUs=150000 audioPtsUs=160000 deltaUs=10000
+11-03 18:41:58.318 27929 28499 D VapAvSync: submission videoPtsUs=250000 audioPtsUs=280000 deltaUs=30000
+11-03 18:41:58.395 27929 28499 D VapAvSync: submission videoPtsUs=350000 audioPtsUs=360000 deltaUs=10000
+11-03 18:41:58.458 27929 28524 D VapAvSync: audio state=paused positionUs=400000
+11-03 18:41:58.874 27929 28524 D VapAvSync: audio state=playing positionUs=440000
+11-03 18:41:58.909 27929 28499 D VapAvSync: submission videoPtsUs=450000 audioPtsUs=480000 deltaUs=30000
+11-03 18:41:58.997 27929 28499 D VapAvSync: submission videoPtsUs=550000 audioPtsUs=560000 deltaUs=10000
+11-03 18:41:59.112 27929 28499 D VapAvSync: submission videoPtsUs=650000 audioPtsUs=680000 deltaUs=30000
+11-03 18:41:59.198 27929 28499 D VapAvSync: submission videoPtsUs=750000 audioPtsUs=760000 deltaUs=10000
+11-03 18:41:59.307 27929 28524 D VapAvSync: audio mute=true
+11-03 18:41:59.316 27929 28499 D VapAvSync: submission videoPtsUs=850000 audioPtsUs=880000 deltaUs=30000
+11-03 18:41:59.392 27929 28499 D VapAvSync: submission videoPtsUs=950000 audioPtsUs=960000 deltaUs=10000
+11-03 18:41:59.518 27929 28499 D VapAvSync: submission videoPtsUs=1050000 audioPtsUs=1080000 deltaUs=30000
+11-03 18:41:59.594 27929 28499 D VapAvSync: submission videoPtsUs=1150000 audioPtsUs=1160000 deltaUs=10000
+11-03 18:41:59.712 27929 28499 D VapAvSync: submission videoPtsUs=1250000 audioPtsUs=1280000 deltaUs=30000
+11-03 18:41:59.789 27929 28499 D VapAvSync: submission videoPtsUs=1350000 audioPtsUs=1360000 deltaUs=10000
+11-03 18:41:59.916 27929 28499 D VapAvSync: submission videoPtsUs=1450000 audioPtsUs=1480000 deltaUs=30000
+11-03 18:41:59.994 27929 28499 D VapAvSync: submission videoPtsUs=1550000 audioPtsUs=1560000 deltaUs=10000
+11-03 18:42:00.114 27929 28499 D VapAvSync: submission videoPtsUs=1650000 audioPtsUs=1680000 deltaUs=30000
+11-03 18:42:00.200 27929 28499 D VapAvSync: submission videoPtsUs=1750000 audioPtsUs=1760000 deltaUs=10000
+11-03 18:42:00.318 27929 28499 D VapAvSync: submission videoPtsUs=1850000 audioPtsUs=1880000 deltaUs=30000
+11-03 18:42:00.392 27929 28499 D VapAvSync: submission videoPtsUs=1950000 audioPtsUs=1960000 deltaUs=10000
+11-03 18:42:00.510 27929 28499 D VapAvSync: submission videoPtsUs=2050000 audioPtsUs=2080000 deltaUs=30000
+11-03 18:42:00.595 27929 28499 D VapAvSync: submission videoPtsUs=2150000 audioPtsUs=2160000 deltaUs=10000
+11-03 18:42:00.712 27929 28499 D VapAvSync: submission videoPtsUs=2250000 audioPtsUs=2280000 deltaUs=30000
+11-03 18:42:00.799 27929 28499 D VapAvSync: submission videoPtsUs=2350000 audioPtsUs=2360000 deltaUs=10000
+11-03 18:42:00.916 27929 28499 D VapAvSync: submission videoPtsUs=2450000 audioPtsUs=2480000 deltaUs=30000
+11-03 18:42:00.996 27929 28499 D VapAvSync: submission videoPtsUs=2550000 audioPtsUs=2560000 deltaUs=10000
+11-03 18:42:01.111 27929 28499 D VapAvSync: submission videoPtsUs=2650000 audioPtsUs=2680000 deltaUs=30000
+11-03 18:42:01.189 27929 28499 D VapAvSync: submission videoPtsUs=2750000 audioPtsUs=2760000 deltaUs=10000
+11-03 18:42:01.315 27929 28499 D VapAvSync: submission videoPtsUs=2850000 audioPtsUs=2880000 deltaUs=30000
+11-03 18:42:01.400 27929 28499 D VapAvSync: submission videoPtsUs=2950000 audioPtsUs=2960000 deltaUs=10000
+11-03 18:42:01.517 27929 28499 D VapAvSync: submission videoPtsUs=3050000 audioPtsUs=3080000 deltaUs=30000
+11-03 18:42:01.597 27929 28499 D VapAvSync: submission videoPtsUs=3150000 audioPtsUs=3160000 deltaUs=10000
+11-03 18:42:01.713 27929 28499 D VapAvSync: submission videoPtsUs=3250000 audioPtsUs=3280000 deltaUs=30000
+11-03 18:42:01.789 27929 28499 D VapAvSync: submission videoPtsUs=3350000 audioPtsUs=3360000 deltaUs=10000
+11-03 18:42:01.916 27929 28499 D VapAvSync: submission videoPtsUs=3450000 audioPtsUs=3480000 deltaUs=30000
+11-03 18:42:01.991 27929 28499 D VapAvSync: submission videoPtsUs=3550000 audioPtsUs=3560000 deltaUs=10000
+11-03 18:42:02.119 27929 28499 D VapAvSync: submission videoPtsUs=3650000 audioPtsUs=3680000 deltaUs=30000
+11-03 18:42:02.194 27929 28499 D VapAvSync: submission videoPtsUs=3750000 audioPtsUs=3760000 deltaUs=10000
+11-03 18:42:02.311 27929 28499 D VapAvSync: submission videoPtsUs=3850000 audioPtsUs=3880000 deltaUs=30000
+11-03 18:42:02.387 27929 28499 D VapAvSync: submission videoPtsUs=3950000 audioPtsUs=3960000 deltaUs=10000
+11-03 18:42:02.515 27929 28499 D VapAvSync: submission videoPtsUs=4050000 audioPtsUs=4080000 deltaUs=30000
+11-03 18:42:02.594 27929 28499 D VapAvSync: submission videoPtsUs=4150000 audioPtsUs=4160000 deltaUs=10000
+11-03 18:42:02.710 27929 28499 D VapAvSync: submission videoPtsUs=4250000 audioPtsUs=4280000 deltaUs=30000
+11-03 18:42:02.797 27929 28499 D VapAvSync: submission videoPtsUs=4350000 audioPtsUs=4360000 deltaUs=10000
+11-03 18:42:02.913 27929 28499 D VapAvSync: submission videoPtsUs=4450000 audioPtsUs=4480000 deltaUs=30000
+11-03 18:42:02.993 27929 28499 D VapAvSync: submission videoPtsUs=4550000 audioPtsUs=4560000 deltaUs=10000
+11-03 18:42:03.119 27929 28499 D VapAvSync: submission videoPtsUs=4650000 audioPtsUs=4680000 deltaUs=30000
+11-03 18:42:03.196 27929 28499 D VapAvSync: submission videoPtsUs=4750000 audioPtsUs=4760000 deltaUs=10000
+11-03 18:42:03.314 27929 28499 D VapAvSync: submission videoPtsUs=4850000 audioPtsUs=4880000 deltaUs=30000
+11-03 18:42:03.389 27929 28499 D VapAvSync: submission videoPtsUs=4950000 audioPtsUs=4960000 deltaUs=10000
+11-03 18:42:03.508 27929 28499 D VapAvSync: submission videoPtsUs=5050000 audioPtsUs=5080000 deltaUs=30000
+11-03 18:42:03.596 27929 28499 D VapAvSync: submission videoPtsUs=5150000 audioPtsUs=5160000 deltaUs=10000
+11-03 18:42:03.713 27929 28499 D VapAvSync: submission videoPtsUs=5250000 audioPtsUs=5280000 deltaUs=30000
+11-03 18:42:03.795 27929 28499 D VapAvSync: submission videoPtsUs=5350000 audioPtsUs=5360000 deltaUs=10000
+11-03 18:42:03.912 27929 28499 D VapAvSync: submission videoPtsUs=5450000 audioPtsUs=5480000 deltaUs=30000
+11-03 18:42:03.999 27929 28499 D VapAvSync: submission videoPtsUs=5550000 audioPtsUs=5560000 deltaUs=10000
+11-03 18:42:04.118 27929 28499 D VapAvSync: submission videoPtsUs=5650000 audioPtsUs=5680000 deltaUs=30000
+11-03 18:42:04.194 27929 28499 D VapAvSync: submission videoPtsUs=5750000 audioPtsUs=5760000 deltaUs=10000
+11-03 18:42:04.310 27929 28499 D VapAvSync: submission videoPtsUs=5850000 audioPtsUs=5880000 deltaUs=30000
+11-03 18:42:04.388 27929 28499 D VapAvSync: submission videoPtsUs=5950000 audioPtsUs=5960000 deltaUs=10000
+11-03 18:42:04.514 27929 28499 D VapAvSync: submission videoPtsUs=6050000 audioPtsUs=6080000 deltaUs=30000
+11-03 18:42:04.591 27929 28499 D VapAvSync: submission videoPtsUs=6150000 audioPtsUs=6160000 deltaUs=10000
+11-03 18:42:04.710 27929 28499 D VapAvSync: submission videoPtsUs=6250000 audioPtsUs=6280000 deltaUs=30000
+11-03 18:42:04.786 27929 28499 D VapAvSync: submission videoPtsUs=6350000 audioPtsUs=6360000 deltaUs=10000
+11-03 18:42:04.913 27929 28499 D VapAvSync: submission videoPtsUs=6450000 audioPtsUs=6480000 deltaUs=30000
+11-03 18:42:04.990 27929 28499 D VapAvSync: submission videoPtsUs=6550000 audioPtsUs=6560000 deltaUs=10000
+11-03 18:42:05.118 27929 28499 D VapAvSync: submission videoPtsUs=6650000 audioPtsUs=6680000 deltaUs=30000
+11-03 18:42:05.195 27929 28499 D VapAvSync: submission videoPtsUs=6750000 audioPtsUs=6760000 deltaUs=10000
+11-03 18:42:05.315 27929 28499 D VapAvSync: submission videoPtsUs=6850000 audioPtsUs=6880000 deltaUs=30000
+11-03 18:42:05.392 27929 28499 D VapAvSync: submission videoPtsUs=6950000 audioPtsUs=6960000 deltaUs=10000
+11-03 18:42:05.509 27929 28499 D VapAvSync: submission videoPtsUs=7050000 audioPtsUs=7080000 deltaUs=30000
+11-03 18:42:05.596 27929 28499 D VapAvSync: submission videoPtsUs=7150000 audioPtsUs=7160000 deltaUs=10000
+11-03 18:42:05.716 27929 28499 D VapAvSync: submission videoPtsUs=7250000 audioPtsUs=7280000 deltaUs=30000
+11-03 18:42:05.794 27929 28499 D VapAvSync: submission videoPtsUs=7350000 audioPtsUs=7360000 deltaUs=10000
+11-03 18:42:05.914 27929 28499 D VapAvSync: submission videoPtsUs=7450000 audioPtsUs=7480000 deltaUs=30000
+11-03 18:42:05.991 27929 28499 D VapAvSync: submission videoPtsUs=7550000 audioPtsUs=7560000 deltaUs=10000
+11-03 18:42:06.108 27929 28499 D VapAvSync: submission videoPtsUs=7650000 audioPtsUs=7680000 deltaUs=30000
+11-03 18:42:06.193 27929 28499 D VapAvSync: submission videoPtsUs=7750000 audioPtsUs=7760000 deltaUs=10000
+11-03 18:42:06.319 27929 28499 D VapAvSync: submission videoPtsUs=7850000 audioPtsUs=7880000 deltaUs=30000
+11-03 18:42:06.387 27929 28499 D VapAvSync: submission videoPtsUs=7950000 audioPtsUs=7960000 deltaUs=10000
+11-03 18:42:06.513 27929 28499 D VapAvSync: submission videoPtsUs=8050000 audioPtsUs=8080000 deltaUs=30000
+11-03 18:42:06.588 27929 28499 D VapAvSync: submission videoPtsUs=8150000 audioPtsUs=8160000 deltaUs=10000
+11-03 18:42:06.716 27929 28499 D VapAvSync: submission videoPtsUs=8250000 audioPtsUs=8280000 deltaUs=30000
+11-03 18:42:06.794 27929 28499 D VapAvSync: submission videoPtsUs=8350000 audioPtsUs=8360000 deltaUs=10000
+11-03 18:42:06.912 27929 28499 D VapAvSync: submission videoPtsUs=8450000 audioPtsUs=8480000 deltaUs=30000
+11-03 18:42:06.991 27929 28499 D VapAvSync: submission videoPtsUs=8550000 audioPtsUs=8560000 deltaUs=10000
+11-03 18:42:07.117 27929 28499 D VapAvSync: submission videoPtsUs=8650000 audioPtsUs=8680000 deltaUs=30000
+11-03 18:42:07.190 27929 28499 D VapAvSync: submission videoPtsUs=8750000 audioPtsUs=8760000 deltaUs=10000
+11-03 18:42:07.313 27929 28499 D VapAvSync: submission videoPtsUs=8850000 audioPtsUs=8880000 deltaUs=30000
+11-03 18:42:07.389 27929 28499 D VapAvSync: submission videoPtsUs=8950000 audioPtsUs=8960000 deltaUs=10000
+11-03 18:42:07.515 27929 28499 D VapAvSync: submission videoPtsUs=9050000 audioPtsUs=9080000 deltaUs=30000
+11-03 18:42:07.593 27929 28499 D VapAvSync: submission videoPtsUs=9150000 audioPtsUs=9160000 deltaUs=10000
+11-03 18:42:07.709 27929 28499 D VapAvSync: submission videoPtsUs=9250000 audioPtsUs=9280000 deltaUs=30000
+11-03 18:42:07.796 27929 28499 D VapAvSync: submission videoPtsUs=9350000 audioPtsUs=9360000 deltaUs=10000
+11-03 18:42:07.914 27929 28499 D VapAvSync: submission videoPtsUs=9450000 audioPtsUs=9480000 deltaUs=30000
+11-03 18:42:07.991 27929 28499 D VapAvSync: submission videoPtsUs=9550000 audioPtsUs=9560000 deltaUs=10000
+11-03 18:42:08.118 27929 28499 D VapAvSync: submission videoPtsUs=9650000 audioPtsUs=9680000 deltaUs=30000
+11-03 18:42:08.194 27929 28499 D VapAvSync: submission videoPtsUs=9750000 audioPtsUs=9760000 deltaUs=10000
+11-03 18:42:08.314 27929 28499 D VapAvSync: submission videoPtsUs=9850000 audioPtsUs=9880000 deltaUs=30000
+11-03 18:42:08.399 27929 28499 D VapAvSync: submission videoPtsUs=9950000 audioPtsUs=9960000 deltaUs=10000
+11-03 18:42:08.515 27929 28499 D VapAvSync: submission videoPtsUs=10050000 audioPtsUs=10080000 deltaUs=30000
+11-03 18:42:08.591 27929 28499 D VapAvSync: submission videoPtsUs=10150000 audioPtsUs=10160000 deltaUs=10000
+11-03 18:42:08.718 27929 28499 D VapAvSync: submission videoPtsUs=10250000 audioPtsUs=10280000 deltaUs=30000
+11-03 18:42:08.794 27929 28499 D VapAvSync: submission videoPtsUs=10350000 audioPtsUs=10360000 deltaUs=10000
+11-03 18:42:08.911 27929 28499 D VapAvSync: submission videoPtsUs=10450000 audioPtsUs=10480000 deltaUs=30000
+11-03 18:42:08.999 27929 28499 D VapAvSync: submission videoPtsUs=10550000 audioPtsUs=10560000 deltaUs=10000
+11-03 18:42:09.117 27929 28499 D VapAvSync: submission videoPtsUs=10650000 audioPtsUs=10680000 deltaUs=30000
+11-03 18:42:09.192 27929 28499 D VapAvSync: submission videoPtsUs=10750000 audioPtsUs=10760000 deltaUs=10000
+11-03 18:42:09.310 27929 28499 D VapAvSync: submission videoPtsUs=10850000 audioPtsUs=10880000 deltaUs=30000
+11-03 18:42:09.395 27929 28499 D VapAvSync: submission videoPtsUs=10950000 audioPtsUs=10960000 deltaUs=10000
+11-03 18:42:09.512 27929 28499 D VapAvSync: submission videoPtsUs=11050000 audioPtsUs=11080000 deltaUs=30000
+11-03 18:42:09.597 27929 28499 D VapAvSync: submission videoPtsUs=11150000 audioPtsUs=11160000 deltaUs=10000
+11-03 18:42:09.713 27929 28499 D VapAvSync: submission videoPtsUs=11250000 audioPtsUs=11280000 deltaUs=30000
+11-03 18:42:09.791 27929 28499 D VapAvSync: submission videoPtsUs=11350000 audioPtsUs=11360000 deltaUs=10000
+11-03 18:42:09.910 27929 28499 D VapAvSync: submission videoPtsUs=11450000 audioPtsUs=11480000 deltaUs=30000
+11-03 18:42:09.997 27929 28499 D VapAvSync: submission videoPtsUs=11550000 audioPtsUs=11560000 deltaUs=10000
+11-03 18:42:10.112 27929 28499 D VapAvSync: submission videoPtsUs=11650000 audioPtsUs=11680000 deltaUs=30000
+11-03 18:42:10.193 27929 28499 D VapAvSync: submission videoPtsUs=11750000 audioPtsUs=11760000 deltaUs=10000
+11-03 18:42:10.308 27929 28499 D VapAvSync: submission videoPtsUs=11850000 audioPtsUs=11880000 deltaUs=30000
+11-03 18:42:10.389 27929 28499 D VapAvSync: submission videoPtsUs=11950000 audioPtsUs=11960000 deltaUs=10000
+11-03 18:42:10.534 27929 28498 I VapSurfaceAudio: destroyThread
+11-03 18:42:10.538 27929 27929 I VAP-Compose-Demo: M2 completed completes=1
+11-03 18:42:10.539 27929 27929 I VAP-Compose-Demo: M3 SUITE PASSED scenario=vapx images=1 texts=1 releases=1
+
+=== audio-short ===
+--------- beginning of main
+11-03 18:42:11.360 28319 28319 I VAP-Compose-Demo: M2 SUITE STARTED scenario=audio-short cycles=40
+11-03 18:42:11.420 28319 28802 I VapSurfaceAudio: Extractor selected track 1 (audio/mp4a-latm): {max-bitrate=113764, sample-rate=44100, track-id=2, mime=audio/mp4a-latm, profile=2, bitrate=113764, language=und, aac-profile=2, encoder-delay=1024, durationUs=1022000, channel-count=1, encoder-padding=30, max-input-size=557, csd-0=java.nio.HeapByteBuffer[pos=0 lim=5 cap=5]}
+11-03 18:42:11.423 28319 28319 I VAP-Compose-Demo: M2 first-frame starts=1
+11-03 18:42:11.425 28319 28825 I VapSurfaceAudio: Extractor selected track 1 (audio/mp4a-latm): {max-bitrate=113764, sample-rate=44100, track-id=2, mime=audio/mp4a-latm, profile=2, bitrate=113764, language=und, aac-profile=2, encoder-delay=1024, durationUs=1022000, channel-count=1, encoder-padding=30, max-input-size=557, csd-0=java.nio.HeapByteBuffer[pos=0 lim=5 cap=5]}
+11-03 18:42:11.450 28319 28825 I VapSurfaceAudio: supportType=[audio/mihc, audio/aivc, audio/vorbis, video/x-vnd.on2.vp8, audio/raw, video/x-vnd.on2.vp9, audio/eac3, audio/g711-mlaw, video/mp4v-es, audio/aihc, video/avc, video/hevc, audio/mp4a-latm, audio/iamf, video/3gpp, audio/opus, video/av01, audio/flac, audio/mpeg, video/apv, audio/amr-wb, audio/g711-alaw, audio/3gpp, audio/eac3-joc, video/dolby-vision, audio/ac3, audio/ac4]
+11-03 18:42:11.492 28319 28825 D VapAvSync: audio mute=false
+11-03 18:42:11.555 28319 28825 D VapAvSync: audio state=playing positionUs=null
+11-03 18:42:11.561 28319 28825 I VapSurfaceAudio: AudioTrack first PCM write
+11-03 18:42:11.717 28319 28802 D VapAvSync: submission videoPtsUs=160000 audioPtsUs=160000 deltaUs=0
+11-03 18:42:11.838 28319 28802 D VapAvSync: submission videoPtsUs=280000 audioPtsUs=280000 deltaUs=0
+11-03 18:42:11.954 28319 28802 D VapAvSync: submission videoPtsUs=400000 audioPtsUs=400000 deltaUs=0
+11-03 18:42:12.072 28319 28802 D VapAvSync: submission videoPtsUs=520000 audioPtsUs=520000 deltaUs=0
+11-03 18:42:12.192 28319 28802 D VapAvSync: submission videoPtsUs=640000 audioPtsUs=640000 deltaUs=0
+11-03 18:42:12.311 28319 28802 D VapAvSync: submission videoPtsUs=760000 audioPtsUs=760000 deltaUs=0
+11-03 18:42:12.431 28319 28802 D VapAvSync: submission videoPtsUs=880000 audioPtsUs=880000 deltaUs=0
+11-03 18:42:12.559 28319 28802 D VapAvSync: submission videoPtsUs=1000000 audioPtsUs=1000000 deltaUs=0
+11-03 18:42:14.853 28319 28801 I VapSurfaceAudio: destroyThread
+11-03 18:42:14.855 28319 28319 I VAP-Compose-Demo: M2 completed completes=1
+11-03 18:42:14.856 28319 28319 I VAP-Compose-Demo: M3 SUITE PASSED scenario=audio-short elapsedMs=3496
+
+=== audio-long ===
+--------- beginning of main
+11-03 18:42:15.608 28568 28568 I VAP-Compose-Demo: M2 SUITE STARTED scenario=audio-long cycles=40
+11-03 18:42:15.665 28568 29004 I VapSurfaceAudio: Extractor selected track 1 (audio/mp4a-latm): {max-bitrate=110862, sample-rate=44100, track-id=2, mime=audio/mp4a-latm, profile=2, bitrate=110862, language=und, aac-profile=2, encoder-delay=1024, durationUs=11965000, channel-count=1, encoder-padding=4, max-input-size=557, csd-0=java.nio.HeapByteBuffer[pos=0 lim=5 cap=5]}
+11-03 18:42:15.668 28568 28568 I VAP-Compose-Demo: M2 first-frame starts=1
+11-03 18:42:15.669 28568 29026 I VapSurfaceAudio: Extractor selected track 1 (audio/mp4a-latm): {max-bitrate=110862, sample-rate=44100, track-id=2, mime=audio/mp4a-latm, profile=2, bitrate=110862, language=und, aac-profile=2, encoder-delay=1024, durationUs=11965000, channel-count=1, encoder-padding=4, max-input-size=557, csd-0=java.nio.HeapByteBuffer[pos=0 lim=5 cap=5]}
+11-03 18:42:15.697 28568 29026 I VapSurfaceAudio: supportType=[audio/mihc, audio/aivc, audio/vorbis, video/x-vnd.on2.vp8, audio/raw, video/x-vnd.on2.vp9, audio/eac3, audio/g711-mlaw, video/mp4v-es, audio/aihc, video/avc, video/hevc, audio/mp4a-latm, audio/iamf, video/3gpp, audio/opus, video/av01, audio/flac, audio/mpeg, video/apv, audio/amr-wb, audio/g711-alaw, audio/3gpp, audio/eac3-joc, video/dolby-vision, audio/ac3, audio/ac4]
+11-03 18:42:15.741 28568 29026 D VapAvSync: audio mute=false
+11-03 18:42:15.807 28568 29026 D VapAvSync: audio state=playing positionUs=null
+11-03 18:42:15.810 28568 29026 I VapSurfaceAudio: AudioTrack first PCM write
+11-03 18:42:15.974 28568 29004 D VapAvSync: submission videoPtsUs=160000 audioPtsUs=160000 deltaUs=0
+11-03 18:42:16.099 28568 29004 D VapAvSync: submission videoPtsUs=280000 audioPtsUs=280000 deltaUs=0
+11-03 18:42:16.213 28568 29004 D VapAvSync: submission videoPtsUs=400000 audioPtsUs=400000 deltaUs=0
+11-03 18:42:16.334 28568 29004 D VapAvSync: submission videoPtsUs=520000 audioPtsUs=520000 deltaUs=0
+11-03 18:42:16.456 28568 29004 D VapAvSync: submission videoPtsUs=640000 audioPtsUs=640000 deltaUs=0
+11-03 18:42:16.576 28568 29004 D VapAvSync: submission videoPtsUs=760000 audioPtsUs=760000 deltaUs=0
+11-03 18:42:16.696 28568 29004 D VapAvSync: submission videoPtsUs=880000 audioPtsUs=880000 deltaUs=0
+11-03 18:42:16.816 28568 29004 D VapAvSync: submission videoPtsUs=1000000 audioPtsUs=1000000 deltaUs=0
+11-03 18:42:16.934 28568 29004 D VapAvSync: submission videoPtsUs=1120000 audioPtsUs=1120000 deltaUs=0
+11-03 18:42:17.054 28568 29004 D VapAvSync: submission videoPtsUs=1240000 audioPtsUs=1240000 deltaUs=0
+11-03 18:42:17.171 28568 29004 D VapAvSync: submission videoPtsUs=1360000 audioPtsUs=1360000 deltaUs=0
+11-03 18:42:17.299 28568 29004 D VapAvSync: submission videoPtsUs=1480000 audioPtsUs=1480000 deltaUs=0
+11-03 18:42:17.412 28568 29004 D VapAvSync: submission videoPtsUs=1600000 audioPtsUs=1600000 deltaUs=0
+11-03 18:42:17.529 28568 29004 D VapAvSync: submission videoPtsUs=1720000 audioPtsUs=1720000 deltaUs=0
+11-03 18:42:17.652 28568 29004 D VapAvSync: submission videoPtsUs=1840000 audioPtsUs=1840000 deltaUs=0
+11-03 18:42:17.771 28568 29004 D VapAvSync: submission videoPtsUs=1960000 audioPtsUs=1960000 deltaUs=0
+11-03 18:42:17.899 28568 29004 D VapAvSync: submission videoPtsUs=2080000 audioPtsUs=2080000 deltaUs=0
+11-03 18:42:18.019 28568 29004 D VapAvSync: submission videoPtsUs=2200000 audioPtsUs=2200000 deltaUs=0
+11-03 18:42:18.128 28568 29004 D VapAvSync: submission videoPtsUs=2320000 audioPtsUs=2320000 deltaUs=0
+11-03 18:42:18.257 28568 29004 D VapAvSync: submission videoPtsUs=2440000 audioPtsUs=2440000 deltaUs=0
+11-03 18:42:18.376 28568 29004 D VapAvSync: submission videoPtsUs=2560000 audioPtsUs=2560000 deltaUs=0
+11-03 18:42:18.494 28568 29004 D VapAvSync: submission videoPtsUs=2680000 audioPtsUs=2680000 deltaUs=0
+11-03 18:42:18.615 28568 29004 D VapAvSync: submission videoPtsUs=2800000 audioPtsUs=2800000 deltaUs=0
+11-03 18:42:18.734 28568 29004 D VapAvSync: submission videoPtsUs=2920000 audioPtsUs=2920000 deltaUs=0
+11-03 18:42:18.855 28568 29004 D VapAvSync: submission videoPtsUs=3040000 audioPtsUs=3040000 deltaUs=0
+11-03 18:42:18.975 28568 29004 D VapAvSync: submission videoPtsUs=3160000 audioPtsUs=3160000 deltaUs=0
+11-03 18:42:19.042 28568 29003 I VapSurfaceAudio: destroyThread
+11-03 18:42:19.047 28568 28568 I VAP-Compose-Demo: M2 completed completes=1
+11-03 18:42:19.048 28568 28568 I VAP-Compose-Demo: M3 SUITE PASSED scenario=audio-long elapsedMs=3440
+
+=== resource-timeout ===
+--------- beginning of main
+11-03 18:42:19.656 28890 28890 I VAP-Compose-Demo: M2 SUITE STARTED scenario=resource-timeout cycles=40
+11-03 18:42:29.687 28890 28890 E VAP-Compose-Demo: Playback failed failures=1 kind=ResourceTimeout stage=Resource
+11-03 18:42:29.687 28890 28890 E VAP-Compose-Demo: java.util.concurrent.TimeoutException: VAPX resource loading exceeded 10000ms
+11-03 18:42:29.687 28890 28890 E VAP-Compose-Demo: 	at com.tencent.qgame.vap.core.spi.MixResourceLoader.load$lambda$2$0(MixResourceLoader.kt:116)
+11-03 18:42:29.687 28890 28890 E VAP-Compose-Demo: 	at com.tencent.qgame.vap.core.spi.MixResourceLoader.$r8$lambda$fEJYJ7IMCKoMYEW8-3iZsRU3Gxc(MixResourceLoader.kt:0)
+11-03 18:42:29.687 28890 28890 E VAP-Compose-Demo: 	at com.tencent.qgame.vap.core.spi.MixResourceLoader$$ExternalSyntheticLambda3.run(D8$$SyntheticClass:0)
+11-03 18:42:29.687 28890 28890 E VAP-Compose-Demo: 	at android.os.Handler.handleCallback(Handler.java:1129)
+11-03 18:42:29.687 28890 28890 E VAP-Compose-Demo: 	at android.os.Handler.dispatchMessageImpl(Handler.java:139)
+11-03 18:42:29.687 28890 28890 E VAP-Compose-Demo: 	at android.os.Handler.dispatchMessage(Handler.java:129)
+11-03 18:42:29.687 28890 28890 E VAP-Compose-Demo: 	at android.os.Looper.loopOnce(Looper.java:315)
+11-03 18:42:29.687 28890 28890 E VAP-Compose-Demo: 	at android.os.Looper.loop(Looper.java:419)
+11-03 18:42:29.687 28890 28890 E VAP-Compose-Demo: 	at android.os.HandlerThread.run(HandlerThread.java:139)
+11-03 18:42:29.788 28890 28890 I VAP-Compose-Demo: M3 SUITE PASSED scenario=resource-timeout kind=ResourceTimeout stage=Resource cancellations=1
+
+=== uri ===
+--------- beginning of main
+11-03 18:42:30.462 29106 29106 I VAP-Compose-Demo: M2 SUITE STARTED scenario=uri cycles=40
+11-03 18:42:30.526 29106 29106 I VAP-Compose-Demo: M2 first-frame starts=1
+11-03 18:42:33.752 29106 29106 I VAP-Compose-Demo: M2 completed completes=1
+11-03 18:42:33.769 29106 29106 I VapComposeSurface: detach reason=request elapsedUs=10
+11-03 18:42:33.775 29106 29106 E VAP-Compose-Demo: Playback failed failures=1 kind=SourceNotSeekable stage=Source
+11-03 18:42:33.775 29106 29106 E VAP-Compose-Demo: com.tencent.qgame.vap.core.spi.SourceNotSeekableException: The VAP source does not support random access: content://com.tencent.qgame.vap.compose.demo.samples/pipe
+11-03 18:42:33.775 29106 29106 E VAP-Compose-Demo: 	at com.tencent.qgame.vap.core.spi.UriMediaInput.descriptorLength(UriMediaInput.kt:93)
+11-03 18:42:33.775 29106 29106 E VAP-Compose-Demo: 	at com.tencent.qgame.vap.core.spi.UriMediaInput.startRandomRead(UriMediaInput.kt:44)
+11-03 18:42:33.775 29106 29106 E VAP-Compose-Demo: 	at com.tencent.qgame.vap.core.internal.config.VapcBoxReader.read(VapcBoxReader.kt:16)
+11-03 18:42:33.775 29106 29106 E VAP-Compose-Demo: 	at com.tencent.qgame.vap.core.spi.VapConfigInputKt.readVapConfig(VapConfigInput.kt:24)
+11-03 18:42:33.775 29106 29106 E VAP-Compose-Demo: 	at com.tencent.qgame.vap.core.internal.engine.SurfacePlaybackController$Session.prepare(SurfacePlaybackController.kt:250)
+11-03 18:42:33.775 29106 29106 E VAP-Compose-Demo: 	at com.tencent.qgame.vap.core.internal.engine.SurfacePlaybackController$Session.access$prepare(SurfacePlaybackController.kt:153)
+11-03 18:42:33.775 29106 29106 E VAP-Compose-Demo: 	at com.tencent.qgame.vap.core.internal.engine.SurfacePlaybackController$Session$startDecodeWorker$worker$1.onLooperPrepared(SurfacePlaybackController.kt:230)
+11-03 18:42:33.775 29106 29106 E VAP-Compose-Demo: 	at android.os.HandlerThread.run(HandlerThread.java:138)
+11-03 18:42:33.775 29106 29106 E VAP-Compose-Demo: Caused by: android.system.ErrnoException: lseek failed: ESPIPE (Illegal seek)
+11-03 18:42:33.775 29106 29106 E VAP-Compose-Demo: 	at libcore.io.Linux.lseek(Native Method)
+11-03 18:42:33.775 29106 29106 E VAP-Compose-Demo: 	at libcore.io.ForwardingOs.lseek(ForwardingOs.java:480)
+11-03 18:42:33.775 29106 29106 E VAP-Compose-Demo: 	at libcore.io.BlockGuardOs.lseek(BlockGuardOs.java:243)
+11-03 18:42:33.775 29106 29106 E VAP-Compose-Demo: 	at libcore.io.ForwardingOs.lseek(ForwardingOs.java:480)
+11-03 18:42:33.775 29106 29106 E VAP-Compose-Demo: 	at android.system.Os.lseek(Os.java:463)
+11-03 18:42:33.775 29106 29106 E VAP-Compose-Demo: 	at com.tencent.qgame.vap.core.spi.UriMediaInput.descriptorLength(UriMediaInput.kt:86)
+11-03 18:42:33.775 29106 29106 E VAP-Compose-Demo: 	... 7 more
+11-03 18:42:33.775 29106 29106 I VAP-Compose-Demo: M3 SUITE PASSED scenario=uri seekable=1 nonSeekableRejected=1
+
+=== legacy ===
+--------- beginning of main
+11-03 18:42:34.640 29284 29284 I VAP-Compose-Demo: M2 SUITE STARTED scenario=legacy cycles=40
+11-03 18:42:34.641 29284 29284 E VAP-Compose-Demo: Playback failed failures=1 kind=InvalidVapConfig stage=Config
+11-03 18:42:34.641 29284 29284 E VAP-Compose-Demo: java.lang.IllegalArgumentException: Playback requires a VAP v2 vapc box
+11-03 18:42:34.641 29284 29284 E VAP-Compose-Demo: 	at com.tencent.qgame.vap.core.internal.engine.SurfacePlaybackController$Session.prepare(SurfacePlaybackController.kt:250)
+11-03 18:42:34.641 29284 29284 E VAP-Compose-Demo: 	at com.tencent.qgame.vap.core.internal.engine.SurfacePlaybackController$Session.access$prepare(SurfacePlaybackController.kt:153)
+11-03 18:42:34.641 29284 29284 E VAP-Compose-Demo: 	at com.tencent.qgame.vap.core.internal.engine.SurfacePlaybackController$Session$startDecodeWorker$worker$1.onLooperPrepared(SurfacePlaybackController.kt:230)
+11-03 18:42:34.641 29284 29284 E VAP-Compose-Demo: 	at android.os.HandlerThread.run(HandlerThread.java:138)
+11-03 18:42:34.642 29284 29284 I VAP-Compose-Demo: M2 SUITE PASSED scenario=legacy starts=0 completes=0 failures=1
+
+=== invalid-request ===
+--------- beginning of main
+11-03 18:42:35.342 29591 29591 E VAP-Compose-Demo: Playback failed failures=1 kind=InvalidRequest stage=Request
+11-03 18:42:35.342 29591 29591 E VAP-Compose-Demo: java.lang.IllegalArgumentException: iterations must be positive or -1
+11-03 18:42:35.342 29591 29591 E VAP-Compose-Demo: 	at com.tencent.qgame.vap.compose.SurfaceHost.updateRequest(SurfaceHost.kt:101)
+11-03 18:42:35.342 29591 29591 E VAP-Compose-Demo: 	at com.tencent.qgame.vap.compose.VapAnimationKt.VapAnimation$lambda$4$0(VapAnimation.kt:85)
+11-03 18:42:35.342 29591 29591 E VAP-Compose-Demo: 	at com.tencent.qgame.vap.compose.VapAnimationKt.$r8$lambda$HNv_sgy2Af7NQgKFUIfMUHQsLZA(VapAnimation.kt:0)
+11-03 18:42:35.342 29591 29591 E VAP-Compose-Demo: 	at com.tencent.qgame.vap.compose.VapAnimationKt$$ExternalSyntheticLambda4.invoke(D8$$SyntheticClass:0)
+11-03 18:42:35.342 29591 29591 E VAP-Compose-Demo: 	at androidx.compose.runtime.internal.RememberEventDispatcher.dispatchSideEffects(RememberEventDispatcher.kt:260)
+11-03 18:42:35.342 29591 29591 E VAP-Compose-Demo: 	at androidx.compose.runtime.CompositionImpl.applyChangesInLocked(Composition.kt:1124)
+11-03 18:42:35.342 29591 29591 E VAP-Compose-Demo: 	at androidx.compose.runtime.CompositionImpl.applyChanges(Composition.kt:1150)
+11-03 18:42:35.342 29591 29591 E VAP-Compose-Demo: 	at androidx.compose.runtime.Recomposer.composeInitial$runtime(Recomposer.kt:1266)
+11-03 18:42:35.342 29591 29591 E VAP-Compose-Demo: 	at androidx.compose.runtime.CompositionImpl.composeInitial(Composition.kt:672)
+11-03 18:42:35.342 29591 29591 E VAP-Compose-Demo: 	at androidx.compose.runtime.CompositionImpl.setContent(Composition.kt:639)
+11-03 18:42:35.342 29591 29591 E VAP-Compose-Demo: 	at androidx.compose.ui.platform.WrappedComposition$setContent$1.invoke(Wrapper.android.kt:123)
+11-03 18:42:35.342 29591 29591 E VAP-Compose-Demo: 	at androidx.compose.ui.platform.WrappedComposition$setContent$1.invoke(Wrapper.android.kt:114)
+11-03 18:42:35.342 29591 29591 E VAP-Compose-Demo: 	at androidx.compose.ui.platform.AndroidComposeView.setOnViewTreeOwnersAvailable(AndroidComposeView.android.kt:1990)
+11-03 18:42:35.342 29591 29591 E VAP-Compose-Demo: 	at androidx.compose.ui.platform.WrappedComposition.setContent(Wrapper.android.kt:114)
+11-03 18:42:35.342 29591 29591 E VAP-Compose-Demo: 	at androidx.compose.ui.platform.WrappedComposition.onStateChanged(Wrapper.android.kt:168)
+11-03 18:42:35.342 29591 29591 E VAP-Compose-Demo: 	at androidx.lifecycle.LifecycleRegistry$ObserverWithState.dispatchEvent(LifecycleRegistry.jvm.kt:313)
+11-03 18:42:35.342 29591 29591 E VAP-Compose-Demo: 	at androidx.lifecycle.LifecycleRegistry.addObserver(LifecycleRegistry.jvm.kt:191)
+11-03 18:42:35.342 29591 29591 E VAP-Compose-Demo: 	at androidx.compose.ui.platform.WrappedComposition$setContent$1.invoke(Wrapper.android.kt:121)
+11-03 18:42:35.342 29591 29591 E VAP-Compose-Demo: 	at androidx.compose.ui.platform.WrappedComposition$setContent$1.invoke(Wrapper.android.kt:114)
+11-03 18:42:35.342 29591 29591 E VAP-Compose-Demo: 	at androidx.compose.ui.platform.AndroidComposeView.onAttachedToWindow(AndroidComposeView.android.kt:2077)
+11-03 18:42:35.342 29591 29591 E VAP-Compose-Demo: 	at android.view.View.dispatchAttachedToWindow(View.java:24321)
+11-03 18:42:35.342 29591 29591 E VAP-Compose-Demo: 	at android.view.ViewGroup.dispatchAttachedToWindow(ViewGroup.java:3658)
+11-03 18:42:35.342 29591 29591 E VAP-Compose-Demo: 	at android.view.ViewGroup.dispatchAttachedToWindow(ViewGroup.java:3665)
+11-03 18:42:35.342 29591 29591 E VAP-Compose-Demo: 	at android.view.ViewGroup.dispatchAttachedToWindow(ViewGroup.java:3665)
+11-03 18:42:35.342 29591 29591 E VAP-Compose-Demo: 	at android.view.ViewGroup.dispatchAttachedToWindow(ViewGroup.java:3665)
+11-03 18:42:35.342 29591 29591 E VAP-Compose-Demo: 	at android.view.ViewGroup.dispatchAttachedToWindow(ViewGroup.java:3665)
+11-03 18:42:35.342 29591 29591 E VAP-Compose-Demo: 	at android.view.ViewRootImpl.performTraversals(ViewRootImpl.java:5079)
+11-03 18:42:35.342 29591 29591 E VAP-Compose-Demo: 	at android.view.ViewRootImpl.doTraversal(ViewRootImpl.java:4270)
+11-03 18:42:35.342 29591 29591 E VAP-Compose-Demo: 	at android.view.ViewRootImpl$TraversalCallback.onVsync(ViewRootImpl.java:13498)
+11-03 18:42:35.342 29591 29591 E VAP-Compose-Demo: 	at android.view.Choreographer$CallbackRecord.run(Choreographer.java:2264)
+11-03 18:42:35.342 29591 29591 E VAP-Compose-Demo: 	at android.view.Choreographer.doCallbacks(Choreographer.java:1700)
+11-03 18:42:35.342 29591 29591 E VAP-Compose-Demo: 	at android.view.Choreographer.doFrame(Choreographer.java:1590)
+11-03 18:42:35.342 29591 29591 E VAP-Compose-Demo: 	at android.view.Choreographer$FrameDisplayEventReceiver.run(Choreographer.java:2214)
+11-03 18:42:35.342 29591 29591 E VAP-Compose-Demo: 	at android.os.Handler.handleCallback(Handler.java:1129)
+11-03 18:42:35.342 29591 29591 E VAP-Compose-Demo: 	at android.os.Handler.dispatchMessageImpl(Handler.java:139)
+11-03 18:42:35.342 29591 29591 E VAP-Compose-Demo: 	at android.os.Handler.dispatchMessage(Handler.java:129)
+11-03 18:42:35.342 29591 29591 E VAP-Compose-Demo: 	at android.os.Looper.loopOnce(Looper.java:315)
+11-03 18:42:35.342 29591 29591 E VAP-Compose-Demo: 	at android.os.Looper.loop(Looper.java:419)
+11-03 18:42:35.342 29591 29591 E VAP-Compose-Demo: 	at android.app.ActivityThread.main(ActivityThread.java:10847)
+11-03 18:42:35.342 29591 29591 E VAP-Compose-Demo: 	at java.lang.reflect.Method.invoke(Native Method)
+11-03 18:42:35.342 29591 29591 E VAP-Compose-Demo: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:598)
+11-03 18:42:35.342 29591 29591 E VAP-Compose-Demo: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:1150)
+11-03 18:42:35.367 29591 29591 I VAP-Compose-Demo: M2 SUITE STARTED scenario=invalid-request cycles=40
+11-03 18:42:35.368 29591 29591 I VAP-Compose-Demo: M3 SUITE PASSED scenario=invalid-request kind=InvalidRequest stage=Request cancellations=0
+
+=== vapx-extra ===
+--------- beginning of main
+11-03 18:43:49.904 29934 29934 I VAP-Compose-Demo: M2 SUITE STARTED scenario=vapx cycles=8
+11-03 18:43:49.989 29934 31447 I VapSurfaceAudio: Extractor selected track 1 (audio/mp4a-latm): {max-bitrate=112000, sample-rate=44100, track-id=2, mime=audio/mp4a-latm, profile=2, bitrate=110862, language=und, aac-profile=2, encoder-delay=1024, durationUs=11988000, channel-count=1, encoder-padding=4, max-input-size=557, csd-0=java.nio.HeapByteBuffer[pos=0 lim=5 cap=5]}
+11-03 18:43:49.994 29934 31487 I VapSurfaceAudio: Extractor selected track 1 (audio/mp4a-latm): {max-bitrate=112000, sample-rate=44100, track-id=2, mime=audio/mp4a-latm, profile=2, bitrate=110862, language=und, aac-profile=2, encoder-delay=1024, durationUs=11988000, channel-count=1, encoder-padding=4, max-input-size=557, csd-0=java.nio.HeapByteBuffer[pos=0 lim=5 cap=5]}
+11-03 18:43:49.997 29934 29934 I VAP-Compose-Demo: M2 first-frame starts=1
+11-03 18:43:50.018 29934 31487 I VapSurfaceAudio: supportType=[audio/mihc, audio/aivc, audio/vorbis, video/x-vnd.on2.vp8, audio/raw, video/x-vnd.on2.vp9, audio/eac3, audio/g711-mlaw, video/mp4v-es, audio/aihc, video/avc, video/hevc, audio/mp4a-latm, audio/iamf, video/3gpp, audio/opus, video/av01, audio/flac, audio/mpeg, video/apv, audio/amr-wb, audio/g711-alaw, audio/3gpp, audio/eac3-joc, video/dolby-vision, audio/ac3, audio/ac4]
+11-03 18:43:50.130 29934 31487 I VapSurfaceAudio: AudioTrack first PCM write
+11-03 18:43:58.253 29934 29934 I VAP-Compose-Demo: M3 resource-click sourceId=2 tag=[sImg1]
+11-03 18:43:58.370 29934 29934 I VAP-Compose-Demo: M3 resource-click sourceId=1 tag=[sTxt1]
+11-03 18:43:58.485 29934 29934 I VAP-Compose-Demo: M3 resource-click sourceId=2 tag=[sImg1]
+11-03 18:44:02.581 29934 31446 I VapSurfaceAudio: destroyThread
+11-03 18:44:02.595 29934 29934 I VAP-Compose-Demo: M2 completed completes=1
+11-03 18:44:02.596 29934 29934 I VAP-Compose-Demo: M3 SUITE PASSED scenario=vapx images=1 texts=1 releases=1
+
+=== controls-extra ===
+--------- beginning of main
+11-03 18:44:03.634 30097 30097 I VAP-Compose-Demo: M2 SUITE STARTED scenario=controls cycles=8
+11-03 18:44:03.762 30097 30097 I VAP-Compose-Demo: M2 first-frame starts=1
+11-03 18:44:05.984 30097 30097 I VapComposeSurface: detach reason=host-inactive elapsedUs=1553
+11-03 18:44:06.003 30097 30097 E VAP-Compose-Demo: M2 SUITE FAILED starts=1 completes=0 failures=0
+11-03 18:44:06.003 30097 30097 E VAP-Compose-Demo: androidx.compose.runtime.LeftCompositionCancellationException: The coroutine scope left the composition
+
+=== controls-retry ===
+--------- beginning of main
+11-03 18:44:16.641 31530 31530 I VAP-Compose-Demo: M2 SUITE STARTED scenario=controls cycles=8
+11-03 18:44:16.708 31530 31530 I VAP-Compose-Demo: M2 first-frame starts=1
+11-03 18:44:23.668 31530 31530 I VAP-Compose-Demo: M2 completed completes=1
+11-03 18:44:23.692 31530 31530 I VapComposeSurface: detach reason=request elapsedUs=18
+11-03 18:44:23.774 31530 31530 I VAP-Compose-Demo: M2 first-frame starts=2
+11-03 18:44:30.189 31530 31530 I VAP-Compose-Demo: M3 SUITE PASSED scenario=controls pause=1 maskChanges=2 finite=2 infiniteObserved=2
+11-03 18:44:30.214 31530 31530 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=845

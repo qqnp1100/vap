@@ -1,0 +1,24 @@
+
+=== view-only ===
+STARTED
+COMPLETED frames=81
+DESTROYED
+
+=== compose-only ===
+STARTED
+COMPLETED
+
+=== coexist ===
+SUITE started
+VIEW started=1
+COMPOSE started=1 request=1
+VIEW completed=1
+VIEW started=2
+PASS view-stop-and-source-change
+PASS compose-stop-with-view-decoding
+COMPOSE started=2 request=2
+COMPOSE started=3 request=3
+PASS compose-source-change
+VIEW completed=2
+COMPOSE completed=1 request=3
+SUITE passed viewStarts=2 composeStarts=3 composeCompletes=1 failures=0

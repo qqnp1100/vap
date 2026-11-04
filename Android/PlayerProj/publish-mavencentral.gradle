@@ -1,23 +1,78 @@
+def publishingProperties = providers.provider {
+    def properties = new Properties()
+    def localProperties = rootProject.file('local.properties')
+    if (localProperties.isFile()) {
+        localProperties.withReader { properties.load(it) }
+    }
+    properties
+}
+
+def centralVersion = providers.gradleProperty('vapPublishingVersion').orElse('2.0.31').get()
+if (!(centralVersion ==~ /[0-9]+\.[0-9]+\.[0-9]+/)) {
+    throw new GradleException('vapPublishingVersion must be a release version such as 2.0.31.')
+}
+
+def registerCentralUpload = { String taskName, TaskProvider<Zip> bundleTask ->
+    tasks.register(taskName, Exec) {
+        group = 'publishing'
+        description = 'Uploads the signed bundle to Central Portal for manual release.'
+        dependsOn bundleTask
+
+        doFirst {
+            def properties = publishingProperties.get()
+            def username = properties.getProperty('MAVEN_CENTRAL_USERNAME')
+            def password = properties.getProperty('MAVEN_CENTRAL_PASSWORD')
+            if (!username || !password) {
+                throw new GradleException('Set MAVEN_CENTRAL_USERNAME and MAVEN_CENTRAL_PASSWORD in local.properties.')
+            }
+            def token = "${username}:${password}".getBytes('UTF-8').encodeBase64().toString()
+            // Pass the bearer token via stdin so it does not appear in the command line.
+            standardInput = new ByteArrayInputStream("Authorization: Bearer ${token}\n".getBytes('UTF-8'))
+            def bundle = bundleTask.get().archiveFile.get().asFile
+            workingDir bundle.parentFile
+            commandLine 'curl', '--disable', '--silent', '--show-error', '--fail-with-body',
+                '--connect-timeout', '15', '--max-time', '300',
+                '--header', '@-', '--form', "bundle=@${bundle.name};type=application/octet-stream",
+                'https://central.sonatype.com/api/v1/publisher/upload?publishingType=USER_MANAGED'
+        }
+    }
+}
+
+if (project == rootProject) {
+    def moduleBundles = [':vap-core:centralBundle', ':animplayer:centralBundle', ':vap-compose:centralBundle']
+    def combinedBundle = tasks.register('vapCentralBundle', Zip) {
+        group = 'publishing'
+        description = 'Builds a single signed Maven Central bundle for all three VAP artifacts.'
+        dependsOn moduleBundles
+        from {
+            moduleBundles.collect { path -> zipTree(tasks.getByPath(path).archiveFile.get().asFile) }
+        }
+        duplicatesStrategy = DuplicatesStrategy.FAIL
+        archiveFileName = "vap-${centralVersion}-central.zip"
+        destinationDirectory = layout.buildDirectory.dir('central')
+    }
+    registerCentralUpload('publishVapToMavenCentral', combinedBundle)
+    return
+}
+
 apply plugin: 'maven-publish'
 apply plugin: 'signing'
 
-def publishingProperties = new Properties()
-def localProperties = rootProject.layout.projectDirectory.file('local.properties')
-def localPropertiesText = providers.fileContents(localProperties).asText.orNull
-if (localPropertiesText != null) {
-    publishingProperties.load(new StringReader(localPropertiesText))
-}
-
 def centralGroup = 'io.github.qqnp1100'
-def centralArtifact = 'vap'
-def centralVersion = providers.gradleProperty('vapPublishingVersion').orElse('2.0.30').get()
-if (!(centralVersion ==~ /[0-9]+\.[0-9]+\.[0-9]+/)) {
-    throw new GradleException('vapPublishingVersion must be a release version such as 2.0.30.')
-}
+def centralArtifact = project.name == 'animplayer' ? 'vap' : project.name
+def moduleInfo = [
+    'vap': ['VAP', 'Android player for Tencent Video Animation Player (VAP) files.'],
+    'vap-core': ['VAP Core', 'Shared Android playback engine for VAP files.'],
+    'vap-compose': ['VAP Compose', 'Jetpack Compose playback component for VAP files.'],
+][centralArtifact]
 
 def scmUrl = 'https://github.com/qqnp1100/vap'
 def stagingRepository = layout.buildDirectory.dir('central/repository')
+def verificationRepository = rootProject.layout.buildDirectory.dir('maven-verification')
 def artifactPath = "${centralGroup.replace('.', '/')}/${centralArtifact}/${centralVersion}"
+
+group = centralGroup
+version = centralVersion
 
 android {
     publishing {
@@ -33,65 +88,95 @@ def docsJar = tasks.register('centralJavadocJar', Jar) {
     from(rootProject.file('../../LICENSE.txt'))
 }
 
-def releasePublication = publishing.publications.register('release', MavenPublication) {
-    groupId = centralGroup
-    artifactId = centralArtifact
-    version = centralVersion
-    artifact(docsJar)
+def configurePublication = { MavenPublication publication ->
+    publication.with {
+        groupId = centralGroup
+        artifactId = centralArtifact
+        version = centralVersion
+        artifact(docsJar)
 
-    pom {
-        name = 'VAP'
-        description = 'Android player for Tencent Video Animation Player (VAP) files.'
-        url = scmUrl
-        licenses {
-            license {
-                name = 'MIT License'
-                url = 'https://opensource.org/license/mit'
-            }
-        }
-        developers {
-            developer {
-                id = 'qqnp1100'
-                name = 'xzin'
-                url = 'https://github.com/qqnp1100'
-            }
-        }
-        scm {
+        pom {
+            name = moduleInfo[0]
+            description = moduleInfo[1]
             url = scmUrl
-            connection = "scm:git:${scmUrl}.git"
-            developerConnection = 'scm:git:ssh://git@github.com/qqnp1100/vap.git'
+            licenses {
+                license {
+                    name = 'MIT License'
+                    url = 'https://opensource.org/license/mit'
+                }
+            }
+            developers {
+                developer {
+                    id = 'qqnp1100'
+                    name = 'xzin'
+                    url = 'https://github.com/qqnp1100'
+                }
+            }
+            scm {
+                url = scmUrl
+                connection = "scm:git:${scmUrl}.git"
+                developerConnection = 'scm:git:ssh://git@github.com/qqnp1100/vap.git'
+            }
         }
     }
 }
 
-publishing.repositories.maven {
-    name = 'CentralStaging'
-    url = stagingRepository
+def releasePublication = publishing.publications.register('release', MavenPublication, configurePublication)
+def verificationPublication = publishing.publications.register('verification', MavenPublication, configurePublication)
+
+publishing.repositories {
+    maven {
+        name = 'CentralStaging'
+        url = stagingRepository
+    }
+    maven {
+        name = 'Verification'
+        url = verificationRepository
+    }
 }
 
 afterEvaluate {
     releasePublication.configure {
         from components.release
     }
+    verificationPublication.configure {
+        from components.release
+    }
 }
 
 signing {
-    def keyFile = publishingProperties.getProperty('SIGNING_KEY_FILE')
-    if (keyFile) {
-        useInMemoryPgpKeys(
-            publishingProperties.getProperty('SIGNING_KEY_ID') ?: null,
-            file(keyFile).getText('UTF-8'),
-            publishingProperties.getProperty('SIGNING_PASSWORD', '')
-        )
-    }
     sign releasePublication.get()
 }
 
-tasks.named('signReleasePublication', Sign) {
+def signRelease = tasks.named('signReleasePublication', Sign) {
     doFirst {
         if (!signatory) {
             throw new GradleException('Set SIGNING_KEY_FILE and SIGNING_PASSWORD in local.properties.')
         }
+    }
+}
+
+// Verification uses a distinct publication so stale signature files cannot leak into it.
+// Read credentials only for an actual signing or upload task.
+gradle.taskGraph.whenReady { graph ->
+    if (graph.hasTask(signRelease.get())) {
+        def properties = publishingProperties.get()
+        def keyFile = properties.getProperty('SIGNING_KEY_FILE')
+        if (keyFile) {
+            signing.useInMemoryPgpKeys(
+                properties.getProperty('SIGNING_KEY_ID') ?: null,
+                project(':animplayer').file(keyFile).getText('UTF-8'),
+                properties.getProperty('SIGNING_PASSWORD', '')
+            )
+            signRelease.get().signatory = signing.signatory
+        }
+    }
+}
+
+tasks.withType(PublishToMavenRepository).configureEach {
+    onlyIf('the publication matches its repository') {
+        (publication.name == 'release' && repository.name == 'CentralStaging') ||
+            (publication.name == 'verification' && repository.name == 'Verification')
     }
 }
 
@@ -115,25 +200,4 @@ def centralBundle = tasks.register('centralBundle', Zip) {
     destinationDirectory = layout.buildDirectory.dir('central')
 }
 
-tasks.register('publishToMavenCentral', Exec) {
-    group = 'publishing'
-    description = 'Uploads the signed bundle to Central Portal for manual release.'
-    dependsOn centralBundle
-
-    doFirst {
-        def username = publishingProperties.getProperty('MAVEN_CENTRAL_USERNAME')
-        def password = publishingProperties.getProperty('MAVEN_CENTRAL_PASSWORD')
-        if (!username || !password) {
-            throw new GradleException('Set MAVEN_CENTRAL_USERNAME and MAVEN_CENTRAL_PASSWORD in local.properties.')
-        }
-        def token = "${username}:${password}".getBytes('UTF-8').encodeBase64().toString()
-        // Pass the bearer token via stdin so it does not appear in the command line.
-        standardInput = new ByteArrayInputStream("Authorization: Bearer ${token}\n".getBytes('UTF-8'))
-        def bundle = centralBundle.get().archiveFile.get().asFile
-        workingDir bundle.parentFile
-        commandLine 'curl', '--disable', '--silent', '--show-error', '--fail-with-body',
-            '--connect-timeout', '15', '--max-time', '300',
-            '--header', '@-', '--form', "bundle=@${bundle.name};type=application/octet-stream",
-            'https://central.sonatype.com/api/v1/publisher/upload?publishingType=USER_MANAGED'
-    }
-}
+registerCentralUpload('publishToMavenCentral', centralBundle)

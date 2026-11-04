@@ -16,47 +16,8 @@
 package com.tencent.qgame.animplayer.file
 
 import android.annotation.TargetApi
-import android.media.MediaExtractor
-import android.os.Build
-import java.io.ByteArrayInputStream
-import java.io.EOFException
+import com.tencent.qgame.vap.core.spi.openByteArrayInput
 
-@TargetApi(Build.VERSION_CODES.M)
-class StreamContainer(private val bytes: ByteArray) : IFileContainer {
-
-    private var stream: ByteArrayInputStream? = null
-
-    override fun setDataSource(extractor: MediaExtractor) {
-        val dataSource = StreamMediaDataSource(bytes)
-        extractor.setDataSource(dataSource)
-    }
-
-    override fun startRandomRead() {
-        stream = ByteArrayInputStream(bytes)
-    }
-
-    override fun read(b: ByteArray, off: Int, len: Int): Int {
-        return stream?.read(b, off, len) ?: -1
-    }
-
-    override fun skip(pos: Long) {
-        skipFully(pos)
-    }
-
-    override fun getLength(): Long = bytes.size.toLong()
-
-    override fun skipFully(length: Long) {
-        require(length >= 0)
-        val input = stream ?: throw IllegalStateException("Random read is not open")
-        if (input.skip(length) != length) throw EOFException("Truncated stream while skipping")
-    }
-
-    override fun closeRandomRead() {
-        stream?.close()
-        stream = null
-    }
-
-    override fun close() {
-        closeRandomRead()
-    }
-}
+@TargetApi(23)
+class StreamContainer(bytes: ByteArray) :
+    IFileContainer by LegacyFileInput(openByteArrayInput(bytes))

@@ -17,67 +17,62 @@ package com.tencent.qgame.animplayer.mix
 
 import android.util.SparseArray
 import com.tencent.qgame.animplayer.PointRect
+import com.tencent.qgame.vap.core.spi.MixConfigReader
+import com.tencent.qgame.vap.core.spi.MixFrameDefinition
+import com.tencent.qgame.vap.core.spi.MixFrameLayer
+import com.tencent.qgame.vap.core.spi.VideoRect
 import org.json.JSONObject
 
-/**
- * 单帧
- */
-class Frame(val index: Int, json: JSONObject) {
-    var srcId = ""
-    var z = 0
-    var frame: PointRect
-    var mFrame: PointRect
-    var mt = 0 // 遮罩旋转角度v2 版本只支持 0 与 90度
-
-    init {
-        srcId = json.getString("srcId")
-        z = json.getInt("z")
-
-        val f = json.getJSONArray("frame")
-        frame = PointRect(f.getInt(0), f.getInt(1), f.getInt(2), f.getInt(3))
-
-        val m = json.getJSONArray("mFrame")
-        mFrame = PointRect(m.getInt(0), m.getInt(1), m.getInt(2), m.getInt(3))
-
-        mt = json.getInt("mt")
+class Frame private constructor(val index: Int, layer: MixFrameLayer) {
+    companion object {
+        @JvmSynthetic
+        internal fun fromLayer(index: Int, layer: MixFrameLayer) = Frame(index, layer)
     }
-}
 
+    constructor(index: Int, json: JSONObject) : this(index, MixConfigReader.readLayer(json))
 
-/**
- * 一帧的集合
- */
-class FrameSet(json: JSONObject) {
-    var index = 0 // 哪一帧
-    val list = ArrayList<Frame>()
-    init {
-        index = json.getInt("i")
-        val objJsonArray = json.getJSONArray("obj")
-        val objLen = objJsonArray?.length() ?: 0
-        for (i in 0 until objLen) {
-            val frameJson = objJsonArray?.getJSONObject(i) ?: continue
-            val frame = Frame(index, frameJson)
-            list.add(frame)
+    var srcId = layer.sourceId
+    var z = layer.z
+    var frame = layer.position.toPointRect()
+        set(value) {
+            field = value
+            renderRect = value.toVideoRect()
         }
-        // 绘制顺序排序
-        list.sortBy {it.z}
-    }
+    var mFrame = layer.videoMask.toPointRect()
+        set(value) {
+            field = value
+            maskRect = value.toVideoRect()
+        }
+    var mt = layer.maskRotation
+
+    internal var renderRect = layer.position
+        private set
+    internal var maskRect = layer.videoMask
+        private set
+
+    private fun PointRect.toVideoRect() = VideoRect(x, y, w, h)
+
+    private fun VideoRect.toPointRect() = PointRect(x, y, w, h)
 }
 
-/**
- * 所有帧集合
- */
+class FrameSet private constructor(definition: MixFrameDefinition) {
+    companion object {
+        @JvmSynthetic
+        internal fun fromDefinition(definition: MixFrameDefinition) = FrameSet(definition)
+    }
+
+    constructor(json: JSONObject) : this(MixConfigReader.readFrame(json))
+
+    var index = definition.index
+    val list = definition.layers.mapTo(ArrayList(definition.layers.size)) { Frame.fromLayer(index, it) }
+}
+
 class FrameAll(json: JSONObject) {
-    // 每一帧的集合
     val map = SparseArray<FrameSet>()
 
     init {
-        val frameJsonArray = json.getJSONArray("frame")
-        val frameLen = frameJsonArray?.length() ?: 0
-        for (i in 0 until frameLen) {
-            val frameSetJson = frameJsonArray?.getJSONObject(i) ?: continue
-            val frameSet = FrameSet(frameSetJson)
-            map.put(frameSet.index, frameSet)
+        MixConfigReader.forEachFrame(json) { definition ->
+            map.put(definition.index, FrameSet.fromDefinition(definition))
         }
     }
 }

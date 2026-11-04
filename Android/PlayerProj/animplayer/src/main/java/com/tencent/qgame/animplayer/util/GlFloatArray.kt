@@ -15,36 +15,14 @@
  */
 package com.tencent.qgame.animplayer.util
 
-import android.opengl.GLES20
-import java.nio.ByteBuffer
-import java.nio.ByteOrder
-import java.nio.FloatBuffer
-import kotlin.FloatArray
+import com.tencent.qgame.vap.core.spi.GlFloatArray as CoreGlFloatArray
 
 class GlFloatArray {
+    internal val coreArray = CoreGlFloatArray()
 
+    val array: FloatArray get() = coreArray.array
 
-    val array = FloatArray(8)
+    fun setArray(array: FloatArray) = coreArray.setArray(array)
 
-    private var floatBuffer: FloatBuffer
-
-    init {
-        floatBuffer = ByteBuffer
-            .allocateDirect(array.size * 4)
-            .order(ByteOrder.nativeOrder())
-            .asFloatBuffer()
-            .put(array)
-    }
-
-    fun setArray(array: FloatArray) {
-        floatBuffer.position(0)
-        floatBuffer.put(array)
-    }
-
-
-    fun setVertexAttribPointer(attributeLocation: Int) {
-        floatBuffer.position(0)
-        GLES20.glVertexAttribPointer(attributeLocation, 2, GLES20.GL_FLOAT, false, 0, floatBuffer)
-        GLES20.glEnableVertexAttribArray(attributeLocation)
-    }
+    fun setVertexAttribPointer(attributeLocation: Int) = coreArray.setVertexAttribPointer(attributeLocation)
 }

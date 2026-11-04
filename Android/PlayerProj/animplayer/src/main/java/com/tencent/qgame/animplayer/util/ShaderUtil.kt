@@ -15,67 +15,10 @@
  */
 package com.tencent.qgame.animplayer.util
 
-import android.opengl.GLES20
-import com.tencent.qgame.animplayer.Constant
+import com.tencent.qgame.animplayer.legacyRenderLogger
+import com.tencent.qgame.vap.core.spi.ShaderUtil as CoreShaderUtil
 
 object ShaderUtil {
-    private const val TAG = "${Constant.TAG}.ShaderUtil"
-
-
-    fun createProgram(vertexSource: String, fragmentSource: String): Int {
-        var vertexShaderHandle = 0
-        var fragmentShaderHandle = 0
-        try {
-            vertexShaderHandle = compileShader(GLES20.GL_VERTEX_SHADER, vertexSource)
-            fragmentShaderHandle = compileShader(GLES20.GL_FRAGMENT_SHADER, fragmentSource)
-            return createAndLinkProgram(vertexShaderHandle, fragmentShaderHandle)
-        } finally {
-            if (vertexShaderHandle != 0) GLES20.glDeleteShader(vertexShaderHandle)
-            if (fragmentShaderHandle != 0) GLES20.glDeleteShader(fragmentShaderHandle)
-        }
-    }
-
-
-    private fun compileShader(shaderType: Int, shaderSource: String): Int {
-        var shaderHandle = GLES20.glCreateShader(shaderType)
-
-        if (shaderHandle != 0) {
-            GLES20.glShaderSource(shaderHandle, shaderSource)
-            GLES20.glCompileShader(shaderHandle)
-            val compileStatus = IntArray(1)
-            GLES20.glGetShaderiv(shaderHandle, GLES20.GL_COMPILE_STATUS, compileStatus, 0)
-            if (compileStatus[0] == 0) {
-                ALog.e(TAG, "Error compiling shader: " + GLES20.glGetShaderInfoLog(shaderHandle))
-                GLES20.glDeleteShader(shaderHandle)
-                shaderHandle = 0
-            }
-        }
-        if (shaderHandle == 0) {
-            throw RuntimeException("Error creating shader.")
-        }
-        return shaderHandle
-    }
-
-
-    private fun createAndLinkProgram(vertexShaderHandle: Int, fragmentShaderHandle: Int): Int {
-        var programHandle = GLES20.glCreateProgram()
-
-        if (programHandle != 0) {
-            GLES20.glAttachShader(programHandle, vertexShaderHandle)
-            GLES20.glAttachShader(programHandle, fragmentShaderHandle)
-            GLES20.glLinkProgram(programHandle)
-            val linkStatus = IntArray(1)
-            GLES20.glGetProgramiv(programHandle, GLES20.GL_LINK_STATUS, linkStatus, 0)
-            if (linkStatus[0] == 0) {
-                ALog.e(TAG, "Error compiling program: " + GLES20.glGetProgramInfoLog(programHandle))
-                GLES20.glDeleteProgram(programHandle)
-                programHandle = 0
-            }
-        }
-        if (programHandle == 0) {
-            throw RuntimeException("Error creating program.")
-        }
-        return programHandle
-    }
-
+    fun createProgram(vertexSource: String, fragmentSource: String): Int =
+        CoreShaderUtil.createProgram(vertexSource, fragmentSource, legacyRenderLogger)
 }

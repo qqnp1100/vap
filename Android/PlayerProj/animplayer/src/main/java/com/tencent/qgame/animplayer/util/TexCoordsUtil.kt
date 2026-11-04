@@ -16,69 +16,12 @@
 package com.tencent.qgame.animplayer.util
 
 import com.tencent.qgame.animplayer.PointRect
+import com.tencent.qgame.vap.core.spi.VideoRect
+import com.tencent.qgame.vap.core.spi.TexCoordsUtil as CoreTexCoordsUtil
 
-/**
- * 纹理坐标工具
- * 坐标顺序是倒N
- */
 object TexCoordsUtil {
+    fun create(width: Int, height: Int, rect: PointRect, array: FloatArray): FloatArray =
+        CoreTexCoordsUtil.create(width, height, VideoRect(rect.x, rect.y, rect.w, rect.h), array)
 
-    /**
-     * @param width 纹理的宽高
-     * @param height
-     */
-    fun create(width: Int, height: Int, rect: PointRect, array: FloatArray): FloatArray {
-
-        // x0
-        array[0] = rect.x.toFloat() / width
-        // y0
-        array[1] = rect.y.toFloat() / height
-
-        // x1
-        array[2] = rect.x.toFloat() / width
-        // y1
-        array[3] = (rect.y.toFloat() + rect.h) / height
-
-        // x2
-        array[4] = (rect.x.toFloat() + rect.w) / width
-        // y2
-        array[5] = rect.y.toFloat() / height
-
-        // x3
-        array[6] = (rect.x.toFloat() + rect.w) / width
-        // y3
-        array[7] = (rect.y.toFloat() + rect.h) / height
-
-        return array
-    }
-
-
-
-
-    /**
-     * 顺时针90度
-     */
-    fun rotate90(array: FloatArray): FloatArray {
-        // 0->2 1->0 3->1 2->3
-        val tx = array[0]
-        val ty = array[1]
-
-        // 1->0
-        array[0] = array[2]
-        array[1] = array[3]
-
-        // 3->1
-        array[2] = array[6]
-        array[3] = array[7]
-
-        // 2->3
-        array[6] = array[4]
-        array[7] = array[5]
-
-        // 0->2
-        array[4] = tx
-        array[5] = ty
-        return array
-    }
-
+    fun rotate90(array: FloatArray): FloatArray = CoreTexCoordsUtil.rotate90(array)
 }

@@ -16,14 +16,20 @@
 package com.tencent.qgame.animplayer.mix
 
 import android.graphics.Bitmap
-import android.graphics.Color
 import com.tencent.qgame.animplayer.Constant
 import com.tencent.qgame.animplayer.util.ALog
+import com.tencent.qgame.vap.core.spi.MixConfigReader
+import com.tencent.qgame.vap.core.spi.MixSourceDefinition
 import org.json.JSONObject
 
-class Src {
+class Src private constructor(definition: MixSourceDefinition) {
+    constructor(json: JSONObject) : this(MixConfigReader.readSource(json))
+
     companion object {
         private const val TAG = "${Constant.TAG}.Src"
+
+        @JvmSynthetic
+        internal fun fromDefinition(definition: MixSourceDefinition) = Src(definition)
     }
 
     enum class SrcType(val type: String) {
@@ -67,42 +73,34 @@ class Src {
             genDrawSize(value)
         }
 
-    constructor(json: JSONObject) {
-        srcId = json.getString("srcId")
-        w = json.getInt("w")
-        h = json.getInt("h")
-        // 可选
-        var colorStr = json.optString("color", "#000000")
-        if (colorStr.isEmpty()) {
-            colorStr = "#000000"
-        }
-        color = Color.parseColor(colorStr)
-        srcTag = json.getString("srcTag")
+    init {
+        srcId = definition.id
+        w = definition.width
+        h = definition.height
+        color = definition.color
+        srcTag = definition.tag
         txt = srcTag
 
-        srcType = when(json.getString("srcType")) {
+        srcType = when (definition.sourceType) {
             SrcType.IMG.type -> SrcType.IMG
             SrcType.TXT.type -> SrcType.TXT
             else -> SrcType.UNKNOWN
         }
-        loadType = when(json.getString("loadType")) {
+        loadType = when (definition.loadType) {
             LoadType.NET.type -> LoadType.NET
             LoadType.LOCAL.type -> LoadType.LOCAL
             else -> LoadType.UNKNOWN
         }
-        fitType = when(json.getString("fitType")) {
+        fitType = when (definition.fitType) {
             FitType.CENTER_FULL.type -> FitType.CENTER_FULL
             else -> FitType.FIT_XY
         }
-
-        // 可选
-        style = when(json.optString("style", "")) {
+        style = when (definition.style) {
             Style.BOLD.style -> Style.BOLD
             else -> Style.DEFAULT
         }
-        ALog.i(TAG, "${toString()} color=$colorStr")
+        ALog.i(TAG, "${toString()} color=${definition.colorText}")
     }
-
 
     private fun genDrawSize(bitmap: Bitmap?) {
         val bw = bitmap?.width?: w
@@ -139,11 +137,8 @@ class SrcMap(json: JSONObject) {
     val map = HashMap<String, Src>()
 
     init {
-        val srcJsonArray = json.getJSONArray("src")
-        val srcLen = srcJsonArray?.length() ?: 0
-        for (i in 0 until srcLen) {
-            val srcJson = srcJsonArray?.getJSONObject(i) ?: continue
-            val src = Src(srcJson)
+        MixConfigReader.forEachSource(json) { definition ->
+            val src = Src.fromDefinition(definition)
             if (src.srcType != Src.SrcType.UNKNOWN) { // 不认识的srcType丢弃
                 map[src.srcId] = src
             }

@@ -15,61 +15,17 @@
  */
 package com.tencent.qgame.animplayer.file
 
-import android.media.MediaExtractor
-import com.tencent.qgame.animplayer.Constant
 import com.tencent.qgame.animplayer.util.ALog
+import com.tencent.qgame.vap.core.spi.VapMediaInput
+import com.tencent.qgame.vap.core.spi.openFileInput
 import java.io.File
-import java.io.FileNotFoundException
-import java.io.EOFException
-import java.io.RandomAccessFile
 
-class FileContainer(private val file: File) : IFileContainer {
+class FileContainer(file: File) :
+    IFileContainer by LegacyFileInput(openLegacyFile(file)) {
+    companion object {}
+}
 
-    companion object {
-        private const val TAG = "${Constant.TAG}.FileContainer"
-    }
-
-    private var randomAccessFile: RandomAccessFile? = null
-
-    init {
-        ALog.i(TAG, "FileContainer init")
-        if (!(file.exists() && file.isFile && file.canRead())) throw FileNotFoundException("Unable to read $file")
-    }
-
-    override fun setDataSource(extractor: MediaExtractor) {
-        extractor.setDataSource(file.toString())
-    }
-
-    override fun startRandomRead() {
-        closeRandomRead()
-        randomAccessFile = RandomAccessFile(file, "r")
-    }
-
-    override fun read(b: ByteArray, off: Int, len: Int): Int {
-        return randomAccessFile?.read(b, off, len) ?: -1
-    }
-
-    override fun skip(pos: Long) {
-        skipFully(pos)
-    }
-
-    override fun getLength(): Long = file.length()
-
-    override fun skipFully(length: Long) {
-        require(length >= 0)
-        val input = randomAccessFile ?: throw IllegalStateException("Random read is not open")
-        val current = input.filePointer
-        if (length > input.length() - current) throw EOFException("Truncated file while skipping")
-        input.seek(current + length)
-    }
-
-    override fun closeRandomRead() {
-        val input = randomAccessFile
-        randomAccessFile = null
-        input?.close()
-    }
-
-    override fun close() {
-        closeRandomRead()
-    }
+private fun openLegacyFile(file: File): VapMediaInput {
+    ALog.i("AnimPlayer.FileContainer", "FileContainer init")
+    return openFileInput(file)
 }

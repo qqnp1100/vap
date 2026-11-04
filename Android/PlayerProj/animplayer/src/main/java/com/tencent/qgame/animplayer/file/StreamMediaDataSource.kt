@@ -17,24 +17,16 @@ package com.tencent.qgame.animplayer.file
 
 import android.annotation.TargetApi
 import android.media.MediaDataSource
-import android.os.Build
+import com.tencent.qgame.vap.core.spi.openByteArrayDataSource
 
-@TargetApi(Build.VERSION_CODES.M)
+@TargetApi(23)
 class StreamMediaDataSource(val bytes: ByteArray) : MediaDataSource() {
+    private val source = openByteArrayDataSource(bytes)
 
-    override fun close() {
-    }
+    override fun close() = source.close()
 
-    override fun readAt(position: Long, buffer: ByteArray, offset: Int, size: Int): Int {
-        require(position >= 0 && offset >= 0 && size >= 0 && offset <= buffer.size && size <= buffer.size - offset)
-        if (size == 0) return 0
-        if (position >= bytes.size) return -1
-        val count = minOf(size.toLong(), bytes.size.toLong() - position).toInt()
-        System.arraycopy(bytes, position.toInt(), buffer, offset, count)
-        return count
-    }
+    override fun readAt(position: Long, buffer: ByteArray, offset: Int, size: Int): Int =
+        source.readAt(position, buffer, offset, size)
 
-    override fun getSize(): Long {
-        return bytes.size.toLong()
-    }
+    override fun getSize(): Long = source.size
 }

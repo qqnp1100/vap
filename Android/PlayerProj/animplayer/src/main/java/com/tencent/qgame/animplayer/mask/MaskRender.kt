@@ -15,125 +15,43 @@
  */
 package com.tencent.qgame.animplayer.mask
 
-import android.opengl.GLES20
 import com.tencent.qgame.animplayer.AnimConfig
-import com.tencent.qgame.animplayer.Constant
-import com.tencent.qgame.animplayer.PointRect
-import com.tencent.qgame.animplayer.RefVec2
+import com.tencent.qgame.animplayer.legacyRenderLogger
 import com.tencent.qgame.animplayer.util.GlFloatArray
-import com.tencent.qgame.animplayer.util.TexCoordsUtil
-import com.tencent.qgame.animplayer.util.VertexUtil
+import com.tencent.qgame.vap.core.spi.MaskLayerRenderer
 
-/**
- * vapx 渲染
- */
 class MaskRender(private val maskAnimPlugin: MaskAnimPlugin) {
-    companion object {
-        private const val TAG = "${Constant.TAG}.MaskRender"
-    }
+    companion object {}
 
     var maskShader: MaskShader? = null
+        set(value) {
+            field = value
+            renderer.shader = value?.coreShader
+        }
     var vertexArray = GlFloatArray()
-    private var maskArray = GlFloatArray()
-    /**
-     * shader 与 texture初始化
-     */
+        set(value) {
+            field = value
+            renderer.vertexArray = value.coreArray
+        }
+
+    private val renderer = MaskLayerRenderer(vertexArray.coreArray)
+
     fun initMaskShader(edgeBlur: Boolean) {
-        // shader 初始化
-        maskShader = MaskShader(edgeBlur)
-        GLES20.glDisable(GLES20.GL_DEPTH_TEST) // 关闭深度测试
+        renderer.init(edgeBlur, legacyRenderLogger)
+        maskShader = renderer.shader?.let(::MaskShader)
     }
 
     fun renderFrame(config: AnimConfig) {
         val videoTextureId = maskAnimPlugin.player.decoder?.render?.getExternalTexture() ?: return
-        if (videoTextureId <= 0) return
-        val shader = this.maskShader ?: return
-        var maskTexId: Int = config.maskConfig?.getMaskTexId() ?: return
-        val maskBitmap = config.maskConfig?.alphaMaskBitmap ?: return
-        val maskTexRect = config.maskConfig?.maskTexPair?.first ?: return
-        val maskTexRefVec2 = config.maskConfig?.maskTexPair?.second ?: return
-        val maskPositionRect = config.maskConfig?.maskPositionPair?.first ?: PointRect(
-            0,
-            0,
-            config.width,
-            config.height
+        val mask = config.maskConfig ?: return
+        val textureRegion = mask.textureRegion ?: return
+        renderer.renderFrame(
+            videoTextureId, config.width, config.height, mask.texture, textureRegion, mask.positionRegion
         )
-        val maskPositionRefVec2 =
-            config.maskConfig?.maskPositionPair?.second ?: RefVec2(config.width, config.height)
-        if (maskTexRefVec2.w <= 0 || maskTexRefVec2.h <= 0 ||
-            maskPositionRefVec2.w <= 0 || maskPositionRefVec2.h <= 0 ||
-            maskTexRect.w <= 0 || maskTexRect.h <= 0 ||
-            maskPositionRect.w <= 0 || maskPositionRect.h <= 0) return
-        shader.useProgram()
-        // 顶点坐标
-        vertexArray.setArray(
-            VertexUtil.create(
-                maskPositionRefVec2.w,
-                maskPositionRefVec2.h,
-                maskPositionRect,
-                vertexArray.array
-            )
-        )
-        vertexArray.setVertexAttribPointer(shader.aPositionLocation)
-
-        if (maskTexId <= 0 && !maskBitmap.isRecycled) {
-            maskTexId = config.maskConfig?.updateMaskTex() ?: 0
-        }
-        if (maskTexId > 0) {
-            maskArray.setArray(
-                TexCoordsUtil.create(
-                    maskTexRefVec2.w,
-                    maskTexRefVec2.h,
-                    maskTexRect,
-                    maskArray.array
-                )
-            )
-            maskArray.setVertexAttribPointer(shader.aTextureMaskCoordinatesLocation)
-            // 绑定alpha纹理
-            GLES20.glActiveTexture(GLES20.GL_TEXTURE0)
-            GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, maskTexId)
-            GLES20.glTexParameterf(
-                GLES20.GL_TEXTURE_2D,
-                GLES20.GL_TEXTURE_MIN_FILTER,
-                GLES20.GL_NEAREST.toFloat()
-            )
-            GLES20.glTexParameterf(
-                GLES20.GL_TEXTURE_2D,
-                GLES20.GL_TEXTURE_MAG_FILTER,
-                GLES20.GL_LINEAR.toFloat()
-            )
-            GLES20.glTexParameteri(
-                GLES20.GL_TEXTURE_2D,
-                GLES20.GL_TEXTURE_WRAP_S,
-                GLES20.GL_CLAMP_TO_EDGE
-            )
-            GLES20.glTexParameteri(
-                GLES20.GL_TEXTURE_2D,
-                GLES20.GL_TEXTURE_WRAP_T,
-                GLES20.GL_CLAMP_TO_EDGE
-            )
-            GLES20.glUniform1i(shader.uTextureMaskUnitLocation, 0)
-
-            GLES20.glEnable(GLES20.GL_BLEND)
-            // 基于源象素alpha通道值的半透明混合函数
-            GLES20.glBlendFuncSeparate(
-                GLES20.GL_ONE,
-                GLES20.GL_SRC_ALPHA,
-                GLES20.GL_ZERO,
-                GLES20.GL_SRC_ALPHA
-            )
-            // draw
-            GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, 0, 4)
-
-            GLES20.glDisable(GLES20.GL_BLEND)
-        }
-
     }
 
     fun release() {
-        val shader = maskShader
+        renderer.release()
         maskShader = null
-        shader?.release()
     }
-
 }

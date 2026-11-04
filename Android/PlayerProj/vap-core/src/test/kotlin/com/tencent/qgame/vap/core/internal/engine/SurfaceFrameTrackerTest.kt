@@ -1,4 +1,4 @@
-package com.tencent.qgame.animplayer
+package com.tencent.qgame.vap.core.internal.engine
 
 import org.junit.Assert.*
 import org.junit.Test
@@ -28,6 +28,19 @@ class SurfaceFrameTrackerTest {
         assertTrue(newLoop > previousLoop)
         assertEquals(79, frames.latch(previousLoop, true))
         assertEquals(0, frames.latch(newLoop, true))
+    }
+
+    @Test
+    fun lastFrameMustBeSwappedBeforeTheIterationCanComplete() {
+        val frames = SurfaceFrameTracker()
+        val first = frames.submit(10, 0)
+        val last = frames.submit(20, 1)
+        assertEquals(1, frames.latch(last, true))
+        frames.presented(first)
+        assertFalse(frames.awaitLatestPresented { true })
+
+        frames.presented(last)
+        assertTrue(frames.awaitLatestPresented { true })
     }
 
     @Test

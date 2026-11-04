@@ -16,126 +16,72 @@
 package com.tencent.qgame.animplayer
 
 import android.graphics.SurfaceTexture
-import android.opengl.EGL14
 import android.view.Surface
 import com.tencent.qgame.animplayer.util.ALog
-import javax.microedition.khronos.egl.*
+import com.tencent.qgame.vap.core.spi.EglWindow
+import com.tencent.qgame.vap.core.spi.RenderErrorLogger
+import com.tencent.qgame.vap.core.spi.VideoRect
+import com.tencent.qgame.vap.core.spi.VideoRenderConfig
+import com.tencent.qgame.vap.core.spi.createEglWindow
 
 class EGLUtil {
+    companion object {}
 
-    companion object {
-        private const val TAG = "${Constant.TAG}.EGLUtil"
-    }
-
-    private var egl: EGL10? = null
-    private var eglDisplay: EGLDisplay? = null
-    private var eglSurface: EGLSurface? = null
-    private var eglContext: EGLContext? = null
-    private var eglConfig: EGLConfig? = null
-    private var surface: Surface? = null
-
-    init {
-        eglDisplay = EGL10.EGL_NO_DISPLAY
-        eglSurface = EGL10.EGL_NO_SURFACE
-        eglContext = EGL10.EGL_NO_CONTEXT
-    }
+    private val output = LegacyRenderSurface()
+    private var window: EglWindow? = null
 
     fun start(surfaceTexture: SurfaceTexture) {
-        try {
-            val api = EGLContext.getEGL() as EGL10
-            egl = api
-            eglDisplay = api.eglGetDisplay(EGL10.EGL_DEFAULT_DISPLAY)
-            check(eglDisplay != null && eglDisplay != EGL10.EGL_NO_DISPLAY) { "No EGL display" }
-            check(api.eglInitialize(eglDisplay, IntArray(2))) { "EGL initialization failed" }
-            eglConfig = checkNotNull(chooseConfig()) { "No matching EGL config" }
-            surface = Surface(surfaceTexture)
-            eglSurface = api.eglCreateWindowSurface(eglDisplay, eglConfig, surface, null)
-            check(eglSurface != null && eglSurface != EGL10.EGL_NO_SURFACE) {
-                "EGL surface creation failed: ${Integer.toHexString(api.eglGetError())}"
-            }
-            eglContext = createContext(api, eglDisplay, eglConfig)
-            check(eglContext != null && eglContext != EGL10.EGL_NO_CONTEXT) { "EGL context creation failed" }
-            check(api.eglMakeCurrent(eglDisplay, eglSurface, eglSurface, eglContext)) {
-                "EGL make current failed: ${Integer.toHexString(api.eglGetError())}"
-            }
-        } catch (e: Throwable) {
-            release()
-            throw e
-        }
-    }
-
-
-    private fun chooseConfig(): EGLConfig? {
-        val configsCount = IntArray(1)
-        val configs = arrayOfNulls<EGLConfig>(1)
-        val attributes =getAttributes()
-        val confSize = 1
-        if (egl?.eglChooseConfig(eglDisplay, attributes, configs, confSize, configsCount) == true && configsCount[0] > 0) {
-            return configs[0]
-        }
-        return null
-    }
-
-    private fun getAttributes(): IntArray {
-        return intArrayOf(
-            EGL10.EGL_RENDERABLE_TYPE, EGL14.EGL_OPENGL_ES2_BIT,  //指定渲染api类别
-            EGL10.EGL_RED_SIZE, 8,
-            EGL10.EGL_GREEN_SIZE, 8,
-            EGL10.EGL_BLUE_SIZE, 8,
-            EGL10.EGL_ALPHA_SIZE, 8,
-            EGL10.EGL_DEPTH_SIZE, 0,
-            EGL10.EGL_STENCIL_SIZE, 0,
-            EGL10.EGL_NONE
-        )
-    }
-
-    private fun createContext(egl: EGL10?, eglDisplay: EGLDisplay?, eglConfig: EGLConfig?): EGLContext? {
-        val attrs = intArrayOf(
-            EGL14.EGL_CONTEXT_CLIENT_VERSION, 2,
-            EGL10.EGL_NONE
-        )
-        return egl?.eglCreateContext(eglDisplay, eglConfig, EGL10.EGL_NO_CONTEXT, attrs)
+        window = output.start(surfaceTexture) { createEglWindow(it, legacyRenderLogger) }
     }
 
     fun swapBuffers() {
-        val api = checkNotNull(egl) { "EGL is not initialized" }
-        check(api.eglSwapBuffers(eglDisplay, eglSurface)) {
-            "EGL swap failed: ${Integer.toHexString(api.eglGetError())}"
-        }
+        checkNotNull(window) { "EGL is not initialized" }.swapBuffers()
     }
 
-    private fun cleanup(name: String, action: () -> Unit) {
+    fun release() {
+        val current = window
+        window = null
         try {
-            action()
-        } catch (e: Throwable) {
-            ALog.e(TAG, "release $name failed", e)
+            current?.release()
+        } finally {
+            output.release()
+        }
+    }
+}
+
+internal val legacyRenderLogger = RenderErrorLogger { tag, message, cause ->
+    if (cause == null) ALog.e(tag, message) else ALog.e(tag, message, cause)
+}
+
+internal fun AnimConfig.toVideoRenderConfig() = VideoRenderConfig(
+    width, height, videoWidth, videoHeight,
+    VideoRect(rgbPointRect.x, rgbPointRect.y, rgbPointRect.w, rgbPointRect.h),
+    VideoRect(alphaPointRect.x, alphaPointRect.y, alphaPointRect.w, alphaPointRect.h)
+)
+
+/** The compatibility layer owns the Surface that wraps the caller's SurfaceTexture. */
+internal class LegacyRenderSurface {
+    private var surface: Surface? = null
+
+    fun <T> start(texture: SurfaceTexture, create: (Surface) -> T): T {
+        check(surface == null) { "EGL is already initialized" }
+        val output = Surface(texture)
+        surface = output
+        try {
+            return create(output)
+        } catch (error: Throwable) {
+            release()
+            throw error
         }
     }
 
     fun release() {
-        val api = egl
-        val display = eglDisplay
-        val window = eglSurface
-        val context = eglContext
-        val nativeSurface = surface
-        egl = null
-        eglDisplay = EGL10.EGL_NO_DISPLAY
-        eglSurface = EGL10.EGL_NO_SURFACE
-        eglContext = EGL10.EGL_NO_CONTEXT
-        eglConfig = null
+        val output = surface
         surface = null
-        if (api != null && display != null && display != EGL10.EGL_NO_DISPLAY) {
-            cleanup("current context") {
-                api.eglMakeCurrent(display, EGL10.EGL_NO_SURFACE, EGL10.EGL_NO_SURFACE, EGL10.EGL_NO_CONTEXT)
-            }
-            if (window != null && window != EGL10.EGL_NO_SURFACE) {
-                cleanup("surface") { api.eglDestroySurface(display, window) }
-            }
-            if (context != null && context != EGL10.EGL_NO_CONTEXT) {
-                cleanup("context") { api.eglDestroyContext(display, context) }
-            }
-            cleanup("display") { api.eglTerminate(display) }
+        try {
+            output?.release()
+        } catch (error: Throwable) {
+            ALog.e("${Constant.TAG}.EGLUtil", "release native surface failed", error)
         }
-        cleanup("native surface") { nativeSurface?.release() }
     }
 }

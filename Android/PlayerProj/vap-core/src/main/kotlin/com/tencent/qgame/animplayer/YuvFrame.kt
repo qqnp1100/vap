@@ -17,7 +17,8 @@ package com.tencent.qgame.animplayer
 
 import java.nio.ByteBuffer
 
-internal class YuvFrame(val width: Int, val height: Int) {
+/** Kept under its original JVM name for the legacy YUV renderer's method descriptor. */
+class YuvFrame(val width: Int, val height: Int) {
     init {
         require(width > 0 && height > 0 && width.toLong() * height <= 16L * 1024 * 1024) {
             "YUV frame dimensions exceed the buffer budget: ${width}x${height}"

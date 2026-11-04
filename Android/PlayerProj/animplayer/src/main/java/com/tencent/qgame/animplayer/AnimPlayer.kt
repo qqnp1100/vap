@@ -21,6 +21,8 @@ import com.tencent.qgame.animplayer.mask.MaskConfig
 import com.tencent.qgame.animplayer.plugin.AnimPluginManager
 import com.tencent.qgame.animplayer.util.ALog
 import com.tencent.qgame.animplayer.util.safeCall
+import com.tencent.qgame.vap.core.spi.VapEngine
+import com.tencent.qgame.vap.core.spi.VapEngineHost
 
 class AnimPlayer(val animView: IAnimView) {
 
@@ -39,15 +41,9 @@ class AnimPlayer(val animView: IAnimView) {
         }
     // 设置默认的fps <= 0 表示以vapc配置为准 > 0  表示以此设置为准
     var defaultFps: Int = 0
-    var playLoop: Int = 0
-        set(value) {
-            synchronized(sessionLock) {
-                field = value
-                remainingVideoLoops = value
-                decoder?.playLoop = value
-                audioPlayer?.playLoop = value
-            }
-        }
+    var playLoop: Int
+        get() = engine.playLoop
+        set(value) { engine.playLoop = value }
     var supportMaskBoolean : Boolean = false
     var maskEdgeBlurBoolean : Boolean = false
     // 是否兼容老版本 默认不兼容
@@ -57,22 +53,92 @@ class AnimPlayer(val animView: IAnimView) {
     @Volatile var isDetachedFromWindow = false
     @Volatile var isSurfaceAvailable = false
     @Volatile var startRunnable: Runnable? = null
-    @Volatile var isStartRunning = false // 启动时运行状态
+    var isStartRunning: Boolean
+        get() = engine.isPreparing
+        set(value) { engine.isPreparing = value }
     var isMute = false // 是否静音
 
     val configManager = AnimConfigManager(this)
     val pluginManager = AnimPluginManager(this)
 
-    private val sessionLock = Any()
-    @Volatile var sessionId = 0L
-        private set
-    @Volatile private var sessionOpen = false
-    @Volatile private var cancelled = false
-    private var currentFile: IFileContainer? = null
-    private var completionPending = false
+    private val engine: VapEngine<IFileContainer> = VapEngine(object : VapEngineHost<IFileContainer> {
+        override fun canBegin() = !isDetachedFromWindow
 
-    fun isCurrentSession(id: Long) = sessionOpen && sessionId == id
-    fun isSessionActive(id: Long) = isCurrentSession(id) && !cancelled
+        override fun prepareWorkers() = prepareDecoder()
+
+        override fun prepareSource(source: IFileContainer, id: Long) = preparePlayback(source, id)
+
+        override fun updateWorkerLoops(loops: Int) {
+            decoder?.playLoop = loops
+            audioPlayer?.playLoop = loops
+        }
+
+        override fun hasOutput() = isSurfaceAvailable
+
+        override fun awaitOutput(start: Runnable) {
+            startRunnable = start
+            animView.prepareTextureView()
+        }
+
+        override fun clearOutputWait() {
+            startRunnable = null
+        }
+
+        override fun startWorkers(source: IFileContainer) {
+            decoder?.start(source)
+            if (!isMute) audioPlayer?.start(source)
+        }
+
+        override fun stopWorkers() {
+            decoder?.stop()
+            stopAudio()
+        }
+
+        override fun stopAudio() {
+            audioPlayer?.stop()
+        }
+
+        override fun cancelResources(id: Long) {
+            pluginManager.getMixAnimPlugin()?.cancelResourceRequests(id)
+        }
+
+        override fun postPreparationCleanup(cleanup: () -> Unit) {
+            val handler = decoder?.renderThread?.handler
+            if (handler != null) handler.post { cleanup() } else cleanup()
+        }
+
+        override fun releasePreparedResources() = pluginManager.onRelease()
+
+        override fun whenAudioIdle(finish: () -> Unit) {
+            val audio = audioPlayer
+            if (audio == null) finish() else audio.releaseWhenIdle(finish)
+        }
+
+        override fun closeSource(source: IFileContainer) = safeCall("close playback file") {
+            source.close()
+        }
+
+        override fun onBeforeComplete() = safeCall("prepare completion view") {
+            // Capture/remove the completed view before another session can create one.
+            this@AnimPlayer.onBeforeComplete?.invoke()
+        }
+
+        override fun onSessionClosed() {
+            isSurfaceAvailable = false
+        }
+
+        override fun onComplete() = safeCall("onVideoComplete") { animListener?.onVideoComplete() }
+
+        override fun onFailure(error: Int) = safeCall("onFailed") {
+            animListener?.onFailed(error, Constant.getErrorMsg(error))
+        }
+    })
+
+    val sessionId: Long get() = engine.sessionId
+
+    fun isCurrentSession(id: Long) = engine.isCurrentSession(id)
+
+    fun isSessionActive(id: Long) = engine.isSessionActive(id)
 
     fun onSurfaceTextureDestroyed(releaseSurface: (() -> Unit)? = null, ownerSession: Long = sessionId) {
         if (ownerSession != sessionId) {
@@ -100,24 +166,11 @@ class AnimPlayer(val animView: IAnimView) {
         decoder?.onSurfaceSizeChanged(width, height)
     }
 
-    fun startPlay(fileContainer: IFileContainer) = beginPlay(fileContainer, resume = false)
+    fun startPlay(fileContainer: IFileContainer) = engine.begin(fileContainer, resume = false)
 
-    internal fun resumePlay(fileContainer: IFileContainer) = beginPlay(fileContainer, resume = true)
+    internal fun resumePlay(fileContainer: IFileContainer) = engine.begin(fileContainer, resume = true)
 
-    private fun beginPlay(fileContainer: IFileContainer, resume: Boolean) {
-        val id: Long
-        synchronized(sessionLock) {
-            if (sessionOpen || isDetachedFromWindow) return
-            sessionId++
-            id = sessionId
-            sessionOpen = true
-            completionPending = false
-            cancelled = false
-            isStartRunning = true
-            currentFile = fileContainer
-            if (!resume) remainingVideoLoops = playLoop
-            prepareDecoder()
-        }
+    private fun preparePlayback(fileContainer: IFileContainer, id: Long) {
         if (decoder?.prepareThread() != true) {
             failPreparation(id, Constant.REPORT_ERROR_TYPE_CREATE_THREAD)
             return
@@ -151,8 +204,8 @@ class AnimPlayer(val animView: IAnimView) {
                                 accepted = animListener?.onVideoConfigReady(config) ?: true
                             }
                             if (!isSessionActive(id)) return@fetchResources
-                            if (accepted) innerStartPlay(fileContainer, id)
-                            else finishPreparation(id)
+                            if (accepted) engine.startPreparedSource(fileContainer, id)
+                            else engine.finishPreparation(id)
                         }
                     }
                 }
@@ -164,91 +217,18 @@ class AnimPlayer(val animView: IAnimView) {
         if (posted != true) failPreparation(id, Constant.REPORT_ERROR_TYPE_CREATE_THREAD)
     }
 
-    internal fun failPreparation(id: Long, error: Int) {
-        if (!isCurrentSession(id)) return
-        safeCall("onFailed") { animListener?.onFailed(error, Constant.getErrorMsg(error)) }
-        finishPreparation(id)
-    }
+    internal fun failPreparation(id: Long, error: Int) = engine.failPreparation(id, error)
 
-    private fun finishPreparation(id: Long) {
-        if (!isCurrentSession(id)) return
-        pluginManager.onRelease()
-        onPlaybackComplete(id)
-    }
+    fun stopPlay() = engine.stop()
 
-    private fun innerStartPlay(fileContainer: IFileContainer, id: Long) {
-        synchronized(sessionLock) {
-            if (!isSessionActive(id)) return
-            if (isSurfaceAvailable) {
-                isStartRunning = false
-                decoder?.playLoop = remainingVideoLoops
-                audioPlayer?.playLoop = remainingVideoLoops
-                decoder?.start(fileContainer)
-                if (!isMute) audioPlayer?.start(fileContainer)
-            } else {
-                startRunnable = Runnable { innerStartPlay(fileContainer, id) }
-                animView.prepareTextureView()
-            }
-        }
-    }
+    internal fun onPlaybackComplete(id: Long, onDestroyed: (() -> Unit)? = null) =
+        engine.complete(id, onDestroyed)
 
-    fun stopPlay() {
-        val id: Long
-        val preparing: Boolean
-        synchronized(sessionLock) {
-            id = sessionId
-            cancelled = true
-            preparing = sessionOpen && isStartRunning
-            startRunnable = null
-            decoder?.stop()
-            audioPlayer?.stop()
-        }
-        pluginManager.getMixAnimPlugin()?.cancelResourceRequests(id)
-        if (preparing) {
-            val handler = decoder?.renderThread?.handler
-            if (handler != null) handler.post { finishPreparation(id) }
-            else finishPreparation(id)
-        }
-    }
+    internal fun consumeVideoLoop(decoder: Decoder): Int = engine.consumeVideoLoop { --decoder.playLoop }
 
-    internal fun onPlaybackComplete(id: Long, onDestroyed: (() -> Unit)? = null) {
-        synchronized(sessionLock) {
-            if (!isCurrentSession(id) || completionPending) return
-            completionPending = true
-            cancelled = true
-            startRunnable = null
-            audioPlayer?.stop()
-        }
-        val finish: () -> Unit = {
-            synchronized(sessionLock) {
-                if (isCurrentSession(id)) {
-                    safeCall("close playback file") { currentFile?.close() }
-                    currentFile = null
-                    // Capture/remove the completed view before another session can create one.
-                    safeCall("prepare completion view") { onBeforeComplete?.invoke() }
-                    isStartRunning = false
-                    isSurfaceAvailable = false
-                    sessionOpen = false
-                }
-            }
-            safeCall("onVideoComplete") { animListener?.onVideoComplete() }
-            onDestroyed?.invoke()
-        }
-        // Custom file sources may still be read by audio after video reaches EOS.
-        val audio = audioPlayer
-        if (audio == null) finish() else audio.releaseWhenIdle(finish)
-    }
+    fun remainingLoops(): Int = engine.remainingLoops()
 
-    internal fun consumeVideoLoop(decoder: Decoder): Int = synchronized(sessionLock) {
-        val remaining = --decoder.playLoop
-        remainingVideoLoops = remaining
-        remaining
-    }
-    @Volatile private var remainingVideoLoops = 0
-
-    fun remainingLoops(): Int = remainingVideoLoops
-
-    fun isRunning(): Boolean = sessionOpen
+    fun isRunning(): Boolean = engine.isRunning()
 
     private fun prepareDecoder() {
         if (decoder == null) {

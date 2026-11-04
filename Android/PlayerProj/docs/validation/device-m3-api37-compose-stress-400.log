@@ -1,0 +1,807 @@
+--------- beginning of main
+11-03 18:52:12.910 14299 14299 I VAP-Compose-Stress: SUITE started cycles=400
+11-03 18:52:12.929 14299 14614 I VAP-Compose-Stress: SAMPLE sample=baseline cycle=0 elapsedMs=0 fdListReadable=true fds=179 syncFiles=2 unreadable=1 threads=38 workers=0 pssKiB=81021
+11-03 18:52:13.072 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=497
+11-03 18:52:13.210 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=1 elapsedMs=0 fdListReadable=true fds=227 syncFiles=38 unreadable=1 threads=50 workers=1 pssKiB=143126
+11-03 18:52:13.323 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=986
+11-03 18:52:13.457 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=2 elapsedMs=0 fdListReadable=true fds=237 syncFiles=46 unreadable=1 threads=50 workers=1 pssKiB=138702
+11-03 18:52:13.589 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=569
+11-03 18:52:13.733 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=3 elapsedMs=0 fdListReadable=true fds=240 syncFiles=47 unreadable=1 threads=50 workers=1 pssKiB=140126
+11-03 18:52:13.872 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=432
+11-03 18:52:14.008 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=4 elapsedMs=0 fdListReadable=true fds=244 syncFiles=49 unreadable=1 threads=50 workers=1 pssKiB=132471
+11-03 18:52:14.121 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=351
+11-03 18:52:14.251 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=5 elapsedMs=0 fdListReadable=true fds=251 syncFiles=54 unreadable=1 threads=51 workers=1 pssKiB=133391
+11-03 18:52:14.370 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=368
+11-03 18:52:14.508 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=6 elapsedMs=0 fdListReadable=true fds=258 syncFiles=59 unreadable=1 threads=51 workers=1 pssKiB=134563
+11-03 18:52:14.671 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=604
+11-03 18:52:14.816 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=7 elapsedMs=0 fdListReadable=true fds=265 syncFiles=64 unreadable=1 threads=52 workers=1 pssKiB=135824
+11-03 18:52:14.937 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=637
+11-03 18:52:15.095 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=8 elapsedMs=0 fdListReadable=true fds=272 syncFiles=69 unreadable=1 threads=52 workers=1 pssKiB=137052
+11-03 18:52:15.236 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=502
+11-03 18:52:15.389 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=9 elapsedMs=0 fdListReadable=true fds=279 syncFiles=74 unreadable=1 threads=52 workers=1 pssKiB=137288
+11-03 18:52:15.536 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=606
+11-03 18:52:15.681 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=10 elapsedMs=0 fdListReadable=true fds=286 syncFiles=79 unreadable=1 threads=53 workers=1 pssKiB=139313
+11-03 18:52:15.803 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=567
+11-03 18:52:15.960 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=11 elapsedMs=0 fdListReadable=true fds=293 syncFiles=84 unreadable=1 threads=53 workers=1 pssKiB=139500
+11-03 18:52:16.102 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=632
+11-03 18:52:16.259 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=12 elapsedMs=0 fdListReadable=true fds=300 syncFiles=89 unreadable=1 threads=53 workers=1 pssKiB=140608
+11-03 18:52:16.401 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=499
+11-03 18:52:16.565 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=13 elapsedMs=0 fdListReadable=true fds=307 syncFiles=94 unreadable=1 threads=53 workers=1 pssKiB=141189
+11-03 18:52:16.735 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=545
+11-03 18:52:16.890 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=14 elapsedMs=0 fdListReadable=true fds=314 syncFiles=99 unreadable=1 threads=53 workers=1 pssKiB=142665
+11-03 18:52:17.033 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=588
+11-03 18:52:17.189 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=15 elapsedMs=0 fdListReadable=true fds=321 syncFiles=104 unreadable=1 threads=52 workers=0 pssKiB=143653
+11-03 18:52:17.333 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=474
+11-03 18:52:17.493 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=16 elapsedMs=0 fdListReadable=true fds=328 syncFiles=109 unreadable=1 threads=53 workers=1 pssKiB=143974
+11-03 18:52:17.633 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=498
+11-03 18:52:17.796 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=17 elapsedMs=0 fdListReadable=true fds=335 syncFiles=114 unreadable=1 threads=49 workers=1 pssKiB=145342
+11-03 18:52:17.949 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=704
+11-03 18:52:18.105 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=18 elapsedMs=0 fdListReadable=true fds=342 syncFiles=119 unreadable=1 threads=49 workers=1 pssKiB=146846
+11-03 18:52:18.249 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=820
+11-03 18:52:18.406 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=19 elapsedMs=0 fdListReadable=true fds=347 syncFiles=124 unreadable=1 threads=49 workers=1 pssKiB=147826
+11-03 18:52:18.548 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=605
+11-03 18:52:18.706 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=20 elapsedMs=0 fdListReadable=true fds=352 syncFiles=129 unreadable=1 threads=49 workers=1 pssKiB=148334
+11-03 18:52:18.831 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=544
+11-03 18:52:18.990 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=21 elapsedMs=0 fdListReadable=true fds=357 syncFiles=134 unreadable=1 threads=49 workers=1 pssKiB=150056
+11-03 18:52:19.114 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=660
+11-03 18:52:19.262 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=22 elapsedMs=0 fdListReadable=true fds=255 syncFiles=34 unreadable=1 threads=49 workers=1 pssKiB=130277
+11-03 18:52:19.413 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=805
+11-03 18:52:19.570 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=23 elapsedMs=0 fdListReadable=true fds=260 syncFiles=39 unreadable=1 threads=49 workers=1 pssKiB=130901
+11-03 18:52:19.713 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=632
+11-03 18:52:19.873 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=24 elapsedMs=0 fdListReadable=true fds=265 syncFiles=44 unreadable=1 threads=49 workers=1 pssKiB=131693
+11-03 18:52:19.995 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=524
+11-03 18:52:20.149 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=25 elapsedMs=0 fdListReadable=true fds=270 syncFiles=49 unreadable=1 threads=49 workers=1 pssKiB=131853
+11-03 18:52:20.295 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=500
+11-03 18:52:20.450 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=26 elapsedMs=0 fdListReadable=true fds=275 syncFiles=54 unreadable=1 threads=49 workers=1 pssKiB=132717
+11-03 18:52:20.594 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=516
+11-03 18:52:20.756 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=27 elapsedMs=0 fdListReadable=true fds=280 syncFiles=59 unreadable=1 threads=49 workers=1 pssKiB=133173
+11-03 18:52:20.877 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=654
+11-03 18:52:21.032 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=28 elapsedMs=0 fdListReadable=true fds=285 syncFiles=64 unreadable=1 threads=49 workers=1 pssKiB=134733
+11-03 18:52:21.177 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=598
+11-03 18:52:21.332 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=29 elapsedMs=0 fdListReadable=true fds=290 syncFiles=69 unreadable=1 threads=48 workers=0 pssKiB=134985
+11-03 18:52:21.476 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=472
+11-03 18:52:21.633 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=30 elapsedMs=0 fdListReadable=true fds=295 syncFiles=74 unreadable=1 threads=49 workers=1 pssKiB=136373
+11-03 18:52:21.776 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=558
+11-03 18:52:21.939 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=31 elapsedMs=0 fdListReadable=true fds=300 syncFiles=79 unreadable=1 threads=49 workers=1 pssKiB=137101
+11-03 18:52:22.092 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=654
+11-03 18:52:22.249 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=32 elapsedMs=0 fdListReadable=true fds=305 syncFiles=84 unreadable=1 threads=49 workers=1 pssKiB=138269
+11-03 18:52:22.391 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=464
+11-03 18:52:22.540 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=33 elapsedMs=0 fdListReadable=true fds=310 syncFiles=89 unreadable=1 threads=49 workers=1 pssKiB=138629
+11-03 18:52:22.691 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=498
+11-03 18:52:22.845 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=34 elapsedMs=0 fdListReadable=true fds=315 syncFiles=94 unreadable=1 threads=49 workers=1 pssKiB=139657
+11-03 18:52:22.991 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=667
+11-03 18:52:23.136 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=35 elapsedMs=0 fdListReadable=true fds=320 syncFiles=99 unreadable=1 threads=49 workers=1 pssKiB=140813
+11-03 18:52:23.257 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=612
+11-03 18:52:23.416 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=36 elapsedMs=0 fdListReadable=true fds=325 syncFiles=104 unreadable=1 threads=50 workers=1 pssKiB=141761
+11-03 18:52:23.556 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=810
+11-03 18:52:23.707 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=37 elapsedMs=0 fdListReadable=true fds=330 syncFiles=109 unreadable=1 threads=50 workers=1 pssKiB=142313
+11-03 18:52:23.839 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=594
+11-03 18:52:23.983 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=38 elapsedMs=0 fdListReadable=true fds=256 syncFiles=35 unreadable=1 threads=50 workers=1 pssKiB=130865
+11-03 18:52:24.105 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=506
+11-03 18:52:24.255 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=39 elapsedMs=0 fdListReadable=true fds=261 syncFiles=40 unreadable=1 threads=50 workers=1 pssKiB=131749
+11-03 18:52:24.404 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=661
+11-03 18:52:24.553 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=40 elapsedMs=0 fdListReadable=true fds=266 syncFiles=45 unreadable=1 threads=50 workers=1 pssKiB=132577
+11-03 18:52:24.687 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=565
+11-03 18:52:24.843 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=41 elapsedMs=0 fdListReadable=true fds=271 syncFiles=50 unreadable=1 threads=50 workers=1 pssKiB=132485
+11-03 18:52:24.987 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=544
+11-03 18:52:25.141 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=42 elapsedMs=0 fdListReadable=true fds=276 syncFiles=55 unreadable=1 threads=50 workers=1 pssKiB=134373
+11-03 18:52:25.286 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=512
+11-03 18:52:25.442 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=43 elapsedMs=0 fdListReadable=true fds=281 syncFiles=60 unreadable=1 threads=49 workers=0 pssKiB=134901
+11-03 18:52:25.586 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=585
+11-03 18:52:25.747 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=44 elapsedMs=0 fdListReadable=true fds=286 syncFiles=65 unreadable=1 threads=50 workers=1 pssKiB=135997
+11-03 18:52:25.868 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=484
+11-03 18:52:26.024 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=45 elapsedMs=0 fdListReadable=true fds=291 syncFiles=70 unreadable=1 threads=50 workers=1 pssKiB=135849
+11-03 18:52:26.151 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=734
+11-03 18:52:26.305 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=46 elapsedMs=0 fdListReadable=true fds=296 syncFiles=75 unreadable=1 threads=50 workers=1 pssKiB=137977
+11-03 18:52:26.451 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=875
+11-03 18:52:26.610 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=47 elapsedMs=0 fdListReadable=true fds=301 syncFiles=80 unreadable=1 threads=50 workers=1 pssKiB=138913
+11-03 18:52:26.750 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=586
+11-03 18:52:26.903 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=48 elapsedMs=0 fdListReadable=true fds=306 syncFiles=85 unreadable=1 threads=51 workers=1 pssKiB=139833
+11-03 18:52:27.032 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=482
+11-03 18:52:27.190 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=49 elapsedMs=0 fdListReadable=true fds=311 syncFiles=90 unreadable=1 threads=51 workers=1 pssKiB=140489
+11-03 18:52:27.332 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=588
+11-03 18:52:27.482 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=50 elapsedMs=0 fdListReadable=true fds=255 syncFiles=34 unreadable=1 threads=51 workers=1 pssKiB=129805
+11-03 18:52:27.631 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=535
+11-03 18:52:27.786 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=51 elapsedMs=0 fdListReadable=true fds=260 syncFiles=39 unreadable=1 threads=51 workers=1 pssKiB=130841
+11-03 18:52:27.931 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=625
+11-03 18:52:28.086 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=52 elapsedMs=0 fdListReadable=true fds=265 syncFiles=44 unreadable=1 threads=51 workers=1 pssKiB=131509
+11-03 18:52:28.247 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=558
+11-03 18:52:28.403 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=53 elapsedMs=0 fdListReadable=true fds=270 syncFiles=49 unreadable=1 threads=51 workers=1 pssKiB=131701
+11-03 18:52:28.546 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=574
+11-03 18:52:28.705 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=54 elapsedMs=0 fdListReadable=true fds=275 syncFiles=54 unreadable=1 threads=51 workers=1 pssKiB=133109
+11-03 18:52:28.846 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=636
+11-03 18:52:29.001 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=55 elapsedMs=0 fdListReadable=true fds=280 syncFiles=59 unreadable=1 threads=51 workers=1 pssKiB=134045
+11-03 18:52:29.145 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=539
+11-03 18:52:29.298 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=56 elapsedMs=0 fdListReadable=true fds=286 syncFiles=65 unreadable=1 threads=51 workers=1 pssKiB=134553
+11-03 18:52:29.445 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=636
+11-03 18:52:29.605 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=57 elapsedMs=0 fdListReadable=true fds=291 syncFiles=70 unreadable=1 threads=50 workers=0 pssKiB=134825
+11-03 18:52:29.744 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=609
+11-03 18:52:29.903 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=58 elapsedMs=0 fdListReadable=true fds=296 syncFiles=75 unreadable=1 threads=51 workers=1 pssKiB=136605
+11-03 18:52:30.044 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=534
+11-03 18:52:30.198 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=59 elapsedMs=0 fdListReadable=true fds=301 syncFiles=80 unreadable=1 threads=51 workers=1 pssKiB=137557
+11-03 18:52:30.343 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=667
+11-03 18:52:30.500 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=60 elapsedMs=0 fdListReadable=true fds=306 syncFiles=85 unreadable=1 threads=51 workers=1 pssKiB=138601
+11-03 18:52:30.642 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=588
+11-03 18:52:30.801 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=61 elapsedMs=0 fdListReadable=true fds=311 syncFiles=90 unreadable=1 threads=51 workers=1 pssKiB=138933
+11-03 18:52:30.925 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=543
+11-03 18:52:31.080 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=62 elapsedMs=0 fdListReadable=true fds=316 syncFiles=95 unreadable=1 threads=51 workers=1 pssKiB=140373
+11-03 18:52:31.224 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=502
+11-03 18:52:31.356 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=63 elapsedMs=0 fdListReadable=true fds=321 syncFiles=100 unreadable=1 threads=51 workers=1 pssKiB=141101
+11-03 18:52:31.473 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=613
+11-03 18:52:31.609 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=64 elapsedMs=0 fdListReadable=true fds=326 syncFiles=105 unreadable=1 threads=51 workers=1 pssKiB=142055
+11-03 18:52:31.723 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=536
+11-03 18:52:31.878 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=65 elapsedMs=0 fdListReadable=true fds=257 syncFiles=36 unreadable=1 threads=51 workers=1 pssKiB=130412
+11-03 18:52:32.023 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=570
+11-03 18:52:32.179 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=66 elapsedMs=0 fdListReadable=true fds=262 syncFiles=41 unreadable=1 threads=51 workers=1 pssKiB=131800
+11-03 18:52:32.322 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=549
+11-03 18:52:32.483 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=67 elapsedMs=0 fdListReadable=true fds=267 syncFiles=46 unreadable=1 threads=51 workers=1 pssKiB=132592
+11-03 18:52:32.605 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=546
+11-03 18:52:32.760 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=68 elapsedMs=0 fdListReadable=true fds=272 syncFiles=51 unreadable=1 threads=51 workers=1 pssKiB=133180
+11-03 18:52:32.904 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=567
+11-03 18:52:33.058 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=69 elapsedMs=0 fdListReadable=true fds=277 syncFiles=56 unreadable=1 threads=51 workers=1 pssKiB=133652
+11-03 18:52:33.204 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=643
+11-03 18:52:33.363 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=70 elapsedMs=0 fdListReadable=true fds=282 syncFiles=61 unreadable=1 threads=51 workers=1 pssKiB=135040
+11-03 18:52:33.487 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=634
+11-03 18:52:33.642 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=71 elapsedMs=0 fdListReadable=true fds=287 syncFiles=66 unreadable=1 threads=51 workers=1 pssKiB=135316
+11-03 18:52:33.769 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=622
+11-03 18:52:33.924 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=72 elapsedMs=0 fdListReadable=true fds=292 syncFiles=71 unreadable=1 threads=51 workers=1 pssKiB=136740
+11-03 18:52:34.068 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=460
+11-03 18:52:34.227 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=73 elapsedMs=0 fdListReadable=true fds=297 syncFiles=76 unreadable=1 threads=51 workers=1 pssKiB=137160
+11-03 18:52:34.368 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=544
+11-03 18:52:34.531 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=74 elapsedMs=0 fdListReadable=true fds=302 syncFiles=81 unreadable=1 threads=51 workers=1 pssKiB=138624
+11-03 18:52:34.684 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=743
+11-03 18:52:34.840 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=75 elapsedMs=0 fdListReadable=true fds=307 syncFiles=86 unreadable=1 threads=51 workers=1 pssKiB=139528
+11-03 18:52:34.967 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=593
+11-03 18:52:35.122 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=76 elapsedMs=0 fdListReadable=true fds=312 syncFiles=91 unreadable=1 threads=51 workers=1 pssKiB=140480
+11-03 18:52:35.249 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=474
+11-03 18:52:35.411 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=77 elapsedMs=0 fdListReadable=true fds=317 syncFiles=96 unreadable=1 threads=51 workers=1 pssKiB=140852
+11-03 18:52:35.532 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=626
+11-03 18:52:35.688 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=78 elapsedMs=0 fdListReadable=true fds=256 syncFiles=35 unreadable=1 threads=51 workers=1 pssKiB=129680
+11-03 18:52:35.832 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=582
+11-03 18:52:35.984 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=79 elapsedMs=0 fdListReadable=true fds=261 syncFiles=40 unreadable=1 threads=51 workers=1 pssKiB=131000
+11-03 18:52:36.131 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=657
+11-03 18:52:36.291 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=80 elapsedMs=0 fdListReadable=true fds=266 syncFiles=45 unreadable=1 threads=51 workers=1 pssKiB=131880
+11-03 18:52:36.414 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=491
+11-03 18:52:36.565 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=81 elapsedMs=0 fdListReadable=true fds=271 syncFiles=50 unreadable=1 threads=51 workers=1 pssKiB=132236
+11-03 18:52:36.714 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=680
+11-03 18:52:36.872 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=82 elapsedMs=0 fdListReadable=true fds=276 syncFiles=55 unreadable=1 threads=51 workers=1 pssKiB=133304
+11-03 18:52:36.996 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=599
+11-03 18:52:37.152 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=83 elapsedMs=0 fdListReadable=true fds=281 syncFiles=60 unreadable=1 threads=51 workers=1 pssKiB=134424
+11-03 18:52:37.296 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=621
+11-03 18:52:37.449 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=84 elapsedMs=0 fdListReadable=true fds=286 syncFiles=65 unreadable=1 threads=51 workers=1 pssKiB=135292
+11-03 18:52:37.595 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=508
+11-03 18:52:37.745 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=85 elapsedMs=0 fdListReadable=true fds=291 syncFiles=70 unreadable=1 threads=50 workers=0 pssKiB=135196
+11-03 18:52:37.911 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=729
+11-03 18:52:38.070 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=86 elapsedMs=0 fdListReadable=true fds=296 syncFiles=75 unreadable=1 threads=51 workers=1 pssKiB=137100
+11-03 18:52:38.210 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=545
+11-03 18:52:38.372 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=87 elapsedMs=0 fdListReadable=true fds=301 syncFiles=80 unreadable=1 threads=51 workers=1 pssKiB=137972
+11-03 18:52:38.510 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=690
+11-03 18:52:38.665 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=88 elapsedMs=0 fdListReadable=true fds=306 syncFiles=85 unreadable=1 threads=51 workers=1 pssKiB=138884
+11-03 18:52:38.809 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=662
+11-03 18:52:38.962 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=89 elapsedMs=0 fdListReadable=true fds=311 syncFiles=90 unreadable=1 threads=51 workers=1 pssKiB=138916
+11-03 18:52:39.109 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=594
+11-03 18:52:39.270 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=90 elapsedMs=0 fdListReadable=true fds=316 syncFiles=95 unreadable=1 threads=51 workers=1 pssKiB=140608
+11-03 18:52:39.408 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=576
+11-03 18:52:39.570 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=91 elapsedMs=0 fdListReadable=true fds=321 syncFiles=100 unreadable=1 threads=51 workers=1 pssKiB=141520
+11-03 18:52:39.708 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=534
+11-03 18:52:39.864 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=92 elapsedMs=0 fdListReadable=true fds=326 syncFiles=105 unreadable=1 threads=51 workers=1 pssKiB=142156
+11-03 18:52:39.991 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=668
+11-03 18:52:40.147 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=93 elapsedMs=0 fdListReadable=true fds=257 syncFiles=36 unreadable=1 threads=51 workers=1 pssKiB=130304
+11-03 18:52:40.290 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=583
+11-03 18:52:40.450 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=94 elapsedMs=0 fdListReadable=true fds=262 syncFiles=41 unreadable=1 threads=51 workers=1 pssKiB=131656
+11-03 18:52:40.572 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=618
+11-03 18:52:40.728 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=95 elapsedMs=0 fdListReadable=true fds=267 syncFiles=46 unreadable=1 threads=51 workers=1 pssKiB=132608
+11-03 18:52:40.855 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=556
+11-03 18:52:41.005 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=96 elapsedMs=0 fdListReadable=true fds=272 syncFiles=51 unreadable=1 threads=51 workers=1 pssKiB=133268
+11-03 18:52:41.154 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=654
+11-03 18:52:41.307 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=97 elapsedMs=0 fdListReadable=true fds=277 syncFiles=56 unreadable=1 threads=51 workers=1 pssKiB=133784
+11-03 18:52:41.437 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=520
+11-03 18:52:41.585 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=98 elapsedMs=0 fdListReadable=true fds=282 syncFiles=61 unreadable=1 threads=51 workers=1 pssKiB=135168
+11-03 18:52:41.736 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=628
+11-03 18:52:41.894 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=99 elapsedMs=0 fdListReadable=true fds=287 syncFiles=66 unreadable=1 threads=50 workers=0 pssKiB=135684
+11-03 18:52:42.035 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=539
+11-03 18:52:42.195 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=100 elapsedMs=0 fdListReadable=true fds=292 syncFiles=71 unreadable=1 threads=51 workers=1 pssKiB=136900
+11-03 18:52:42.352 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=2188
+11-03 18:52:42.483 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=101 elapsedMs=0 fdListReadable=true fds=297 syncFiles=76 unreadable=1 threads=51 workers=1 pssKiB=137297
+11-03 18:52:42.616 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=387
+11-03 18:52:42.748 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=102 elapsedMs=0 fdListReadable=true fds=302 syncFiles=81 unreadable=1 threads=51 workers=1 pssKiB=138753
+11-03 18:52:42.883 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=420
+11-03 18:52:43.014 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=103 elapsedMs=0 fdListReadable=true fds=307 syncFiles=86 unreadable=1 threads=51 workers=1 pssKiB=139457
+11-03 18:52:43.131 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=434
+11-03 18:52:43.264 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=104 elapsedMs=0 fdListReadable=true fds=312 syncFiles=91 unreadable=1 threads=51 workers=1 pssKiB=140537
+11-03 18:52:43.382 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=495
+11-03 18:52:43.538 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=105 elapsedMs=0 fdListReadable=true fds=317 syncFiles=96 unreadable=1 threads=51 workers=1 pssKiB=140909
+11-03 18:52:43.665 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=595
+11-03 18:52:43.818 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=106 elapsedMs=0 fdListReadable=true fds=322 syncFiles=101 unreadable=1 threads=51 workers=1 pssKiB=142273
+11-03 18:52:43.947 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=569
+11-03 18:52:44.097 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=107 elapsedMs=0 fdListReadable=true fds=256 syncFiles=35 unreadable=1 threads=51 workers=1 pssKiB=130145
+11-03 18:52:44.246 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=965
+11-03 18:52:44.381 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=108 elapsedMs=0 fdListReadable=true fds=261 syncFiles=40 unreadable=1 threads=51 workers=1 pssKiB=130973
+11-03 18:52:44.529 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=528
+11-03 18:52:44.675 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=109 elapsedMs=0 fdListReadable=true fds=266 syncFiles=45 unreadable=1 threads=51 workers=1 pssKiB=131605
+11-03 18:52:44.812 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=557
+11-03 18:52:44.967 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=110 elapsedMs=0 fdListReadable=true fds=271 syncFiles=50 unreadable=1 threads=51 workers=1 pssKiB=132965
+11-03 18:52:45.111 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=562
+11-03 18:52:45.267 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=111 elapsedMs=0 fdListReadable=true fds=276 syncFiles=55 unreadable=1 threads=51 workers=1 pssKiB=133337
+11-03 18:52:45.410 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=491
+11-03 18:52:45.569 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=112 elapsedMs=0 fdListReadable=true fds=281 syncFiles=60 unreadable=1 threads=51 workers=1 pssKiB=134393
+11-03 18:52:45.710 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=532
+11-03 18:52:45.865 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=113 elapsedMs=0 fdListReadable=true fds=286 syncFiles=65 unreadable=1 threads=51 workers=1 pssKiB=134697
+11-03 18:52:45.992 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=501
+11-03 18:52:46.146 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=114 elapsedMs=0 fdListReadable=true fds=291 syncFiles=70 unreadable=1 threads=50 workers=0 pssKiB=135905
+11-03 18:52:46.292 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=664
+11-03 18:52:46.451 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=115 elapsedMs=0 fdListReadable=true fds=296 syncFiles=75 unreadable=1 threads=51 workers=1 pssKiB=136657
+11-03 18:52:46.591 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=585
+11-03 18:52:46.749 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=116 elapsedMs=0 fdListReadable=true fds=301 syncFiles=80 unreadable=1 threads=51 workers=1 pssKiB=137741
+11-03 18:52:46.874 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=618
+11-03 18:52:47.029 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=117 elapsedMs=0 fdListReadable=true fds=306 syncFiles=85 unreadable=1 threads=51 workers=1 pssKiB=138141
+11-03 18:52:47.173 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=443
+11-03 18:52:47.330 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=118 elapsedMs=0 fdListReadable=true fds=311 syncFiles=90 unreadable=1 threads=51 workers=1 pssKiB=139401
+11-03 18:52:47.472 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=506
+11-03 18:52:47.634 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=119 elapsedMs=0 fdListReadable=true fds=316 syncFiles=95 unreadable=1 threads=51 workers=1 pssKiB=140465
+11-03 18:52:47.755 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=627
+11-03 18:52:47.909 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=120 elapsedMs=0 fdListReadable=true fds=321 syncFiles=100 unreadable=1 threads=51 workers=1 pssKiB=141345
+11-03 18:52:48.038 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=714
+11-03 18:52:48.193 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=121 elapsedMs=0 fdListReadable=true fds=326 syncFiles=105 unreadable=1 threads=51 workers=1 pssKiB=141613
+11-03 18:52:48.321 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=575
+11-03 18:52:48.478 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=122 elapsedMs=0 fdListReadable=true fds=257 syncFiles=36 unreadable=1 threads=51 workers=1 pssKiB=130557
+11-03 18:52:48.602 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=352
+11-03 18:52:48.751 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=123 elapsedMs=0 fdListReadable=true fds=262 syncFiles=41 unreadable=1 threads=51 workers=1 pssKiB=131885
+11-03 18:52:48.902 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=648
+11-03 18:52:49.055 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=124 elapsedMs=0 fdListReadable=true fds=267 syncFiles=46 unreadable=1 threads=51 workers=1 pssKiB=132693
+11-03 18:52:49.219 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=675
+11-03 18:52:49.370 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=125 elapsedMs=0 fdListReadable=true fds=272 syncFiles=51 unreadable=1 threads=51 workers=1 pssKiB=132541
+11-03 18:52:49.534 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=558
+11-03 18:52:49.688 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=126 elapsedMs=0 fdListReadable=true fds=277 syncFiles=56 unreadable=1 threads=51 workers=1 pssKiB=134041
+11-03 18:52:49.834 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=401
+11-03 18:52:49.990 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=127 elapsedMs=0 fdListReadable=true fds=282 syncFiles=61 unreadable=1 threads=51 workers=1 pssKiB=135213
+11-03 18:52:50.133 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=598
+11-03 18:52:50.260 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=128 elapsedMs=0 fdListReadable=true fds=287 syncFiles=66 unreadable=1 threads=50 workers=0 pssKiB=136121
+11-03 18:52:50.366 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=544
+11-03 18:52:50.508 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=129 elapsedMs=0 fdListReadable=true fds=292 syncFiles=71 unreadable=1 threads=51 workers=1 pssKiB=136537
+11-03 18:52:50.649 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=625
+11-03 18:52:50.802 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=130 elapsedMs=0 fdListReadable=true fds=297 syncFiles=76 unreadable=1 threads=51 workers=1 pssKiB=137973
+11-03 18:52:50.948 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=679
+11-03 18:52:51.103 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=131 elapsedMs=0 fdListReadable=true fds=302 syncFiles=81 unreadable=1 threads=51 workers=1 pssKiB=138841
+11-03 18:52:51.247 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=475
+11-03 18:52:51.392 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=132 elapsedMs=0 fdListReadable=true fds=307 syncFiles=86 unreadable=1 threads=51 workers=1 pssKiB=138997
+11-03 18:52:51.513 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=577
+11-03 18:52:51.671 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=133 elapsedMs=0 fdListReadable=true fds=312 syncFiles=91 unreadable=1 threads=51 workers=1 pssKiB=140072
+11-03 18:52:51.813 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=540
+11-03 18:52:51.969 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=134 elapsedMs=0 fdListReadable=true fds=317 syncFiles=96 unreadable=1 threads=51 workers=1 pssKiB=141492
+11-03 18:52:52.113 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=579
+11-03 18:52:52.267 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=135 elapsedMs=0 fdListReadable=true fds=322 syncFiles=101 unreadable=1 threads=51 workers=1 pssKiB=142516
+11-03 18:52:52.395 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=525
+11-03 18:52:52.540 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=136 elapsedMs=0 fdListReadable=true fds=256 syncFiles=35 unreadable=1 threads=51 workers=1 pssKiB=130200
+11-03 18:52:52.662 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=532
+11-03 18:52:52.817 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=137 elapsedMs=0 fdListReadable=true fds=261 syncFiles=40 unreadable=1 threads=51 workers=1 pssKiB=130740
+11-03 18:52:52.961 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=534
+11-03 18:52:53.113 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=138 elapsedMs=0 fdListReadable=true fds=266 syncFiles=45 unreadable=1 threads=51 workers=1 pssKiB=132100
+11-03 18:52:53.260 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=443
+11-03 18:52:53.412 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=139 elapsedMs=0 fdListReadable=true fds=271 syncFiles=50 unreadable=1 threads=51 workers=1 pssKiB=132656
+11-03 18:52:53.576 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=466
+11-03 18:52:53.734 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=140 elapsedMs=0 fdListReadable=true fds=276 syncFiles=55 unreadable=1 threads=51 workers=1 pssKiB=133808
+11-03 18:52:53.876 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=567
+11-03 18:52:54.037 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=141 elapsedMs=0 fdListReadable=true fds=281 syncFiles=60 unreadable=1 threads=51 workers=1 pssKiB=134200
+11-03 18:52:54.176 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=614
+11-03 18:52:54.331 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=142 elapsedMs=0 fdListReadable=true fds=286 syncFiles=65 unreadable=1 threads=50 workers=0 pssKiB=135540
+11-03 18:52:54.458 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=607
+11-03 18:52:54.613 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=143 elapsedMs=0 fdListReadable=true fds=291 syncFiles=70 unreadable=1 threads=51 workers=1 pssKiB=135900
+11-03 18:52:54.757 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=569
+11-03 18:52:54.913 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=144 elapsedMs=0 fdListReadable=true fds=296 syncFiles=75 unreadable=1 threads=51 workers=1 pssKiB=137048
+11-03 18:52:55.057 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=555
+11-03 18:52:55.218 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=145 elapsedMs=0 fdListReadable=true fds=301 syncFiles=80 unreadable=1 threads=51 workers=1 pssKiB=137408
+11-03 18:52:55.356 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=546
+11-03 18:52:55.508 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=146 elapsedMs=0 fdListReadable=true fds=306 syncFiles=85 unreadable=1 threads=51 workers=1 pssKiB=138664
+11-03 18:52:55.656 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=684
+11-03 18:52:55.808 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=147 elapsedMs=0 fdListReadable=true fds=311 syncFiles=90 unreadable=1 threads=51 workers=1 pssKiB=139726
+11-03 18:52:55.955 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=535
+11-03 18:52:56.117 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=148 elapsedMs=0 fdListReadable=true fds=316 syncFiles=95 unreadable=1 threads=52 workers=1 pssKiB=140802
+11-03 18:52:56.238 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=507
+11-03 18:52:56.382 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=149 elapsedMs=0 fdListReadable=true fds=321 syncFiles=100 unreadable=1 threads=52 workers=1 pssKiB=141242
+11-03 18:52:56.504 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=435
+11-03 18:52:56.654 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=150 elapsedMs=0 fdListReadable=true fds=326 syncFiles=105 unreadable=1 threads=52 workers=1 pssKiB=142522
+11-03 18:52:56.820 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=552
+11-03 18:52:56.959 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=151 elapsedMs=0 fdListReadable=true fds=257 syncFiles=36 unreadable=1 threads=52 workers=1 pssKiB=131406
+11-03 18:52:57.086 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=475
+11-03 18:52:57.229 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=152 elapsedMs=0 fdListReadable=true fds=262 syncFiles=41 unreadable=1 threads=52 workers=1 pssKiB=132258
+11-03 18:52:57.352 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=619
+11-03 18:52:57.506 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=153 elapsedMs=0 fdListReadable=true fds=267 syncFiles=46 unreadable=1 threads=52 workers=1 pssKiB=132582
+11-03 18:52:57.652 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=539
+11-03 18:52:57.810 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=154 elapsedMs=0 fdListReadable=true fds=272 syncFiles=51 unreadable=1 threads=52 workers=1 pssKiB=133730
+11-03 18:52:57.952 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=604
+11-03 18:52:58.116 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=155 elapsedMs=0 fdListReadable=true fds=277 syncFiles=56 unreadable=1 threads=52 workers=1 pssKiB=134822
+11-03 18:52:58.267 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=480
+11-03 18:52:58.423 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=156 elapsedMs=0 fdListReadable=true fds=282 syncFiles=61 unreadable=1 threads=51 workers=0 pssKiB=135682
+11-03 18:52:58.567 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=536
+11-03 18:52:58.723 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=157 elapsedMs=0 fdListReadable=true fds=287 syncFiles=66 unreadable=1 threads=52 workers=1 pssKiB=135706
+11-03 18:52:58.866 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=475
+11-03 18:52:59.022 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=158 elapsedMs=0 fdListReadable=true fds=292 syncFiles=71 unreadable=1 threads=52 workers=1 pssKiB=137410
+11-03 18:52:59.148 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=587
+11-03 18:52:59.296 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=159 elapsedMs=0 fdListReadable=true fds=297 syncFiles=76 unreadable=1 threads=52 workers=1 pssKiB=138334
+11-03 18:52:59.449 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=691
+11-03 18:52:59.607 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=160 elapsedMs=0 fdListReadable=true fds=302 syncFiles=81 unreadable=1 threads=52 workers=1 pssKiB=139234
+11-03 18:52:59.732 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=575
+11-03 18:52:59.893 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=161 elapsedMs=0 fdListReadable=true fds=307 syncFiles=86 unreadable=1 threads=52 workers=1 pssKiB=139342
+11-03 18:53:00.014 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=510
+11-03 18:53:00.170 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=162 elapsedMs=0 fdListReadable=true fds=312 syncFiles=91 unreadable=1 threads=52 workers=1 pssKiB=141018
+11-03 18:53:00.297 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=468
+11-03 18:53:00.454 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=163 elapsedMs=0 fdListReadable=true fds=317 syncFiles=96 unreadable=1 threads=52 workers=1 pssKiB=141986
+11-03 18:53:00.596 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=476
+11-03 18:53:00.747 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=164 elapsedMs=0 fdListReadable=true fds=256 syncFiles=35 unreadable=1 threads=52 workers=1 pssKiB=130338
+11-03 18:53:00.896 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=607
+11-03 18:53:01.043 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=165 elapsedMs=0 fdListReadable=true fds=261 syncFiles=40 unreadable=1 threads=52 workers=1 pssKiB=130890
+11-03 18:53:01.195 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=494
+11-03 18:53:01.333 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=166 elapsedMs=0 fdListReadable=true fds=266 syncFiles=45 unreadable=1 threads=52 workers=1 pssKiB=132270
+11-03 18:53:01.445 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=559
+11-03 18:53:01.603 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=167 elapsedMs=0 fdListReadable=true fds=271 syncFiles=50 unreadable=1 threads=52 workers=1 pssKiB=133206
+11-03 18:53:01.745 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=605
+11-03 18:53:01.904 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=168 elapsedMs=0 fdListReadable=true fds=276 syncFiles=55 unreadable=1 threads=52 workers=1 pssKiB=133894
+11-03 18:53:02.027 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=594
+11-03 18:53:02.182 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=169 elapsedMs=0 fdListReadable=true fds=281 syncFiles=60 unreadable=1 threads=52 workers=1 pssKiB=134366
+11-03 18:53:02.327 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=821
+11-03 18:53:02.483 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=170 elapsedMs=0 fdListReadable=true fds=286 syncFiles=65 unreadable=1 threads=52 workers=1 pssKiB=135738
+11-03 18:53:02.626 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=564
+11-03 18:53:02.785 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=171 elapsedMs=0 fdListReadable=true fds=291 syncFiles=70 unreadable=1 threads=52 workers=1 pssKiB=136314
+11-03 18:53:02.909 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=780
+11-03 18:53:03.061 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=172 elapsedMs=0 fdListReadable=true fds=296 syncFiles=75 unreadable=1 threads=52 workers=1 pssKiB=137386
+11-03 18:53:03.208 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=540
+11-03 18:53:03.362 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=173 elapsedMs=0 fdListReadable=true fds=301 syncFiles=80 unreadable=1 threads=52 workers=1 pssKiB=137754
+11-03 18:53:03.508 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=508
+11-03 18:53:03.665 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=174 elapsedMs=0 fdListReadable=true fds=306 syncFiles=85 unreadable=1 threads=52 workers=1 pssKiB=139246
+11-03 18:53:03.791 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=584
+11-03 18:53:03.950 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=175 elapsedMs=0 fdListReadable=true fds=311 syncFiles=90 unreadable=1 threads=52 workers=1 pssKiB=139818
+11-03 18:53:04.074 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=732
+11-03 18:53:04.230 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=176 elapsedMs=0 fdListReadable=true fds=316 syncFiles=95 unreadable=1 threads=52 workers=1 pssKiB=141058
+11-03 18:53:04.356 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=600
+11-03 18:53:04.516 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=177 elapsedMs=0 fdListReadable=true fds=321 syncFiles=100 unreadable=1 threads=52 workers=1 pssKiB=141614
+11-03 18:53:04.656 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=548
+11-03 18:53:04.807 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=178 elapsedMs=0 fdListReadable=true fds=326 syncFiles=105 unreadable=1 threads=52 workers=1 pssKiB=143002
+11-03 18:53:04.939 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=619
+11-03 18:53:05.095 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=179 elapsedMs=0 fdListReadable=true fds=260 syncFiles=39 unreadable=1 threads=52 workers=1 pssKiB=131342
+11-03 18:53:05.238 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=456
+11-03 18:53:05.396 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=180 elapsedMs=0 fdListReadable=true fds=265 syncFiles=44 unreadable=1 threads=52 workers=1 pssKiB=132334
+11-03 18:53:05.538 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=579
+11-03 18:53:05.699 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=181 elapsedMs=0 fdListReadable=true fds=270 syncFiles=49 unreadable=1 threads=52 workers=1 pssKiB=132734
+11-03 18:53:05.837 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=583
+11-03 18:53:05.991 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=182 elapsedMs=0 fdListReadable=true fds=275 syncFiles=54 unreadable=1 threads=52 workers=1 pssKiB=134014
+11-03 18:53:06.137 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=541
+11-03 18:53:06.294 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=183 elapsedMs=0 fdListReadable=true fds=280 syncFiles=59 unreadable=1 threads=52 workers=1 pssKiB=134978
+11-03 18:53:06.419 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=624
+11-03 18:53:06.578 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=184 elapsedMs=0 fdListReadable=true fds=285 syncFiles=64 unreadable=1 threads=51 workers=0 pssKiB=135818
+11-03 18:53:06.719 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=529
+11-03 18:53:06.876 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=185 elapsedMs=0 fdListReadable=true fds=290 syncFiles=69 unreadable=1 threads=52 workers=1 pssKiB=135930
+11-03 18:53:07.019 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=648
+11-03 18:53:07.167 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=186 elapsedMs=0 fdListReadable=true fds=295 syncFiles=74 unreadable=1 threads=52 workers=1 pssKiB=137390
+11-03 18:53:07.334 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=547
+11-03 18:53:07.486 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=187 elapsedMs=0 fdListReadable=true fds=300 syncFiles=79 unreadable=1 threads=52 workers=1 pssKiB=138462
+11-03 18:53:07.634 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=520
+11-03 18:53:07.779 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=188 elapsedMs=0 fdListReadable=true fds=305 syncFiles=84 unreadable=1 threads=52 workers=1 pssKiB=139406
+11-03 18:53:07.900 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=495
+11-03 18:53:08.056 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=189 elapsedMs=0 fdListReadable=true fds=310 syncFiles=89 unreadable=1 threads=52 workers=1 pssKiB=139726
+11-03 18:53:08.199 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=503
+11-03 18:53:08.359 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=190 elapsedMs=0 fdListReadable=true fds=315 syncFiles=94 unreadable=1 threads=52 workers=1 pssKiB=141230
+11-03 18:53:08.499 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=606
+11-03 18:53:08.656 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=191 elapsedMs=0 fdListReadable=true fds=320 syncFiles=99 unreadable=1 threads=52 workers=1 pssKiB=142110
+11-03 18:53:08.782 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=661
+11-03 18:53:08.938 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=192 elapsedMs=0 fdListReadable=true fds=256 syncFiles=35 unreadable=1 threads=52 workers=1 pssKiB=130590
+11-03 18:53:09.065 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=600
+11-03 18:53:09.219 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=193 elapsedMs=0 fdListReadable=true fds=261 syncFiles=40 unreadable=1 threads=52 workers=1 pssKiB=130898
+11-03 18:53:09.364 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=603
+11-03 18:53:09.523 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=194 elapsedMs=0 fdListReadable=true fds=266 syncFiles=45 unreadable=1 threads=52 workers=1 pssKiB=132502
+11-03 18:53:09.647 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=560
+11-03 18:53:09.796 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=195 elapsedMs=0 fdListReadable=true fds=271 syncFiles=50 unreadable=1 threads=52 workers=1 pssKiB=133390
+11-03 18:53:09.946 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=541
+11-03 18:53:10.101 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=196 elapsedMs=0 fdListReadable=true fds=276 syncFiles=55 unreadable=1 threads=52 workers=1 pssKiB=133926
+11-03 18:53:10.262 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=555
+11-03 18:53:10.418 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=197 elapsedMs=0 fdListReadable=true fds=281 syncFiles=60 unreadable=1 threads=52 workers=1 pssKiB=134338
+11-03 18:53:10.561 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=533
+11-03 18:53:10.723 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=198 elapsedMs=0 fdListReadable=true fds=286 syncFiles=65 unreadable=1 threads=51 workers=0 pssKiB=135730
+11-03 18:53:10.845 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=736
+11-03 18:53:11.000 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=199 elapsedMs=0 fdListReadable=true fds=291 syncFiles=70 unreadable=1 threads=52 workers=1 pssKiB=136378
+11-03 18:53:11.127 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=626
+11-03 18:53:11.280 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=200 elapsedMs=0 fdListReadable=true fds=296 syncFiles=75 unreadable=1 threads=52 workers=1 pssKiB=137218
+11-03 18:53:11.426 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=484
+11-03 18:53:11.574 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=201 elapsedMs=0 fdListReadable=true fds=301 syncFiles=80 unreadable=1 threads=52 workers=1 pssKiB=137866
+11-03 18:53:11.743 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=438
+11-03 18:53:11.900 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=202 elapsedMs=0 fdListReadable=true fds=306 syncFiles=85 unreadable=1 threads=52 workers=1 pssKiB=139350
+11-03 18:53:12.043 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=453
+11-03 18:53:12.192 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=203 elapsedMs=0 fdListReadable=true fds=311 syncFiles=90 unreadable=1 threads=52 workers=1 pssKiB=140274
+11-03 18:53:12.325 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=565
+11-03 18:53:12.483 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=204 elapsedMs=0 fdListReadable=true fds=316 syncFiles=95 unreadable=1 threads=52 workers=1 pssKiB=141102
+11-03 18:53:12.625 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=517
+11-03 18:53:12.788 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=205 elapsedMs=0 fdListReadable=true fds=321 syncFiles=100 unreadable=1 threads=52 workers=1 pssKiB=141606
+11-03 18:53:12.908 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=576
+11-03 18:53:13.065 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=206 elapsedMs=0 fdListReadable=true fds=326 syncFiles=105 unreadable=1 threads=52 workers=1 pssKiB=142574
+11-03 18:53:13.190 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=499
+11-03 18:53:13.348 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=207 elapsedMs=0 fdListReadable=true fds=257 syncFiles=36 unreadable=1 threads=52 workers=1 pssKiB=131590
+11-03 18:53:13.473 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=647
+11-03 18:53:13.635 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=208 elapsedMs=0 fdListReadable=true fds=262 syncFiles=41 unreadable=1 threads=52 workers=1 pssKiB=132406
+11-03 18:53:13.756 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=523
+11-03 18:53:13.915 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=209 elapsedMs=0 fdListReadable=true fds=267 syncFiles=46 unreadable=1 threads=52 workers=1 pssKiB=132738
+11-03 18:53:14.039 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=475
+11-03 18:53:14.192 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=210 elapsedMs=0 fdListReadable=true fds=272 syncFiles=51 unreadable=1 threads=52 workers=1 pssKiB=134250
+11-03 18:53:14.338 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=440
+11-03 18:53:14.496 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=211 elapsedMs=0 fdListReadable=true fds=277 syncFiles=56 unreadable=1 threads=52 workers=1 pssKiB=135042
+11-03 18:53:14.637 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=563
+11-03 18:53:14.792 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=212 elapsedMs=0 fdListReadable=true fds=282 syncFiles=61 unreadable=1 threads=51 workers=0 pssKiB=135954
+11-03 18:53:14.936 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=482
+11-03 18:53:15.092 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=213 elapsedMs=0 fdListReadable=true fds=287 syncFiles=66 unreadable=1 threads=52 workers=1 pssKiB=135686
+11-03 18:53:15.238 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=1371
+11-03 18:53:15.392 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=214 elapsedMs=0 fdListReadable=true fds=292 syncFiles=71 unreadable=1 threads=52 workers=1 pssKiB=137562
+11-03 18:53:15.536 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=564
+11-03 18:53:15.680 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=215 elapsedMs=0 fdListReadable=true fds=297 syncFiles=76 unreadable=1 threads=52 workers=1 pssKiB=138402
+11-03 18:53:15.818 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=552
+11-03 18:53:15.976 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=216 elapsedMs=0 fdListReadable=true fds=302 syncFiles=81 unreadable=1 threads=52 workers=1 pssKiB=139362
+11-03 18:53:16.118 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=830
+11-03 18:53:16.274 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=217 elapsedMs=0 fdListReadable=true fds=307 syncFiles=86 unreadable=1 threads=52 workers=1 pssKiB=139742
+11-03 18:53:16.400 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=436
+11-03 18:53:16.563 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=218 elapsedMs=0 fdListReadable=true fds=312 syncFiles=91 unreadable=1 threads=52 workers=1 pssKiB=141134
+11-03 18:53:16.683 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=493
+11-03 18:53:16.833 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=219 elapsedMs=0 fdListReadable=true fds=317 syncFiles=96 unreadable=1 threads=52 workers=1 pssKiB=142186
+11-03 18:53:16.966 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=405
+11-03 18:53:17.123 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=220 elapsedMs=0 fdListReadable=true fds=256 syncFiles=35 unreadable=1 threads=52 workers=1 pssKiB=130286
+11-03 18:53:17.265 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=564
+11-03 18:53:17.425 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=221 elapsedMs=0 fdListReadable=true fds=261 syncFiles=40 unreadable=1 threads=52 workers=1 pssKiB=131194
+11-03 18:53:17.548 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=576
+11-03 18:53:17.705 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=222 elapsedMs=0 fdListReadable=true fds=266 syncFiles=45 unreadable=1 threads=52 workers=1 pssKiB=132362
+11-03 18:53:17.831 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=665
+11-03 18:53:17.987 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=223 elapsedMs=0 fdListReadable=true fds=271 syncFiles=50 unreadable=1 threads=52 workers=1 pssKiB=133422
+11-03 18:53:18.130 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=444
+11-03 18:53:18.292 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=224 elapsedMs=0 fdListReadable=true fds=276 syncFiles=55 unreadable=1 threads=52 workers=1 pssKiB=134054
+11-03 18:53:18.413 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=766
+11-03 18:53:18.569 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=225 elapsedMs=0 fdListReadable=true fds=281 syncFiles=60 unreadable=1 threads=52 workers=1 pssKiB=134414
+11-03 18:53:18.713 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=659
+11-03 18:53:18.868 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=226 elapsedMs=0 fdListReadable=true fds=286 syncFiles=65 unreadable=1 threads=51 workers=0 pssKiB=135770
+11-03 18:53:19.029 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=648
+11-03 18:53:19.190 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=227 elapsedMs=0 fdListReadable=true fds=291 syncFiles=70 unreadable=1 threads=52 workers=1 pssKiB=136134
+11-03 18:53:19.328 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=460
+11-03 18:53:19.491 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=228 elapsedMs=0 fdListReadable=true fds=296 syncFiles=75 unreadable=1 threads=52 workers=1 pssKiB=137558
+11-03 18:53:19.612 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=680
+11-03 18:53:19.769 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=229 elapsedMs=0 fdListReadable=true fds=301 syncFiles=80 unreadable=1 threads=52 workers=1 pssKiB=137810
+11-03 18:53:19.895 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=609
+11-03 18:53:20.045 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=230 elapsedMs=0 fdListReadable=true fds=306 syncFiles=85 unreadable=1 threads=52 workers=1 pssKiB=139318
+11-03 18:53:20.210 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=798
+11-03 18:53:20.361 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=231 elapsedMs=0 fdListReadable=true fds=311 syncFiles=90 unreadable=1 threads=52 workers=1 pssKiB=140286
+11-03 18:53:20.510 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=644
+11-03 18:53:20.658 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=232 elapsedMs=0 fdListReadable=true fds=316 syncFiles=95 unreadable=1 threads=52 workers=1 pssKiB=141154
+11-03 18:53:20.809 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=591
+11-03 18:53:20.968 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=233 elapsedMs=0 fdListReadable=true fds=321 syncFiles=100 unreadable=1 threads=52 workers=1 pssKiB=141170
+11-03 18:53:21.109 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=739
+11-03 18:53:21.259 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=234 elapsedMs=0 fdListReadable=true fds=326 syncFiles=105 unreadable=1 threads=52 workers=1 pssKiB=142850
+11-03 18:53:21.408 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=633
+11-03 18:53:21.558 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=235 elapsedMs=0 fdListReadable=true fds=257 syncFiles=36 unreadable=1 threads=52 workers=1 pssKiB=131578
+11-03 18:53:21.707 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=571
+11-03 18:53:21.847 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=236 elapsedMs=0 fdListReadable=true fds=262 syncFiles=41 unreadable=1 threads=52 workers=1 pssKiB=132382
+11-03 18:53:21.990 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=486
+11-03 18:53:22.149 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=237 elapsedMs=0 fdListReadable=true fds=267 syncFiles=46 unreadable=1 threads=52 workers=1 pssKiB=132774
+11-03 18:53:22.273 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=587
+11-03 18:53:22.436 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=238 elapsedMs=0 fdListReadable=true fds=272 syncFiles=51 unreadable=1 threads=52 workers=1 pssKiB=133998
+11-03 18:53:22.557 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=580
+11-03 18:53:22.712 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=239 elapsedMs=0 fdListReadable=true fds=277 syncFiles=56 unreadable=1 threads=52 workers=1 pssKiB=134930
+11-03 18:53:22.856 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=563
+11-03 18:53:23.010 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=240 elapsedMs=0 fdListReadable=true fds=282 syncFiles=61 unreadable=1 threads=51 workers=0 pssKiB=135498
+11-03 18:53:23.155 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=617
+11-03 18:53:23.311 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=241 elapsedMs=0 fdListReadable=true fds=287 syncFiles=66 unreadable=1 threads=52 workers=1 pssKiB=135918
+11-03 18:53:23.438 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=833
+11-03 18:53:23.585 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=242 elapsedMs=0 fdListReadable=true fds=292 syncFiles=71 unreadable=1 threads=52 workers=1 pssKiB=137674
+11-03 18:53:23.705 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=541
+11-03 18:53:23.863 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=243 elapsedMs=0 fdListReadable=true fds=297 syncFiles=76 unreadable=1 threads=52 workers=1 pssKiB=138622
+11-03 18:53:23.987 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=448
+11-03 18:53:24.136 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=244 elapsedMs=0 fdListReadable=true fds=302 syncFiles=81 unreadable=1 threads=52 workers=1 pssKiB=139634
+11-03 18:53:24.287 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=473
+11-03 18:53:24.446 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=245 elapsedMs=0 fdListReadable=true fds=307 syncFiles=86 unreadable=1 threads=52 workers=1 pssKiB=140098
+11-03 18:53:24.570 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=609
+11-03 18:53:24.722 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=246 elapsedMs=0 fdListReadable=true fds=312 syncFiles=91 unreadable=1 threads=52 workers=1 pssKiB=141546
+11-03 18:53:24.869 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=476
+11-03 18:53:25.024 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=247 elapsedMs=0 fdListReadable=true fds=317 syncFiles=96 unreadable=1 threads=52 workers=1 pssKiB=142530
+11-03 18:53:25.152 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=551
+11-03 18:53:25.314 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=248 elapsedMs=0 fdListReadable=true fds=256 syncFiles=35 unreadable=1 threads=52 workers=1 pssKiB=130934
+11-03 18:53:25.452 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=554
+11-03 18:53:25.603 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=249 elapsedMs=0 fdListReadable=true fds=261 syncFiles=40 unreadable=1 threads=52 workers=1 pssKiB=130906
+11-03 18:53:25.768 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=557
+11-03 18:53:25.927 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=250 elapsedMs=0 fdListReadable=true fds=266 syncFiles=45 unreadable=1 threads=52 workers=1 pssKiB=132478
+11-03 18:53:26.051 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=517
+11-03 18:53:26.211 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=251 elapsedMs=0 fdListReadable=true fds=271 syncFiles=50 unreadable=1 threads=52 workers=1 pssKiB=133282
+11-03 18:53:26.335 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=549
+11-03 18:53:26.497 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=252 elapsedMs=0 fdListReadable=true fds=276 syncFiles=55 unreadable=1 threads=52 workers=1 pssKiB=134182
+11-03 18:53:26.617 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=495
+11-03 18:53:26.773 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=253 elapsedMs=0 fdListReadable=true fds=281 syncFiles=60 unreadable=1 threads=52 workers=1 pssKiB=134410
+11-03 18:53:26.900 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=495
+11-03 18:53:27.045 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=254 elapsedMs=0 fdListReadable=true fds=286 syncFiles=65 unreadable=1 threads=52 workers=1 pssKiB=135658
+11-03 18:53:27.183 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=646
+11-03 18:53:27.346 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=255 elapsedMs=0 fdListReadable=true fds=291 syncFiles=70 unreadable=1 threads=52 workers=1 pssKiB=136690
+11-03 18:53:27.466 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=499
+11-03 18:53:27.624 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=256 elapsedMs=0 fdListReadable=true fds=296 syncFiles=75 unreadable=1 threads=52 workers=1 pssKiB=137750
+11-03 18:53:27.750 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=763
+11-03 18:53:27.903 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=257 elapsedMs=0 fdListReadable=true fds=301 syncFiles=80 unreadable=1 threads=52 workers=1 pssKiB=138138
+11-03 18:53:28.048 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=432
+11-03 18:53:28.194 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=258 elapsedMs=0 fdListReadable=true fds=306 syncFiles=85 unreadable=1 threads=52 workers=1 pssKiB=139502
+11-03 18:53:28.315 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=471
+11-03 18:53:28.472 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=259 elapsedMs=0 fdListReadable=true fds=311 syncFiles=90 unreadable=1 threads=52 workers=1 pssKiB=140646
+11-03 18:53:28.614 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=588
+11-03 18:53:28.762 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=260 elapsedMs=0 fdListReadable=true fds=316 syncFiles=95 unreadable=1 threads=52 workers=1 pssKiB=141534
+11-03 18:53:28.931 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=547
+11-03 18:53:29.089 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=261 elapsedMs=0 fdListReadable=true fds=321 syncFiles=100 unreadable=1 threads=52 workers=1 pssKiB=141678
+11-03 18:53:29.213 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=496
+11-03 18:53:29.369 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=262 elapsedMs=0 fdListReadable=true fds=326 syncFiles=105 unreadable=1 threads=52 workers=1 pssKiB=143442
+11-03 18:53:29.496 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=497
+11-03 18:53:29.651 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=263 elapsedMs=0 fdListReadable=true fds=257 syncFiles=36 unreadable=1 threads=52 workers=1 pssKiB=131842
+11-03 18:53:29.796 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=467
+11-03 18:53:29.937 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=264 elapsedMs=0 fdListReadable=true fds=262 syncFiles=41 unreadable=1 threads=52 workers=1 pssKiB=132778
+11-03 18:53:30.063 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=602
+11-03 18:53:30.222 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=265 elapsedMs=0 fdListReadable=true fds=267 syncFiles=46 unreadable=1 threads=52 workers=1 pssKiB=132662
+11-03 18:53:30.345 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=704
+11-03 18:53:30.501 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=266 elapsedMs=0 fdListReadable=true fds=272 syncFiles=51 unreadable=1 threads=52 workers=1 pssKiB=134498
+11-03 18:53:30.645 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=469
+11-03 18:53:30.805 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=267 elapsedMs=0 fdListReadable=true fds=277 syncFiles=56 unreadable=1 threads=52 workers=1 pssKiB=135318
+11-03 18:53:30.944 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=593
+11-03 18:53:31.105 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=268 elapsedMs=0 fdListReadable=true fds=282 syncFiles=61 unreadable=1 threads=52 workers=0 pssKiB=136282
+11-03 18:53:31.227 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=566
+11-03 18:53:31.380 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=269 elapsedMs=0 fdListReadable=true fds=287 syncFiles=66 unreadable=1 threads=52 workers=1 pssKiB=136570
+11-03 18:53:31.510 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=455
+11-03 18:53:31.671 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=270 elapsedMs=0 fdListReadable=true fds=292 syncFiles=71 unreadable=1 threads=52 workers=1 pssKiB=138046
+11-03 18:53:31.793 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=509
+11-03 18:53:31.950 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=271 elapsedMs=0 fdListReadable=true fds=297 syncFiles=76 unreadable=1 threads=52 workers=1 pssKiB=138978
+11-03 18:53:32.076 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=477
+11-03 18:53:32.234 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=272 elapsedMs=0 fdListReadable=true fds=302 syncFiles=81 unreadable=1 threads=52 workers=1 pssKiB=139462
+11-03 18:53:32.376 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=489
+11-03 18:53:32.528 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=273 elapsedMs=0 fdListReadable=true fds=307 syncFiles=86 unreadable=1 threads=52 workers=1 pssKiB=140318
+11-03 18:53:32.675 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=462
+11-03 18:53:32.839 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=274 elapsedMs=0 fdListReadable=true fds=312 syncFiles=91 unreadable=1 threads=52 workers=1 pssKiB=141822
+11-03 18:53:32.975 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=598
+11-03 18:53:33.128 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=275 elapsedMs=0 fdListReadable=true fds=256 syncFiles=35 unreadable=1 threads=52 workers=1 pssKiB=130938
+11-03 18:53:33.257 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=538
+11-03 18:53:33.412 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=276 elapsedMs=0 fdListReadable=true fds=261 syncFiles=40 unreadable=1 threads=52 workers=1 pssKiB=131394
+11-03 18:53:33.557 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=578
+11-03 18:53:33.712 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=277 elapsedMs=0 fdListReadable=true fds=266 syncFiles=45 unreadable=1 threads=52 workers=1 pssKiB=131982
+11-03 18:53:33.856 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=563
+11-03 18:53:34.013 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=278 elapsedMs=0 fdListReadable=true fds=271 syncFiles=50 unreadable=1 threads=52 workers=1 pssKiB=133014
+11-03 18:53:34.156 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=552
+11-03 18:53:34.309 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=279 elapsedMs=0 fdListReadable=true fds=276 syncFiles=55 unreadable=1 threads=52 workers=1 pssKiB=133678
+11-03 18:53:34.455 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=521
+11-03 18:53:34.613 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=280 elapsedMs=0 fdListReadable=true fds=281 syncFiles=60 unreadable=1 threads=52 workers=1 pssKiB=134826
+11-03 18:53:34.755 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=641
+11-03 18:53:34.912 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=281 elapsedMs=0 fdListReadable=true fds=286 syncFiles=65 unreadable=1 threads=52 workers=1 pssKiB=135174
+11-03 18:53:35.037 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=584
+11-03 18:53:35.193 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=282 elapsedMs=0 fdListReadable=true fds=291 syncFiles=70 unreadable=1 threads=51 workers=0 pssKiB=136530
+11-03 18:53:35.337 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=512
+11-03 18:53:35.492 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=283 elapsedMs=0 fdListReadable=true fds=296 syncFiles=75 unreadable=1 threads=52 workers=1 pssKiB=137290
+11-03 18:53:35.636 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=627
+11-03 18:53:35.793 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=284 elapsedMs=0 fdListReadable=true fds=301 syncFiles=80 unreadable=1 threads=53 workers=1 pssKiB=138566
+11-03 18:53:35.919 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=605
+11-03 18:53:36.083 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=285 elapsedMs=0 fdListReadable=true fds=306 syncFiles=85 unreadable=1 threads=53 workers=1 pssKiB=138942
+11-03 18:53:36.235 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=485
+11-03 18:53:36.389 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=286 elapsedMs=0 fdListReadable=true fds=311 syncFiles=90 unreadable=1 threads=53 workers=1 pssKiB=140138
+11-03 18:53:36.518 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=549
+11-03 18:53:36.674 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=287 elapsedMs=0 fdListReadable=true fds=316 syncFiles=95 unreadable=1 threads=53 workers=1 pssKiB=141362
+11-03 18:53:36.818 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=715
+11-03 18:53:36.977 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=288 elapsedMs=0 fdListReadable=true fds=321 syncFiles=100 unreadable=1 threads=53 workers=1 pssKiB=142286
+11-03 18:53:37.117 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=645
+11-03 18:53:37.273 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=289 elapsedMs=0 fdListReadable=true fds=326 syncFiles=105 unreadable=1 threads=53 workers=1 pssKiB=142834
+11-03 18:53:37.400 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=449
+11-03 18:53:37.556 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=290 elapsedMs=0 fdListReadable=true fds=257 syncFiles=36 unreadable=1 threads=53 workers=1 pssKiB=131634
+11-03 18:53:37.700 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=634
+11-03 18:53:37.852 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=291 elapsedMs=0 fdListReadable=true fds=262 syncFiles=41 unreadable=1 threads=53 workers=1 pssKiB=132906
+11-03 18:53:37.999 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=479
+11-03 18:53:38.144 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=292 elapsedMs=0 fdListReadable=true fds=267 syncFiles=46 unreadable=1 threads=53 workers=1 pssKiB=133766
+11-03 18:53:38.265 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=548
+11-03 18:53:38.417 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=293 elapsedMs=0 fdListReadable=true fds=272 syncFiles=51 unreadable=1 threads=53 workers=1 pssKiB=133738
+11-03 18:53:38.565 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=887
+11-03 18:53:38.721 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=294 elapsedMs=0 fdListReadable=true fds=277 syncFiles=56 unreadable=1 threads=53 workers=1 pssKiB=135354
+11-03 18:53:38.865 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=551
+11-03 18:53:39.025 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=295 elapsedMs=0 fdListReadable=true fds=282 syncFiles=61 unreadable=1 threads=53 workers=1 pssKiB=136198
+11-03 18:53:39.147 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=419
+11-03 18:53:39.303 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=296 elapsedMs=0 fdListReadable=true fds=287 syncFiles=66 unreadable=1 threads=52 workers=0 pssKiB=137126
+11-03 18:53:39.447 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=495
+11-03 18:53:39.606 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=297 elapsedMs=0 fdListReadable=true fds=292 syncFiles=71 unreadable=1 threads=53 workers=1 pssKiB=137326
+11-03 18:53:39.746 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=551
+11-03 18:53:39.901 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=298 elapsedMs=0 fdListReadable=true fds=297 syncFiles=76 unreadable=1 threads=53 workers=1 pssKiB=138958
+11-03 18:53:40.046 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=602
+11-03 18:53:40.188 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=299 elapsedMs=0 fdListReadable=true fds=302 syncFiles=81 unreadable=1 threads=53 workers=1 pssKiB=139906
+11-03 18:53:40.311 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=523
+11-03 18:53:40.452 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=300 elapsedMs=0 fdListReadable=true fds=307 syncFiles=86 unreadable=1 threads=53 workers=1 pssKiB=140646
+11-03 18:53:40.578 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=542
+11-03 18:53:40.738 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=301 elapsedMs=0 fdListReadable=true fds=312 syncFiles=91 unreadable=1 threads=53 workers=1 pssKiB=141238
+11-03 18:53:40.878 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=681
+11-03 18:53:41.033 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=302 elapsedMs=0 fdListReadable=true fds=317 syncFiles=96 unreadable=1 threads=53 workers=1 pssKiB=142934
+11-03 18:53:41.160 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=590
+11-03 18:53:41.314 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=303 elapsedMs=0 fdListReadable=true fds=256 syncFiles=35 unreadable=1 threads=53 workers=1 pssKiB=131002
+11-03 18:53:41.443 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=601
+11-03 18:53:41.603 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=304 elapsedMs=0 fdListReadable=true fds=261 syncFiles=40 unreadable=1 threads=53 workers=1 pssKiB=131866
+11-03 18:53:41.726 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=508
+11-03 18:53:41.882 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=305 elapsedMs=0 fdListReadable=true fds=266 syncFiles=45 unreadable=1 threads=53 workers=1 pssKiB=131970
+11-03 18:53:42.009 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=450
+11-03 18:53:42.164 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=306 elapsedMs=0 fdListReadable=true fds=271 syncFiles=50 unreadable=1 threads=53 workers=1 pssKiB=133574
+11-03 18:53:42.308 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=543
+11-03 18:53:42.464 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=307 elapsedMs=0 fdListReadable=true fds=276 syncFiles=55 unreadable=1 threads=53 workers=1 pssKiB=134558
+11-03 18:53:42.591 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=804
+11-03 18:53:42.746 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=308 elapsedMs=0 fdListReadable=true fds=281 syncFiles=60 unreadable=1 threads=53 workers=1 pssKiB=135206
+11-03 18:53:42.891 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=548
+11-03 18:53:43.045 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=309 elapsedMs=0 fdListReadable=true fds=286 syncFiles=65 unreadable=1 threads=53 workers=1 pssKiB=135538
+11-03 18:53:43.174 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=690
+11-03 18:53:43.331 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=310 elapsedMs=0 fdListReadable=true fds=291 syncFiles=70 unreadable=1 threads=53 workers=1 pssKiB=137026
+11-03 18:53:43.473 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=584
+11-03 18:53:43.634 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=311 elapsedMs=0 fdListReadable=true fds=296 syncFiles=75 unreadable=1 threads=53 workers=1 pssKiB=138134
+11-03 18:53:43.773 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=641
+11-03 18:53:43.928 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=312 elapsedMs=0 fdListReadable=true fds=301 syncFiles=80 unreadable=1 threads=53 workers=1 pssKiB=139074
+11-03 18:53:44.072 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=481
+11-03 18:53:44.228 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=313 elapsedMs=0 fdListReadable=true fds=306 syncFiles=85 unreadable=1 threads=53 workers=1 pssKiB=139414
+11-03 18:53:44.372 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=461
+11-03 18:53:44.531 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=314 elapsedMs=0 fdListReadable=true fds=311 syncFiles=90 unreadable=1 threads=53 workers=1 pssKiB=140922
+11-03 18:53:44.654 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=530
+11-03 18:53:44.815 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=315 elapsedMs=0 fdListReadable=true fds=316 syncFiles=95 unreadable=1 threads=53 workers=1 pssKiB=141562
+11-03 18:53:44.938 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=598
+11-03 18:53:45.087 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=316 elapsedMs=0 fdListReadable=true fds=321 syncFiles=100 unreadable=1 threads=53 workers=1 pssKiB=142614
+11-03 18:53:45.221 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=538
+11-03 18:53:45.370 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=317 elapsedMs=0 fdListReadable=true fds=257 syncFiles=36 unreadable=1 threads=53 workers=1 pssKiB=130650
+11-03 18:53:45.536 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=497
+11-03 18:53:45.685 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=318 elapsedMs=0 fdListReadable=true fds=262 syncFiles=41 unreadable=1 threads=53 workers=1 pssKiB=132254
+11-03 18:53:45.854 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=1110
+11-03 18:53:46.004 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=319 elapsedMs=0 fdListReadable=true fds=267 syncFiles=46 unreadable=1 threads=53 workers=1 pssKiB=133126
+11-03 18:53:46.152 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=495
+11-03 18:53:46.311 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=320 elapsedMs=0 fdListReadable=true fds=272 syncFiles=51 unreadable=1 threads=53 workers=1 pssKiB=133690
+11-03 18:53:46.435 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=658
+11-03 18:53:46.593 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=321 elapsedMs=0 fdListReadable=true fds=277 syncFiles=56 unreadable=1 threads=53 workers=1 pssKiB=134354
+11-03 18:53:46.717 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=539
+11-03 18:53:46.880 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=322 elapsedMs=0 fdListReadable=true fds=282 syncFiles=61 unreadable=1 threads=53 workers=1 pssKiB=135550
+11-03 18:53:47.000 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=480
+11-03 18:53:47.157 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=323 elapsedMs=0 fdListReadable=true fds=287 syncFiles=66 unreadable=1 threads=53 workers=1 pssKiB=136790
+11-03 18:53:47.301 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=586
+11-03 18:53:47.458 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=324 elapsedMs=0 fdListReadable=true fds=292 syncFiles=71 unreadable=1 threads=52 workers=0 pssKiB=137638
+11-03 18:53:47.583 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=450
+11-03 18:53:47.739 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=325 elapsedMs=0 fdListReadable=true fds=297 syncFiles=76 unreadable=1 threads=53 workers=1 pssKiB=138206
+11-03 18:53:47.866 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=560
+11-03 18:53:48.020 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=326 elapsedMs=0 fdListReadable=true fds=302 syncFiles=81 unreadable=1 threads=53 workers=1 pssKiB=139650
+11-03 18:53:48.165 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=555
+11-03 18:53:48.322 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=327 elapsedMs=0 fdListReadable=true fds=307 syncFiles=86 unreadable=1 threads=53 workers=1 pssKiB=140254
+11-03 18:53:48.465 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=572
+11-03 18:53:48.628 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=328 elapsedMs=0 fdListReadable=true fds=312 syncFiles=91 unreadable=1 threads=53 workers=1 pssKiB=141478
+11-03 18:53:48.748 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=652
+11-03 18:53:48.905 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=329 elapsedMs=0 fdListReadable=true fds=317 syncFiles=96 unreadable=1 threads=53 workers=1 pssKiB=141630
+11-03 18:53:49.047 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=527
+11-03 18:53:49.203 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=330 elapsedMs=0 fdListReadable=true fds=322 syncFiles=101 unreadable=1 threads=53 workers=1 pssKiB=143318
+11-03 18:53:49.330 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=619
+11-03 18:53:49.493 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=331 elapsedMs=0 fdListReadable=true fds=256 syncFiles=35 unreadable=1 threads=53 workers=1 pssKiB=131274
+11-03 18:53:49.613 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=950
+11-03 18:53:49.767 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=332 elapsedMs=0 fdListReadable=true fds=261 syncFiles=40 unreadable=1 threads=53 workers=1 pssKiB=132154
+11-03 18:53:49.913 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=667
+11-03 18:53:50.068 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=333 elapsedMs=0 fdListReadable=true fds=266 syncFiles=45 unreadable=1 threads=53 workers=1 pssKiB=132554
+11-03 18:53:50.212 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=497
+11-03 18:53:50.371 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=334 elapsedMs=0 fdListReadable=true fds=271 syncFiles=50 unreadable=1 threads=53 workers=1 pssKiB=133298
+11-03 18:53:50.495 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=615
+11-03 18:53:50.653 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=335 elapsedMs=0 fdListReadable=true fds=276 syncFiles=55 unreadable=1 threads=53 workers=1 pssKiB=134442
+11-03 18:53:50.778 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=753
+11-03 18:53:50.932 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=336 elapsedMs=0 fdListReadable=true fds=281 syncFiles=60 unreadable=1 threads=53 workers=1 pssKiB=135094
+11-03 18:53:51.078 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=610
+11-03 18:53:51.238 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=337 elapsedMs=0 fdListReadable=true fds=286 syncFiles=65 unreadable=1 threads=53 workers=1 pssKiB=135694
+11-03 18:53:51.377 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=579
+11-03 18:53:51.532 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=338 elapsedMs=0 fdListReadable=true fds=291 syncFiles=70 unreadable=1 threads=52 workers=0 pssKiB=136950
+11-03 18:53:51.676 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=556
+11-03 18:53:51.822 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=339 elapsedMs=0 fdListReadable=true fds=296 syncFiles=75 unreadable=1 threads=53 workers=1 pssKiB=138026
+11-03 18:53:51.943 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=717
+11-03 18:53:52.096 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=340 elapsedMs=0 fdListReadable=true fds=301 syncFiles=80 unreadable=1 threads=53 workers=1 pssKiB=138918
+11-03 18:53:52.242 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=618
+11-03 18:53:52.403 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=341 elapsedMs=0 fdListReadable=true fds=306 syncFiles=85 unreadable=1 threads=53 workers=1 pssKiB=139066
+11-03 18:53:52.524 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=434
+11-03 18:53:52.681 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=342 elapsedMs=0 fdListReadable=true fds=311 syncFiles=90 unreadable=1 threads=53 workers=1 pssKiB=140690
+11-03 18:53:52.807 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=467
+11-03 18:53:52.968 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=343 elapsedMs=0 fdListReadable=true fds=316 syncFiles=95 unreadable=1 threads=53 workers=1 pssKiB=141446
+11-03 18:53:53.107 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=669
+11-03 18:53:53.267 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=344 elapsedMs=0 fdListReadable=true fds=321 syncFiles=100 unreadable=1 threads=53 workers=1 pssKiB=142658
+11-03 18:53:53.407 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=610
+11-03 18:53:53.560 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=345 elapsedMs=0 fdListReadable=true fds=326 syncFiles=105 unreadable=1 threads=53 workers=1 pssKiB=143118
+11-03 18:53:53.689 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=479
+11-03 18:53:53.844 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=346 elapsedMs=0 fdListReadable=true fds=257 syncFiles=36 unreadable=1 threads=53 workers=1 pssKiB=132314
+11-03 18:53:53.972 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=625
+11-03 18:53:54.129 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=347 elapsedMs=0 fdListReadable=true fds=262 syncFiles=41 unreadable=1 threads=53 workers=1 pssKiB=133198
+11-03 18:53:54.271 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=493
+11-03 18:53:54.434 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=348 elapsedMs=0 fdListReadable=true fds=267 syncFiles=46 unreadable=1 threads=53 workers=1 pssKiB=133814
+11-03 18:53:54.555 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=654
+11-03 18:53:54.711 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=349 elapsedMs=0 fdListReadable=true fds=272 syncFiles=51 unreadable=1 threads=53 workers=1 pssKiB=134426
+11-03 18:53:54.854 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=579
+11-03 18:53:55.012 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=350 elapsedMs=0 fdListReadable=true fds=277 syncFiles=56 unreadable=1 threads=53 workers=1 pssKiB=135638
+11-03 18:53:55.136 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=471
+11-03 18:53:55.302 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=351 elapsedMs=0 fdListReadable=true fds=282 syncFiles=61 unreadable=1 threads=53 workers=1 pssKiB=136686
+11-03 18:53:55.452 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=480
+11-03 18:53:55.609 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=352 elapsedMs=0 fdListReadable=true fds=287 syncFiles=66 unreadable=1 threads=52 workers=0 pssKiB=137282
+11-03 18:53:55.752 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=587
+11-03 18:53:55.904 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=353 elapsedMs=0 fdListReadable=true fds=292 syncFiles=71 unreadable=1 threads=53 workers=1 pssKiB=137914
+11-03 18:53:56.052 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=754
+11-03 18:53:56.210 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=354 elapsedMs=0 fdListReadable=true fds=297 syncFiles=76 unreadable=1 threads=53 workers=1 pssKiB=139414
+11-03 18:53:56.334 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=433
+11-03 18:53:56.494 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=355 elapsedMs=0 fdListReadable=true fds=302 syncFiles=81 unreadable=1 threads=53 workers=1 pssKiB=140350
+11-03 18:53:56.617 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=480
+11-03 18:53:56.774 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=356 elapsedMs=0 fdListReadable=true fds=307 syncFiles=86 unreadable=1 threads=53 workers=1 pssKiB=140898
+11-03 18:53:56.916 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=483
+11-03 18:53:57.073 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=357 elapsedMs=0 fdListReadable=true fds=312 syncFiles=91 unreadable=1 threads=53 workers=1 pssKiB=141538
+11-03 18:53:57.199 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=567
+11-03 18:53:57.361 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=358 elapsedMs=0 fdListReadable=true fds=256 syncFiles=35 unreadable=1 threads=53 workers=1 pssKiB=131058
+11-03 18:53:57.482 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=748
+11-03 18:53:57.638 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=359 elapsedMs=0 fdListReadable=true fds=261 syncFiles=40 unreadable=1 threads=53 workers=1 pssKiB=132006
+11-03 18:53:57.768 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=3763
+11-03 18:53:57.900 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=360 elapsedMs=0 fdListReadable=true fds=266 syncFiles=45 unreadable=1 threads=53 workers=1 pssKiB=132818
+11-03 18:53:58.048 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=569
+11-03 18:53:58.190 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=361 elapsedMs=0 fdListReadable=true fds=271 syncFiles=50 unreadable=1 threads=53 workers=1 pssKiB=133206
+11-03 18:53:58.331 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=472
+11-03 18:53:58.485 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=362 elapsedMs=0 fdListReadable=true fds=276 syncFiles=55 unreadable=1 threads=53 workers=1 pssKiB=134614
+11-03 18:53:58.614 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=468
+11-03 18:53:58.772 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=363 elapsedMs=0 fdListReadable=true fds=281 syncFiles=60 unreadable=1 threads=53 workers=1 pssKiB=135490
+11-03 18:53:58.896 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=539
+11-03 18:53:59.053 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=364 elapsedMs=0 fdListReadable=true fds=286 syncFiles=65 unreadable=1 threads=53 workers=1 pssKiB=136106
+11-03 18:53:59.179 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=550
+11-03 18:53:59.334 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=365 elapsedMs=0 fdListReadable=true fds=291 syncFiles=70 unreadable=1 threads=53 workers=1 pssKiB=136506
+11-03 18:53:59.495 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=583
+11-03 18:53:59.645 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=366 elapsedMs=0 fdListReadable=true fds=296 syncFiles=75 unreadable=1 threads=53 workers=1 pssKiB=138274
+11-03 18:53:59.794 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=480
+11-03 18:53:59.944 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=367 elapsedMs=0 fdListReadable=true fds=301 syncFiles=80 unreadable=1 threads=53 workers=1 pssKiB=139190
+11-03 18:54:00.094 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=594
+11-03 18:54:00.247 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=368 elapsedMs=0 fdListReadable=true fds=306 syncFiles=85 unreadable=1 threads=53 workers=1 pssKiB=140054
+11-03 18:54:00.394 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=819
+11-03 18:54:00.550 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=369 elapsedMs=0 fdListReadable=true fds=311 syncFiles=90 unreadable=1 threads=53 workers=1 pssKiB=140446
+11-03 18:54:00.693 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=453
+11-03 18:54:00.848 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=370 elapsedMs=0 fdListReadable=true fds=316 syncFiles=95 unreadable=1 threads=53 workers=1 pssKiB=141890
+11-03 18:54:00.975 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=555
+11-03 18:54:01.120 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=371 elapsedMs=0 fdListReadable=true fds=321 syncFiles=100 unreadable=1 threads=53 workers=1 pssKiB=142658
+11-03 18:54:01.242 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=521
+11-03 18:54:01.395 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=372 elapsedMs=0 fdListReadable=true fds=257 syncFiles=36 unreadable=1 threads=53 workers=1 pssKiB=131282
+11-03 18:54:01.524 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=462
+11-03 18:54:01.680 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=373 elapsedMs=0 fdListReadable=true fds=262 syncFiles=41 unreadable=1 threads=53 workers=1 pssKiB=131918
+11-03 18:54:01.807 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=506
+11-03 18:54:01.965 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=374 elapsedMs=0 fdListReadable=true fds=267 syncFiles=46 unreadable=1 threads=53 workers=1 pssKiB=133330
+11-03 18:54:02.090 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=681
+11-03 18:54:02.246 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=375 elapsedMs=0 fdListReadable=true fds=272 syncFiles=51 unreadable=1 threads=53 workers=1 pssKiB=134202
+11-03 18:54:02.389 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=567
+11-03 18:54:02.550 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=376 elapsedMs=0 fdListReadable=true fds=277 syncFiles=56 unreadable=1 threads=53 workers=1 pssKiB=135030
+11-03 18:54:02.673 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=814
+11-03 18:54:02.820 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=377 elapsedMs=0 fdListReadable=true fds=282 syncFiles=61 unreadable=1 threads=53 workers=1 pssKiB=135070
+11-03 18:54:02.972 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=470
+11-03 18:54:03.126 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=378 elapsedMs=0 fdListReadable=true fds=287 syncFiles=66 unreadable=1 threads=53 workers=1 pssKiB=136750
+11-03 18:54:03.271 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=512
+11-03 18:54:03.432 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=379 elapsedMs=0 fdListReadable=true fds=292 syncFiles=71 unreadable=1 threads=53 workers=1 pssKiB=137198
+11-03 18:54:03.554 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=602
+11-03 18:54:03.716 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=380 elapsedMs=0 fdListReadable=true fds=297 syncFiles=76 unreadable=1 threads=53 workers=1 pssKiB=138542
+11-03 18:54:03.854 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=495
+11-03 18:54:04.008 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=381 elapsedMs=0 fdListReadable=true fds=302 syncFiles=81 unreadable=1 threads=53 workers=1 pssKiB=138938
+11-03 18:54:04.137 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=727
+11-03 18:54:04.289 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=382 elapsedMs=0 fdListReadable=true fds=307 syncFiles=86 unreadable=1 threads=53 workers=1 pssKiB=140058
+11-03 18:54:04.452 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=421
+11-03 18:54:04.611 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=383 elapsedMs=0 fdListReadable=true fds=312 syncFiles=91 unreadable=1 threads=53 workers=1 pssKiB=141222
+11-03 18:54:04.752 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=537
+11-03 18:54:04.916 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=384 elapsedMs=0 fdListReadable=true fds=317 syncFiles=96 unreadable=1 threads=53 workers=1 pssKiB=142170
+11-03 18:54:05.085 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=655
+11-03 18:54:05.241 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=385 elapsedMs=0 fdListReadable=true fds=322 syncFiles=101 unreadable=1 threads=53 workers=1 pssKiB=142554
+11-03 18:54:05.368 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=594
+11-03 18:54:05.519 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=386 elapsedMs=0 fdListReadable=true fds=256 syncFiles=35 unreadable=1 threads=53 workers=1 pssKiB=130670
+11-03 18:54:05.667 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=420
+11-03 18:54:05.816 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=387 elapsedMs=0 fdListReadable=true fds=261 syncFiles=40 unreadable=1 threads=53 workers=1 pssKiB=131766
+11-03 18:54:05.967 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=729
+11-03 18:54:06.123 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=388 elapsedMs=0 fdListReadable=true fds=266 syncFiles=45 unreadable=1 threads=53 workers=1 pssKiB=132838
+11-03 18:54:06.250 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=582
+11-03 18:54:06.402 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=389 elapsedMs=0 fdListReadable=true fds=271 syncFiles=50 unreadable=1 threads=53 workers=1 pssKiB=133122
+11-03 18:54:06.532 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=471
+11-03 18:54:06.690 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=390 elapsedMs=0 fdListReadable=true fds=276 syncFiles=55 unreadable=1 threads=53 workers=1 pssKiB=134122
+11-03 18:54:06.832 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=621
+11-03 18:54:06.986 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=391 elapsedMs=0 fdListReadable=true fds=281 syncFiles=60 unreadable=1 threads=53 workers=1 pssKiB=135314
+11-03 18:54:07.115 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=636
+11-03 18:54:07.272 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=392 elapsedMs=0 fdListReadable=true fds=286 syncFiles=65 unreadable=1 threads=53 workers=1 pssKiB=136222
+11-03 18:54:07.414 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=708
+11-03 18:54:07.571 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=393 elapsedMs=0 fdListReadable=true fds=291 syncFiles=70 unreadable=1 threads=53 workers=1 pssKiB=136458
+11-03 18:54:07.697 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=416
+11-03 18:54:07.853 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=394 elapsedMs=0 fdListReadable=true fds=296 syncFiles=75 unreadable=1 threads=52 workers=0 pssKiB=137686
+11-03 18:54:07.996 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=519
+11-03 18:54:08.143 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=395 elapsedMs=0 fdListReadable=true fds=301 syncFiles=80 unreadable=1 threads=53 workers=1 pssKiB=138998
+11-03 18:54:08.296 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=564
+11-03 18:54:08.448 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=396 elapsedMs=0 fdListReadable=true fds=306 syncFiles=85 unreadable=1 threads=53 workers=1 pssKiB=139886
+11-03 18:54:08.595 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=617
+11-03 18:54:08.756 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=397 elapsedMs=0 fdListReadable=true fds=311 syncFiles=90 unreadable=1 threads=53 workers=1 pssKiB=139930
+11-03 18:54:08.878 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=571
+11-03 18:54:09.039 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=398 elapsedMs=0 fdListReadable=true fds=316 syncFiles=95 unreadable=1 threads=53 workers=1 pssKiB=141802
+11-03 18:54:09.161 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=521
+11-03 18:54:09.316 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=399 elapsedMs=0 fdListReadable=true fds=321 syncFiles=100 unreadable=1 threads=53 workers=1 pssKiB=142794
+11-03 18:54:09.477 14299 14299 I VapComposeSurface: detach reason=surface-destroyed elapsedUs=595
+11-03 18:54:09.619 14299 14614 I VAP-Compose-Stress: SAMPLE sample=cycle cycle=400 elapsedMs=0 fdListReadable=true fds=326 syncFiles=105 unreadable=1 threads=53 workers=1 pssKiB=143978
+11-03 18:54:10.663 14299 14614 I VAP-Compose-Stress: SAMPLE sample=settled cycle=400 elapsedMs=1002 fdListReadable=true fds=256 syncFiles=35 unreadable=1 threads=53 workers=1 pssKiB=132310
+11-03 18:54:14.661 14299 14614 I VAP-Compose-Stress: SAMPLE sample=settled cycle=400 elapsedMs=5002 fdListReadable=true fds=256 syncFiles=35 unreadable=1 threads=52 workers=0 pssKiB=131867
+11-03 18:54:24.661 14299 14614 I VAP-Compose-Stress: SAMPLE sample=settled cycle=400 elapsedMs=15002 fdListReadable=true fds=256 syncFiles=35 unreadable=1 threads=52 workers=0 pssKiB=132635
+11-03 18:54:24.661 14299 14299 I VAP-Compose-Stress: SUITE passed cycles=400 Counts(starts=400, completes=0, failures=0)

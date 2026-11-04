@@ -1,0 +1,71 @@
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.12.0'
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:2.2.21'
+        classpath 'org.jetbrains.kotlin:compose-compiler-gradle-plugin:2.2.21'
+    }
+}
+
+def vapVersion = providers.gradleProperty('vapVersion').getOrNull()
+if (vapVersion == null || vapVersion.trim().isEmpty()) {
+    throw new GradleException('Set -PvapVersion to the locally published release version.')
+}
+
+subprojects {
+    apply plugin: 'com.android.application'
+
+    def hasCompose = name != 'view-only'
+    def hasView = name != 'compose-only'
+    def sampleAssets = layout.buildDirectory.dir('generated/sampleAssets')
+    def copySampleAssets = tasks.register('copySampleAssets', Sync) {
+        from(rootProject.file('../../app/src/main/assets')) {
+            include 'demo.mp4'
+            if (hasView && hasCompose) include 'vapx.mp4'
+        }
+        into(sampleAssets)
+    }
+    if (hasCompose) {
+        apply plugin: 'org.jetbrains.kotlin.android'
+        apply plugin: 'org.jetbrains.kotlin.plugin.compose'
+    }
+
+    def packageName = "com.tencent.qgame.vap.consumer.${name.replace('-', '')}"
+    def javaTarget = hasCompose ? JavaVersion.VERSION_17 : JavaVersion.VERSION_1_8
+    android {
+        namespace = packageName
+        compileSdk = 36
+
+        defaultConfig {
+            applicationId = packageName
+            minSdk = hasCompose ? 23 : 16
+            targetSdk = hasCompose ? 36 : 28
+            versionCode = 1
+            versionName = '1'
+        }
+        buildFeatures.compose = hasCompose
+        sourceSets.main.java.srcDir(rootProject.file('common/src/main/java'))
+        sourceSets.main.assets.srcDir(sampleAssets)
+        androidResources.noCompress += 'mp4'
+
+        compileOptions {
+            sourceCompatibility = javaTarget
+            targetCompatibility = javaTarget
+        }
+    }
+    if (hasCompose) {
+        kotlin.compilerOptions.jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
+    }
+
+    tasks.named('preBuild') { dependsOn(copySampleAssets) }
+    dependencies {
+        if (hasView) implementation("io.github.qqnp1100:vap:${vapVersion}")
+        if (hasCompose) {
+            implementation("io.github.qqnp1100:vap-compose:${vapVersion}")
+            implementation('androidx.activity:activity-compose:1.10.1')
+        }
+    }
+}

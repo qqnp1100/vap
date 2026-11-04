@@ -15,103 +15,29 @@
  */
 package com.tencent.qgame.animplayer.util
 
-import android.media.MediaCodecList
 import android.media.MediaExtractor
 import android.media.MediaFormat
 import com.tencent.qgame.animplayer.Constant
 import com.tencent.qgame.animplayer.file.IFileContainer
-import java.util.Locale
-import kotlin.collections.HashMap
-
+import com.tencent.qgame.vap.core.spi.CoreMediaAccess
 
 object MediaUtil {
-
     private const val TAG = "${Constant.TAG}.MediaUtil"
+    const val MIME_HEVC = CoreMediaAccess.MIME_HEVC
 
-    private var isTypeMapInit = false
-    private val supportTypeMap = HashMap<String, Boolean>()
-
-    const val MIME_HEVC = "video/hevc"
-
-    fun getExtractor(file: IFileContainer): MediaExtractor {
-        val extractor = MediaExtractor()
-        try {
-            file.setDataSource(extractor)
-            return extractor
-        } catch (error: Throwable) {
-            try {
-                extractor.release()
-            } catch (releaseError: Throwable) {
-                ALog.e(TAG, "extractor release after data source failure", releaseError)
-            }
-            throw error
-        }
+    fun getExtractor(file: IFileContainer): MediaExtractor = CoreMediaAccess.openExtractor(file::setDataSource) {
+        ALog.e(TAG, "extractor release after data source failure", it)
     }
 
-    /**
-     * 是否为h265的视频
-     */
-    fun checkIsHevc(videoFormat: MediaFormat):Boolean {
-        val mime = videoFormat.getString(MediaFormat.KEY_MIME) ?: ""
-        return mime.contains("hevc")
-    }
+    fun checkIsHevc(videoFormat: MediaFormat): Boolean = CoreMediaAccess.isHevc(videoFormat)
 
-    fun selectVideoTrack(extractor: MediaExtractor): Int {
-        val numTracks = extractor.trackCount
-        for (i in 0 until numTracks) {
-            val format = extractor.getTrackFormat(i)
-            val mime = format.getString(MediaFormat.KEY_MIME) ?: ""
-            if (mime.startsWith("video/")) {
-                ALog.i(TAG, "Extractor selected track $i ($mime): $format")
-                return i
-            }
-        }
-        return -1
-    }
+    fun selectVideoTrack(extractor: MediaExtractor): Int =
+        CoreMediaAccess.selectTrack(extractor, "video/") { ALog.i(TAG, it) }
 
-    fun selectAudioTrack(extractor: MediaExtractor): Int {
-        val numTracks = extractor.trackCount
-        for (i in 0 until numTracks) {
-            val format = extractor.getTrackFormat(i)
-            val mime = format.getString(MediaFormat.KEY_MIME) ?: ""
-            if (mime.startsWith("audio/")) {
-                ALog.i(TAG, "Extractor selected track $i ($mime): $format")
-                return i
-            }
-        }
-        return -1
-    }
+    fun selectAudioTrack(extractor: MediaExtractor): Int =
+        CoreMediaAccess.selectTrack(extractor, "audio/") { ALog.i(TAG, it) }
 
-    /**
-     * 检查设备解码支持类型
-     */
     @Synchronized
-    fun checkSupportCodec(mimeType: String): Boolean {
-        if (!isTypeMapInit) {
-            isTypeMapInit = true
-            getSupportType()
-        }
-        return supportTypeMap.containsKey(mimeType.lowercase(Locale.getDefault()))
-    }
-
-
-    private fun getSupportType() {
-        try {
-            val numCodecs = MediaCodecList.getCodecCount()
-            for (i in 0 until numCodecs) {
-                val codecInfo = MediaCodecList.getCodecInfoAt(i)
-                if (codecInfo.isEncoder) {
-                    continue
-                }
-                val types = codecInfo.supportedTypes
-                for (j in types.indices) {
-                    supportTypeMap[types[j].lowercase(Locale.getDefault())] = true
-                }
-            }
-            ALog.i(TAG, "supportType=${supportTypeMap.keys}")
-        } catch (t: Throwable) {
-            ALog.e(TAG, "getSupportType $t")
-        }
-    }
-
+    fun checkSupportCodec(mimeType: String): Boolean =
+        CoreMediaAccess.checkSupportCodec(mimeType, { ALog.i(TAG, it) }, { ALog.e(TAG, "getSupportType $it") })
 }

@@ -3,11 +3,13 @@ package com.tencent.qgame.playerproj.player
 import android.app.Activity
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.os.Debug
 import android.os.Handler
 import android.os.Looper
 import android.os.SystemClock
+import android.system.Os
 import android.util.Log
 import android.view.ViewGroup
 import android.widget.Button
@@ -28,6 +30,7 @@ import com.tencent.qgame.animplayer.util.ALog
 import com.tencent.qgame.animplayer.util.IALog
 import com.tencent.qgame.animplayer.util.ScaleType
 import java.io.File
+import java.util.concurrent.ConcurrentLinkedQueue
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicBoolean
@@ -176,6 +179,12 @@ class StabilityTestActivity : Activity() {
     }
 
     private fun buildSteps() {
+        if (intent.getStringExtra("scenario") == "callback-contract") {
+            for (mode in listOf("accepted", "rejected", "failed")) {
+                steps.add("callback-contract-$mode" to { callbackContractCase(mode) })
+            }
+            return
+        }
         steps.add("vapx-latched-frame-alignment" to {
             val test = beginCase("vapx-latched-frame-alignment", timeoutMs = 32_000)
             val player = testPlayer(test.view)
@@ -189,7 +198,8 @@ class StabilityTestActivity : Activity() {
             test.view.setFetchResource(source(test))
             test.onSurfaceFrame = { timestamp, index ->
                 val fusionIndex = player.pluginManager.getMixAnimPlugin()?.curFrameIndex
-                if (timestamp <= lastTimestamp || index == null || index != fusionIndex || index !in 0..239) {
+                val timestampRegressed = Build.VERSION.SDK_INT >= 21 && timestamp <= lastTimestamp
+                if (timestampRegressed || index == null || index != fusionIndex || index !in 0..239) {
                     alignmentError = true
                 } else {
                     if (index == 0) {
@@ -210,7 +220,7 @@ class StabilityTestActivity : Activity() {
             test.validate = {
                 line("METRIC ${test.name} matched=$matched skipped=$skipped loops=$loopStarts lastIndex=$lastIndex")
                 played(test) ?: expect(!alignmentError && loopStarts == 2 && lastIndex == 239 &&
-                    matched + skipped == 480, "latched timestamps must select the exact fusion index across both loops")
+                    matched + skipped == 480, "latched frames must select the exact fusion index across both loops")
             }
             ALog.isDebug = true
             test.view.setAnimListener(listener(test))
@@ -227,7 +237,9 @@ class StabilityTestActivity : Activity() {
             test.onSurfaceFrame = { _, _ ->
                 if (restore == null) {
                     val render = player.decoder?.render as Render
-                    val egl = Render::class.java.getDeclaredField("eglUtil").apply { isAccessible = true }.get(render)
+                    val packed = Render::class.java.getDeclaredField("packedRenderer")
+                        .apply { isAccessible = true }.get(render)
+                    val egl = packed.javaClass.getDeclaredField("eglUtil").apply { isAccessible = true }.get(packed)
                     val surface = egl.javaClass.getDeclaredField("eglSurface").apply { isAccessible = true }
                     val original = surface.get(egl)
                     // Make the next real eglSwapBuffers fail, then restore ownership for cleanup.
@@ -473,7 +485,7 @@ class StabilityTestActivity : Activity() {
                     "expected successful PCM output without audio errors, writes=${test.audioWrites.get()} errors=${test.audioErrors.get()}")
             }
         })
-        val cycles = intent.getIntExtra("cycles", 20).coerceIn(1, 100)
+        val cycles = intent.getIntExtra("cycles", 20).coerceIn(1, 200)
         repeat(cycles) { index ->
             val name = "detach-attach-${index + 1}"
             steps.add(name to {
@@ -490,6 +502,77 @@ class StabilityTestActivity : Activity() {
                     "view was not reattached after decoder cleanup") }
                 test.view.startPlay(assets, "demo.mp4")
             })
+        }
+    }
+
+    private fun callbackContractCase(mode: String) {
+        val test = beginCase("callback-contract-$mode")
+        val accepted = mode == "accepted"
+        val callbacks = listener(test)
+        val events = ConcurrentLinkedQueue<String>()
+        var preparedConfig: AnimConfig? = null
+        val receivedConfig = AtomicBoolean()
+        fun record(event: String) {
+            events.add("$event@${Thread.currentThread().name}")
+        }
+        test.onRender = { test.view.stopPlay() }
+        test.view.setAnimListener(object : IAnimListener by callbacks {
+            override fun onVideoConfigReady(config: AnimConfig): Boolean {
+                record("config")
+                preparedConfig = config
+                config.fps = 17
+                callbacks.onVideoConfigReady(config)
+                return accepted
+            }
+
+            override fun onVideoStart() {
+                record("start")
+                callbacks.onVideoStart()
+            }
+
+            override fun onVideoRender(frameIndex: Int, config: AnimConfig?) {
+                if (frameIndex == 0) {
+                    record("frame")
+                    receivedConfig.set(config != null && config === preparedConfig && config.fps == 17)
+                }
+                callbacks.onVideoRender(frameIndex, config)
+            }
+
+            override fun onFailed(errorType: Int, errorMsg: String?) {
+                record("failed")
+                callbacks.onFailed(errorType, errorMsg)
+            }
+
+            override fun onVideoComplete() {
+                record("complete(running=${test.view.isRunning()})")
+                callbacks.onVideoComplete()
+            }
+
+            override fun onVideoDestroy() {
+                record("destroy")
+                callbacks.onVideoDestroy()
+            }
+        })
+        test.validate = {
+            val actual = events.toList()
+            line("CONTRACT $mode events=${actual.joinToString(",")} mutableConfig=${receivedConfig.get()}")
+            val expected = when (mode) {
+                "accepted" -> listOf(
+                    "config@anim_render_thread", "start@anim_decode_thread", "frame@anim_decode_thread",
+                    "complete(running=false)@anim_render_thread", "destroy@anim_render_thread",
+                )
+                "rejected" -> listOf("config@anim_render_thread", "complete(running=false)@anim_render_thread")
+                else -> listOf("failed@anim_render_thread", "complete(running=false)@anim_render_thread")
+            }
+            expect(actual == expected, "unexpected legacy callback order or thread: $actual")
+                ?: expect(!accepted || receivedConfig.get(), "render must receive the adjusted config instance")
+        }
+        if (mode == "failed") {
+            val bad = File(cacheDir, "callback-contract-invalid.mp4")
+            bad.writeBytes(byteArrayOf(0x7f, -1, -1, -1, 0x76, 0x61, 0x70, 0x63))
+            test.view.startPlay(bad)
+        } else {
+            test.view.startPlay(assets, "demo.mp4")
         }
     }
 
@@ -632,7 +715,10 @@ class StabilityTestActivity : Activity() {
             if (reusableView === test.view) reusableView = null
         }
         val cycle = test.name.removePrefix("detach-attach-").toIntOrNull()
-        if (cycle != null && (cycle == 1 || cycle % 25 == 0)) metrics("cycle-$cycle")
+        if (cycle != null) {
+            if (cycle == 1 || cycle % 25 == 0) metrics("cycle-$cycle")
+            syncFileMetrics("cycle-$cycle")
+        }
         current = null
         val token = suiteToken
         main.postDelayed({ if (suiteRunning && token == suiteToken) nextStep() }, 40)
@@ -691,6 +777,21 @@ class StabilityTestActivity : Activity() {
         line("METRIC $label fd=${File("/proc/self/fd").list()?.size} " +
             "threads=${File("/proc/self/task").list()?.size} " +
             "javaUsedBytes=${runtime.totalMemory() - runtime.freeMemory()} totalPssKiB=${memory.totalPss}")
+        if (!label.startsWith("cycle-")) syncFileMetrics(label)
+    }
+
+    private fun syncFileMetrics(label: String) {
+        if (!intent.getBooleanExtra("syncFd", false) || Build.VERSION.SDK_INT < 21) return
+        val descriptors = File("/proc/self/fd").list().orEmpty()
+        var unreadable = 0
+        val syncFiles = descriptors.count { fd ->
+            val target = runCatching { Os.readlink("/proc/self/fd/$fd") }.getOrElse {
+                unreadable++
+                ""
+            }
+            target == "anon_inode:sync_file" || target == "anon_inode:[sync_file]"
+        }
+        line("SYNC_FD $label total=${descriptors.size} sync_file=$syncFiles unreadable=$unreadable")
     }
     private fun fill() = FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
     private fun dp(value: Int) = (value * resources.displayMetrics.density).toInt()

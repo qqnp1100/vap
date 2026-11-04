@@ -1,0 +1,101 @@
+SUITE STARTED cases=46 filter=all
+METRIC start-after-gc fd=211 threads=35 javaUsedBytes=26699696 totalPssKiB=71405
+RUN vapx-latched-frame-alignment
+METRIC vapx-latched-frame-alignment matched=474 skipped=6 loops=2 lastIndex=239
+PASS vapx-latched-frame-alignment config=1 start=1 decodedCallbacks=482 frameZeroCallbacks=2 complete=1 destroy=1 error=0 release=1 pcmStarts=0 audioErrors=0 running=false
+RUN egl-render-failure
+PASS egl-render-failure config=1 start=1 decodedCallbacks=1 frameZeroCallbacks=1 complete=1 destroy=1 error=1 release=1 pcmStarts=0 audioErrors=0 running=false
+RUN egl-render-replay
+PASS egl-render-replay config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 destroy=1 error=0 release=0 pcmStarts=0 audioErrors=0 running=false
+RUN yuv-natural-completion
+METRIC yuv-natural-completion YUV pool slots=1, rendered=119, dropped=0
+PASS yuv-natural-completion config=0 start=1 decodedCallbacks=119 frameZeroCallbacks=1 complete=1 destroy=1 error=0 release=0 pcmStarts=0 audioErrors=0 running=false
+RUN yuv-stop-and-detach
+METRIC yuv-stop-and-detach YUV pool slots=1, rendered=12, dropped=0
+PASS yuv-stop-and-detach config=0 start=1 decodedCallbacks=12 frameZeroCallbacks=1 complete=1 destroy=1 error=0 release=0 pcmStarts=0 audioErrors=0 running=false
+RUN vapx-resource-display-size
+METRIC vapx requestedImage=45x45
+PASS vapx-resource-display-size config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 destroy=1 error=0 release=1 pcmStarts=0 audioErrors=0 running=false
+RUN background-start-immediate-stop
+PASS background-start-immediate-stop config=0 start=0 decodedCallbacks=0 frameZeroCallbacks=0 complete=0 destroy=0 error=0 release=0 pcmStarts=0 audioErrors=0 running=false
+RUN reject-config
+PASS reject-config config=1 start=0 decodedCallbacks=0 frameZeroCallbacks=0 complete=1 destroy=0 error=0 release=0 pcmStarts=0 audioErrors=0 running=false
+RUN replay-after-reject
+PASS replay-after-reject config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 destroy=1 error=0 release=0 pcmStarts=0 audioErrors=0 running=false
+RUN resource-timeout
+PASS resource-timeout config=0 start=0 decodedCallbacks=0 frameZeroCallbacks=0 complete=1 destroy=0 error=1 release=0 pcmStarts=0 audioErrors=0 running=false
+RUN duplicate-resource-callbacks
+PASS duplicate-resource-callbacks config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 destroy=1 error=0 release=1 pcmStarts=0 audioErrors=0 running=false
+RUN missing-optional-image
+PASS missing-optional-image config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 destroy=1 error=0 release=0 pcmStarts=0 audioErrors=0 running=false
+RUN stop-loading-late-callback
+PASS stop-loading-late-callback config=0 start=0 decodedCallbacks=0 frameZeroCallbacks=0 complete=1 destroy=0 error=0 release=1 pcmStarts=0 audioErrors=0 running=false
+RUN stop-before-layout
+PASS stop-before-layout config=1 start=0 decodedCallbacks=0 frameZeroCallbacks=0 complete=1 destroy=0 error=0 release=0 pcmStarts=0 audioErrors=0 running=false
+RUN throw-config-callback
+PASS throw-config-callback config=1 start=0 decodedCallbacks=0 frameZeroCallbacks=0 complete=1 destroy=0 error=0 release=0 pcmStarts=0 audioErrors=0 running=false
+RUN throw-render-callback
+PASS throw-render-callback config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 destroy=1 error=0 release=0 pcmStarts=0 audioErrors=0 running=false
+RUN throw-complete-callback
+PASS throw-complete-callback config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 destroy=1 error=0 release=0 pcmStarts=0 audioErrors=0 running=false
+RUN throw-release-callback
+PASS throw-release-callback config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 destroy=1 error=0 release=1 pcmStarts=0 audioErrors=0 running=false
+RUN invalid-mp4
+PASS invalid-mp4 config=0 start=0 decodedCallbacks=0 frameZeroCallbacks=0 complete=1 destroy=0 error=1 release=0 pcmStarts=0 audioErrors=0 running=false
+RUN throw-failure-callback
+PASS throw-failure-callback config=0 start=0 decodedCallbacks=0 frameZeroCallbacks=0 complete=1 destroy=0 error=1 release=0 pcmStarts=0 audioErrors=0 running=false
+RUN assets-first-use
+PASS assets-first-use config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 destroy=1 error=0 release=0 pcmStarts=0 audioErrors=0 running=false
+RUN assets-reuse-after-close
+PASS assets-reuse-after-close config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 destroy=1 error=0 release=0 pcmStarts=0 audioErrors=0 running=false
+RUN rapid-detach-auto-resume
+PASS rapid-detach-auto-resume config=2 start=2 decodedCallbacks=6 frameZeroCallbacks=2 complete=2 destroy=2 error=0 release=0 pcmStarts=0 audioErrors=0 running=false
+RUN natural-eos-two-loops
+PASS natural-eos-two-loops config=1 start=1 decodedCallbacks=162 frameZeroCallbacks=2 complete=1 destroy=1 error=0 release=0 pcmStarts=0 audioErrors=0 running=false
+RUN prepare-detach-auto-resume
+PASS prepare-detach-auto-resume config=2 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=2 destroy=1 error=0 release=0 pcmStarts=0 audioErrors=0 running=false
+RUN audible-vapx-smoke
+PASS audible-vapx-smoke config=1 start=1 decodedCallbacks=25 frameZeroCallbacks=1 complete=1 destroy=1 error=0 release=1 pcmStarts=1 audioErrors=0 running=false
+RUN detach-attach-1
+PASS detach-attach-1 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 destroy=1 error=0 release=0 pcmStarts=0 audioErrors=0 running=false
+METRIC cycle-1 fd=357 threads=45 javaUsedBytes=14376896 totalPssKiB=100525
+RUN detach-attach-2
+PASS detach-attach-2 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 destroy=1 error=0 release=0 pcmStarts=0 audioErrors=0 running=false
+RUN detach-attach-3
+PASS detach-attach-3 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 destroy=1 error=0 release=0 pcmStarts=0 audioErrors=0 running=false
+RUN detach-attach-4
+PASS detach-attach-4 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 destroy=1 error=0 release=0 pcmStarts=0 audioErrors=0 running=false
+RUN detach-attach-5
+PASS detach-attach-5 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 destroy=1 error=0 release=0 pcmStarts=0 audioErrors=0 running=false
+RUN detach-attach-6
+PASS detach-attach-6 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 destroy=1 error=0 release=0 pcmStarts=0 audioErrors=0 running=false
+RUN detach-attach-7
+PASS detach-attach-7 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 destroy=1 error=0 release=0 pcmStarts=0 audioErrors=0 running=false
+RUN detach-attach-8
+PASS detach-attach-8 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 destroy=1 error=0 release=0 pcmStarts=0 audioErrors=0 running=false
+RUN detach-attach-9
+PASS detach-attach-9 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 destroy=1 error=0 release=0 pcmStarts=0 audioErrors=0 running=false
+RUN detach-attach-10
+PASS detach-attach-10 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 destroy=1 error=0 release=0 pcmStarts=0 audioErrors=0 running=false
+RUN detach-attach-11
+PASS detach-attach-11 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 destroy=1 error=0 release=0 pcmStarts=0 audioErrors=0 running=false
+RUN detach-attach-12
+PASS detach-attach-12 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 destroy=1 error=0 release=0 pcmStarts=0 audioErrors=0 running=false
+RUN detach-attach-13
+PASS detach-attach-13 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 destroy=1 error=0 release=0 pcmStarts=0 audioErrors=0 running=false
+RUN detach-attach-14
+PASS detach-attach-14 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 destroy=1 error=0 release=0 pcmStarts=0 audioErrors=0 running=false
+RUN detach-attach-15
+PASS detach-attach-15 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 destroy=1 error=0 release=0 pcmStarts=0 audioErrors=0 running=false
+RUN detach-attach-16
+PASS detach-attach-16 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 destroy=1 error=0 release=0 pcmStarts=0 audioErrors=0 running=false
+RUN detach-attach-17
+PASS detach-attach-17 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 destroy=1 error=0 release=0 pcmStarts=0 audioErrors=0 running=false
+RUN detach-attach-18
+PASS detach-attach-18 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 destroy=1 error=0 release=0 pcmStarts=0 audioErrors=0 running=false
+RUN detach-attach-19
+PASS detach-attach-19 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 destroy=1 error=0 release=0 pcmStarts=0 audioErrors=0 running=false
+RUN detach-attach-20
+PASS detach-attach-20 config=1 start=1 decodedCallbacks=3 frameZeroCallbacks=1 complete=1 destroy=1 error=0 release=0 pcmStarts=0 audioErrors=0 running=false
+METRIC settled-after-gc fd=481 threads=46 javaUsedBytes=18771960 totalPssKiB=110622
+SUITE FINISHED passed=46 failed=0 durationMs=70869

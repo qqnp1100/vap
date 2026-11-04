@@ -1,14 +1,15 @@
 apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
+apply plugin: 'org.jetbrains.kotlin.plugin.compose'
 
 android {
     namespace = 'com.tencent.qgame.playerproj'
     compileSdk = 37
     defaultConfig {
         applicationId = "com.tencent.qgame.playerproj"
-        minSdk = 16
-        targetSdk = 28
+        minSdk = 23
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
     }
@@ -20,7 +21,9 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        compose = true
     }
+    androidResources.noCompress += 'mp4'
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -39,5 +42,8 @@ kotlin {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(":animplayer")
+    implementation project(":vap-compose")
+    implementation 'androidx.activity:activity-compose:1.10.1'
+    implementation 'androidx.compose.foundation:foundation'
     testImplementation 'junit:junit:4.13.2'
 }

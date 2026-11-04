@@ -1,0 +1,2373 @@
+public final class com.tencent.qgame.animplayer.AnimConfig {
+  public static final com.tencent.qgame.animplayer.AnimConfig$Companion Companion;
+    descriptor: Lcom/tencent/qgame/animplayer/AnimConfig$Companion;
+  public com.tencent.qgame.animplayer.AnimConfig();
+    descriptor: ()V
+
+  public final int getVersion();
+    descriptor: ()I
+
+  public final int getTotalFrames();
+    descriptor: ()I
+
+  public final void setTotalFrames(int);
+    descriptor: (I)V
+
+  public final int getWidth();
+    descriptor: ()I
+
+  public final void setWidth(int);
+    descriptor: (I)V
+
+  public final int getHeight();
+    descriptor: ()I
+
+  public final void setHeight(int);
+    descriptor: (I)V
+
+  public final int getVideoWidth();
+    descriptor: ()I
+
+  public final void setVideoWidth(int);
+    descriptor: (I)V
+
+  public final int getVideoHeight();
+    descriptor: ()I
+
+  public final void setVideoHeight(int);
+    descriptor: (I)V
+
+  public final int getOrien();
+    descriptor: ()I
+
+  public final void setOrien(int);
+    descriptor: (I)V
+
+  public final int getFps();
+    descriptor: ()I
+
+  public final void setFps(int);
+    descriptor: (I)V
+
+  public final boolean isMix();
+    descriptor: ()Z
+
+  public final void setMix(boolean);
+    descriptor: (Z)V
+
+  public final com.tencent.qgame.animplayer.PointRect getAlphaPointRect();
+    descriptor: ()Lcom/tencent/qgame/animplayer/PointRect;
+
+  public final void setAlphaPointRect(com.tencent.qgame.animplayer.PointRect);
+    descriptor: (Lcom/tencent/qgame/animplayer/PointRect;)V
+
+  public final com.tencent.qgame.animplayer.PointRect getRgbPointRect();
+    descriptor: ()Lcom/tencent/qgame/animplayer/PointRect;
+
+  public final void setRgbPointRect(com.tencent.qgame.animplayer.PointRect);
+    descriptor: (Lcom/tencent/qgame/animplayer/PointRect;)V
+
+  public final boolean isDefaultConfig();
+    descriptor: ()Z
+
+  public final void setDefaultConfig(boolean);
+    descriptor: (Z)V
+
+  public final int getDefaultVideoMode();
+    descriptor: ()I
+
+  public final void setDefaultVideoMode(int);
+    descriptor: (I)V
+
+  public final com.tencent.qgame.animplayer.mask.MaskConfig getMaskConfig();
+    descriptor: ()Lcom/tencent/qgame/animplayer/mask/MaskConfig;
+
+  public final void setMaskConfig(com.tencent.qgame.animplayer.mask.MaskConfig);
+    descriptor: (Lcom/tencent/qgame/animplayer/mask/MaskConfig;)V
+
+  public final org.json.JSONObject getJsonConfig();
+    descriptor: ()Lorg/json/JSONObject;
+
+  public final void setJsonConfig(org.json.JSONObject);
+    descriptor: (Lorg/json/JSONObject;)V
+
+  public final boolean parse(org.json.JSONObject);
+    descriptor: (Lorg/json/JSONObject;)Z
+
+  public java.lang.String toString();
+    descriptor: ()Ljava/lang/String;
+}
+public final class com.tencent.qgame.animplayer.AnimConfig$Companion {
+  public com.tencent.qgame.animplayer.AnimConfig$Companion(kotlin.jvm.internal.DefaultConstructorMarker);
+    descriptor: (Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+}
+public final class com.tencent.qgame.animplayer.AnimConfigManager {
+  public static final com.tencent.qgame.animplayer.AnimConfigManager$Companion Companion;
+    descriptor: Lcom/tencent/qgame/animplayer/AnimConfigManager$Companion;
+  public com.tencent.qgame.animplayer.AnimConfigManager(com.tencent.qgame.animplayer.AnimPlayer);
+    descriptor: (Lcom/tencent/qgame/animplayer/AnimPlayer;)V
+
+  public final com.tencent.qgame.animplayer.AnimPlayer getPlayer();
+    descriptor: ()Lcom/tencent/qgame/animplayer/AnimPlayer;
+
+  public final com.tencent.qgame.animplayer.AnimConfig getConfig();
+    descriptor: ()Lcom/tencent/qgame/animplayer/AnimConfig;
+
+  public final void setConfig(com.tencent.qgame.animplayer.AnimConfig);
+    descriptor: (Lcom/tencent/qgame/animplayer/AnimConfig;)V
+
+  public final boolean isParsingConfig();
+    descriptor: ()Z
+
+  public final void setParsingConfig(boolean);
+    descriptor: (Z)V
+
+  public final int parseConfig(com.tencent.qgame.animplayer.file.IFileContainer, boolean, int, int);
+    descriptor: (Lcom/tencent/qgame/animplayer/file/IFileContainer;ZII)I
+
+  public final void defaultConfig(int, int);
+    descriptor: (II)V
+}
+public final class com.tencent.qgame.animplayer.AnimConfigManager$Companion {
+  public com.tencent.qgame.animplayer.AnimConfigManager$Companion(kotlin.jvm.internal.DefaultConstructorMarker);
+    descriptor: (Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+}
+public final class com.tencent.qgame.animplayer.AnimPlayer {
+  public static final com.tencent.qgame.animplayer.AnimPlayer$Companion Companion;
+    descriptor: Lcom/tencent/qgame/animplayer/AnimPlayer$Companion;
+  public com.tencent.qgame.animplayer.AnimPlayer(com.tencent.qgame.animplayer.IAnimView);
+    descriptor: (Lcom/tencent/qgame/animplayer/IAnimView;)V
+
+  public final com.tencent.qgame.animplayer.IAnimView getAnimView();
+    descriptor: ()Lcom/tencent/qgame/animplayer/IAnimView;
+
+  public final com.tencent.qgame.animplayer.inter.IAnimListener getAnimListener();
+    descriptor: ()Lcom/tencent/qgame/animplayer/inter/IAnimListener;
+
+  public final void setAnimListener(com.tencent.qgame.animplayer.inter.IAnimListener);
+    descriptor: (Lcom/tencent/qgame/animplayer/inter/IAnimListener;)V
+
+  public final kotlin.jvm.functions.Function0<kotlin.Unit> getOnBeforeComplete$animplayer_release();
+    descriptor: ()Lkotlin/jvm/functions/Function0;
+
+  public final void setOnBeforeComplete$animplayer_release(kotlin.jvm.functions.Function0<kotlin.Unit>);
+    descriptor: (Lkotlin/jvm/functions/Function0;)V
+
+  public final com.tencent.qgame.animplayer.Decoder getDecoder();
+    descriptor: ()Lcom/tencent/qgame/animplayer/Decoder;
+
+  public final void setDecoder(com.tencent.qgame.animplayer.Decoder);
+    descriptor: (Lcom/tencent/qgame/animplayer/Decoder;)V
+
+  public final com.tencent.qgame.animplayer.AudioPlayer getAudioPlayer();
+    descriptor: ()Lcom/tencent/qgame/animplayer/AudioPlayer;
+
+  public final void setAudioPlayer(com.tencent.qgame.animplayer.AudioPlayer);
+    descriptor: (Lcom/tencent/qgame/animplayer/AudioPlayer;)V
+
+  public final int getFps();
+    descriptor: ()I
+
+  public final void setFps(int);
+    descriptor: (I)V
+
+  public final int getDefaultFps();
+    descriptor: ()I
+
+  public final void setDefaultFps(int);
+    descriptor: (I)V
+
+  public final int getPlayLoop();
+    descriptor: ()I
+
+  public final void setPlayLoop(int);
+    descriptor: (I)V
+
+  public final boolean getSupportMaskBoolean();
+    descriptor: ()Z
+
+  public final void setSupportMaskBoolean(boolean);
+    descriptor: (Z)V
+
+  public final boolean getMaskEdgeBlurBoolean();
+    descriptor: ()Z
+
+  public final void setMaskEdgeBlurBoolean(boolean);
+    descriptor: (Z)V
+
+  public final boolean getEnableVersion1();
+    descriptor: ()Z
+
+  public final void setEnableVersion1(boolean);
+    descriptor: (Z)V
+
+  public final int getVideoMode();
+    descriptor: ()I
+
+  public final void setVideoMode(int);
+    descriptor: (I)V
+
+  public final boolean isDetachedFromWindow();
+    descriptor: ()Z
+
+  public final void setDetachedFromWindow(boolean);
+    descriptor: (Z)V
+
+  public final boolean isSurfaceAvailable();
+    descriptor: ()Z
+
+  public final void setSurfaceAvailable(boolean);
+    descriptor: (Z)V
+
+  public final java.lang.Runnable getStartRunnable();
+    descriptor: ()Ljava/lang/Runnable;
+
+  public final void setStartRunnable(java.lang.Runnable);
+    descriptor: (Ljava/lang/Runnable;)V
+
+  public final boolean isStartRunning();
+    descriptor: ()Z
+
+  public final void setStartRunning(boolean);
+    descriptor: (Z)V
+
+  public final boolean isMute();
+    descriptor: ()Z
+
+  public final void setMute(boolean);
+    descriptor: (Z)V
+
+  public final com.tencent.qgame.animplayer.AnimConfigManager getConfigManager();
+    descriptor: ()Lcom/tencent/qgame/animplayer/AnimConfigManager;
+
+  public final com.tencent.qgame.animplayer.plugin.AnimPluginManager getPluginManager();
+    descriptor: ()Lcom/tencent/qgame/animplayer/plugin/AnimPluginManager;
+
+  public final long getSessionId();
+    descriptor: ()J
+
+  public final boolean isCurrentSession(long);
+    descriptor: (J)Z
+
+  public final boolean isSessionActive(long);
+    descriptor: (J)Z
+
+  public final void onSurfaceTextureDestroyed(kotlin.jvm.functions.Function0<kotlin.Unit>, long);
+    descriptor: (Lkotlin/jvm/functions/Function0;J)V
+
+  public static void onSurfaceTextureDestroyed$default(com.tencent.qgame.animplayer.AnimPlayer, kotlin.jvm.functions.Function0, long, int, java.lang.Object);
+    descriptor: (Lcom/tencent/qgame/animplayer/AnimPlayer;Lkotlin/jvm/functions/Function0;JILjava/lang/Object;)V
+
+  public final void onSurfaceTextureAvailable(int, int);
+    descriptor: (II)V
+
+  public final void onSurfaceTextureSizeChanged(int, int);
+    descriptor: (II)V
+
+  public final void startPlay(com.tencent.qgame.animplayer.file.IFileContainer);
+    descriptor: (Lcom/tencent/qgame/animplayer/file/IFileContainer;)V
+
+  public final void resumePlay$animplayer_release(com.tencent.qgame.animplayer.file.IFileContainer);
+    descriptor: (Lcom/tencent/qgame/animplayer/file/IFileContainer;)V
+
+  public final void failPreparation$animplayer_release(long, int);
+    descriptor: (JI)V
+
+  public final void stopPlay();
+    descriptor: ()V
+
+  public final void onPlaybackComplete$animplayer_release(long, kotlin.jvm.functions.Function0<kotlin.Unit>);
+    descriptor: (JLkotlin/jvm/functions/Function0;)V
+
+  public static void onPlaybackComplete$animplayer_release$default(com.tencent.qgame.animplayer.AnimPlayer, long, kotlin.jvm.functions.Function0, int, java.lang.Object);
+    descriptor: (Lcom/tencent/qgame/animplayer/AnimPlayer;JLkotlin/jvm/functions/Function0;ILjava/lang/Object;)V
+
+  public final int consumeVideoLoop$animplayer_release(com.tencent.qgame.animplayer.Decoder);
+    descriptor: (Lcom/tencent/qgame/animplayer/Decoder;)I
+
+  public final int remainingLoops();
+    descriptor: ()I
+
+  public final boolean isRunning();
+    descriptor: ()Z
+
+  public final void updateMaskConfig(com.tencent.qgame.animplayer.mask.MaskConfig);
+    descriptor: (Lcom/tencent/qgame/animplayer/mask/MaskConfig;)V
+}
+public final class com.tencent.qgame.animplayer.AnimPlayer$Companion {
+  public com.tencent.qgame.animplayer.AnimPlayer$Companion(kotlin.jvm.internal.DefaultConstructorMarker);
+    descriptor: (Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+}
+public class com.tencent.qgame.animplayer.AnimView extends android.widget.FrameLayout implements com.tencent.qgame.animplayer.IAnimView,android.view.TextureView$SurfaceTextureListener {
+  public static final com.tencent.qgame.animplayer.AnimView$Companion Companion;
+    descriptor: Lcom/tencent/qgame/animplayer/AnimView$Companion;
+  public com.tencent.qgame.animplayer.AnimView(android.content.Context, android.util.AttributeSet, int);
+    descriptor: (Landroid/content/Context;Landroid/util/AttributeSet;I)V
+
+  public com.tencent.qgame.animplayer.AnimView(android.content.Context, android.util.AttributeSet, int, int, kotlin.jvm.internal.DefaultConstructorMarker);
+    descriptor: (Landroid/content/Context;Landroid/util/AttributeSet;IILkotlin/jvm/internal/DefaultConstructorMarker;)V
+
+  public void prepareTextureView();
+    descriptor: ()V
+
+  public android.graphics.SurfaceTexture getSurfaceTexture();
+    descriptor: ()Landroid/graphics/SurfaceTexture;
+
+  public void onSurfaceTextureSizeChanged(android.graphics.SurfaceTexture, int, int);
+    descriptor: (Landroid/graphics/SurfaceTexture;II)V
+
+  public void onSurfaceTextureUpdated(android.graphics.SurfaceTexture);
+    descriptor: (Landroid/graphics/SurfaceTexture;)V
+
+  public boolean onSurfaceTextureDestroyed(android.graphics.SurfaceTexture);
+    descriptor: (Landroid/graphics/SurfaceTexture;)Z
+
+  public void onSurfaceTextureAvailable(android.graphics.SurfaceTexture, int, int);
+    descriptor: (Landroid/graphics/SurfaceTexture;II)V
+
+  protected void onSizeChanged(int, int, int, int);
+    descriptor: (IIII)V
+
+  protected void onAttachedToWindow();
+    descriptor: ()V
+
+  protected void onDetachedFromWindow();
+    descriptor: ()V
+
+  public void setAnimListener(com.tencent.qgame.animplayer.inter.IAnimListener);
+    descriptor: (Lcom/tencent/qgame/animplayer/inter/IAnimListener;)V
+
+  public void setFetchResource(com.tencent.qgame.animplayer.inter.IFetchResource);
+    descriptor: (Lcom/tencent/qgame/animplayer/inter/IFetchResource;)V
+
+  public void setOnResourceClickListener(com.tencent.qgame.animplayer.inter.OnResourceClickListener);
+    descriptor: (Lcom/tencent/qgame/animplayer/inter/OnResourceClickListener;)V
+
+  public void enableAutoTxtColorFill(boolean);
+    descriptor: (Z)V
+
+  public void setLoop(int);
+    descriptor: (I)V
+
+  public void supportMask(boolean, boolean);
+    descriptor: (ZZ)V
+
+  public void updateMaskConfig(com.tencent.qgame.animplayer.mask.MaskConfig);
+    descriptor: (Lcom/tencent/qgame/animplayer/mask/MaskConfig;)V
+
+  public final void enableVersion1(boolean);
+    descriptor: (Z)V
+
+  public final void setVideoMode(int);
+    descriptor: (I)V
+
+  public void setFps(int);
+    descriptor: (I)V
+
+  public void setScaleType(com.tencent.qgame.animplayer.util.ScaleType);
+    descriptor: (Lcom/tencent/qgame/animplayer/util/ScaleType;)V
+
+  public void setScaleType(com.tencent.qgame.animplayer.util.IScaleType);
+    descriptor: (Lcom/tencent/qgame/animplayer/util/IScaleType;)V
+
+  public void setMute(boolean);
+    descriptor: (Z)V
+
+  public void startPlay(java.io.File);
+    descriptor: (Ljava/io/File;)V
+
+  public void startPlay(android.content.res.AssetManager, java.lang.String);
+    descriptor: (Landroid/content/res/AssetManager;Ljava/lang/String;)V
+
+  public void startPlay(com.tencent.qgame.animplayer.file.IFileContainer);
+    descriptor: (Lcom/tencent/qgame/animplayer/file/IFileContainer;)V
+
+  public void stopPlay();
+    descriptor: ()V
+
+  public boolean isRunning();
+    descriptor: ()Z
+
+  public kotlin.Pair<java.lang.Integer, java.lang.Integer> getRealSize();
+    descriptor: ()Lkotlin/Pair;
+
+  public final kotlin.Pair<java.lang.Integer, java.lang.Integer> estimateVideoSize$animplayer_release(int, int);
+    descriptor: (II)Lkotlin/Pair;
+
+  public com.tencent.qgame.animplayer.AnimView(android.content.Context, android.util.AttributeSet);
+    descriptor: (Landroid/content/Context;Landroid/util/AttributeSet;)V
+
+  public com.tencent.qgame.animplayer.AnimView(android.content.Context);
+    descriptor: (Landroid/content/Context;)V
+
+  public static final com.tencent.qgame.animplayer.util.ScaleTypeUtil access$getScaleTypeUtil$p(com.tencent.qgame.animplayer.AnimView);
+    descriptor: (Lcom/tencent/qgame/animplayer/AnimView;)Lcom/tencent/qgame/animplayer/util/ScaleTypeUtil;
+
+  public static final com.tencent.qgame.animplayer.inter.IAnimListener access$getAnimListener$p(com.tencent.qgame.animplayer.AnimView);
+    descriptor: (Lcom/tencent/qgame/animplayer/AnimView;)Lcom/tencent/qgame/animplayer/inter/IAnimListener;
+
+  public static final boolean access$getResumeWhenStopped$p(com.tencent.qgame.animplayer.AnimView);
+    descriptor: (Lcom/tencent/qgame/animplayer/AnimView;)Z
+
+  public static final void access$ui(com.tencent.qgame.animplayer.AnimView, kotlin.jvm.functions.Function0);
+    descriptor: (Lcom/tencent/qgame/animplayer/AnimView;Lkotlin/jvm/functions/Function0;)V
+
+  public static final com.tencent.qgame.animplayer.AnimPlayer access$getPlayer$p(com.tencent.qgame.animplayer.AnimView);
+    descriptor: (Lcom/tencent/qgame/animplayer/AnimView;)Lcom/tencent/qgame/animplayer/AnimPlayer;
+
+  public static final void access$setResumeWhenStopped$p(com.tencent.qgame.animplayer.AnimView, boolean);
+    descriptor: (Lcom/tencent/qgame/animplayer/AnimView;Z)V
+
+  public static final com.tencent.qgame.animplayer.file.IFileContainer access$getLastFile$p(com.tencent.qgame.animplayer.AnimView);
+    descriptor: (Lcom/tencent/qgame/animplayer/AnimView;)Lcom/tencent/qgame/animplayer/file/IFileContainer;
+
+  public static final void access$startPlayInternal(com.tencent.qgame.animplayer.AnimView, com.tencent.qgame.animplayer.file.IFileContainer, boolean);
+    descriptor: (Lcom/tencent/qgame/animplayer/AnimView;Lcom/tencent/qgame/animplayer/file/IFileContainer;Z)V
+
+  public static final com.tencent.qgame.animplayer.textureview.InnerTextureView access$getInnerTextureView$p(com.tencent.qgame.animplayer.AnimView);
+    descriptor: (Lcom/tencent/qgame/animplayer/AnimView;)Lcom/tencent/qgame/animplayer/textureview/InnerTextureView;
+
+  public static final void access$setSurface$p(com.tencent.qgame.animplayer.AnimView, android.graphics.SurfaceTexture);
+    descriptor: (Lcom/tencent/qgame/animplayer/AnimView;Landroid/graphics/SurfaceTexture;)V
+
+  public static final void access$setSurfaceSession$p(com.tencent.qgame.animplayer.AnimView, long);
+    descriptor: (Lcom/tencent/qgame/animplayer/AnimView;J)V
+
+  public static final boolean access$destroySurface(com.tencent.qgame.animplayer.AnimView, com.tencent.qgame.animplayer.textureview.InnerTextureView, long, android.graphics.SurfaceTexture);
+    descriptor: (Lcom/tencent/qgame/animplayer/AnimView;Lcom/tencent/qgame/animplayer/textureview/InnerTextureView;JLandroid/graphics/SurfaceTexture;)Z
+}
+public final class com.tencent.qgame.animplayer.AnimView$Companion {
+  public com.tencent.qgame.animplayer.AnimView$Companion(kotlin.jvm.internal.DefaultConstructorMarker);
+    descriptor: (Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+}
+public final class com.tencent.qgame.animplayer.AnimView$animProxyListener$2$1 implements com.tencent.qgame.animplayer.inter.IAnimListener {
+  public boolean onVideoConfigReady(com.tencent.qgame.animplayer.AnimConfig);
+    descriptor: (Lcom/tencent/qgame/animplayer/AnimConfig;)Z
+
+  public void onVideoStart();
+    descriptor: ()V
+
+  public void onVideoRender(int, com.tencent.qgame.animplayer.AnimConfig);
+    descriptor: (ILcom/tencent/qgame/animplayer/AnimConfig;)V
+
+  public void onVideoComplete();
+    descriptor: ()V
+
+  public void onVideoDestroy();
+    descriptor: ()V
+
+  public void onFailed(int, java.lang.String);
+    descriptor: (ILjava/lang/String;)V
+}
+public final class com.tencent.qgame.animplayer.AnimView$prepareTextureViewRunnable$1$2 implements android.view.TextureView$SurfaceTextureListener {
+  public void onSurfaceTextureAvailable(android.graphics.SurfaceTexture, int, int);
+    descriptor: (Landroid/graphics/SurfaceTexture;II)V
+
+  public boolean onSurfaceTextureDestroyed(android.graphics.SurfaceTexture);
+    descriptor: (Landroid/graphics/SurfaceTexture;)Z
+
+  public void onSurfaceTextureSizeChanged(android.graphics.SurfaceTexture, int, int);
+    descriptor: (Landroid/graphics/SurfaceTexture;II)V
+
+  public void onSurfaceTextureUpdated(android.graphics.SurfaceTexture);
+    descriptor: (Landroid/graphics/SurfaceTexture;)V
+}
+public final class com.tencent.qgame.animplayer.AudioPlayer {
+  public static final com.tencent.qgame.animplayer.AudioPlayer$Companion Companion;
+    descriptor: Lcom/tencent/qgame/animplayer/AudioPlayer$Companion;
+  public com.tencent.qgame.animplayer.AudioPlayer(com.tencent.qgame.animplayer.AnimPlayer);
+    descriptor: (Lcom/tencent/qgame/animplayer/AnimPlayer;)V
+
+  public final com.tencent.qgame.animplayer.AnimPlayer getPlayer();
+    descriptor: ()Lcom/tencent/qgame/animplayer/AnimPlayer;
+
+  public final android.media.MediaExtractor getExtractor();
+    descriptor: ()Landroid/media/MediaExtractor;
+
+  public final void setExtractor(android.media.MediaExtractor);
+    descriptor: (Landroid/media/MediaExtractor;)V
+
+  public final android.media.MediaCodec getDecoder();
+    descriptor: ()Landroid/media/MediaCodec;
+
+  public final void setDecoder(android.media.MediaCodec);
+    descriptor: (Landroid/media/MediaCodec;)V
+
+  public final android.media.AudioTrack getAudioTrack();
+    descriptor: ()Landroid/media/AudioTrack;
+
+  public final void setAudioTrack(android.media.AudioTrack);
+    descriptor: (Landroid/media/AudioTrack;)V
+
+  public final com.tencent.qgame.animplayer.HandlerHolder getDecodeThread();
+    descriptor: ()Lcom/tencent/qgame/animplayer/HandlerHolder;
+
+  public final boolean isRunning();
+    descriptor: ()Z
+
+  public final void setRunning(boolean);
+    descriptor: (Z)V
+
+  public final int getPlayLoop();
+    descriptor: ()I
+
+  public final void setPlayLoop(int);
+    descriptor: (I)V
+
+  public final boolean isStopReq();
+    descriptor: ()Z
+
+  public final void setStopReq(boolean);
+    descriptor: (Z)V
+
+  public final boolean getNeedDestroy();
+    descriptor: ()Z
+
+  public final void setNeedDestroy(boolean);
+    descriptor: (Z)V
+
+  public final synchronized void start(com.tencent.qgame.animplayer.file.IFileContainer);
+    descriptor: (Lcom/tencent/qgame/animplayer/file/IFileContainer;)V
+
+  public final void stop();
+    descriptor: ()V
+
+  public final void destroy();
+    descriptor: ()V
+
+  public final void releaseWhenIdle(kotlin.jvm.functions.Function0<kotlin.Unit>);
+    descriptor: (Lkotlin/jvm/functions/Function0;)V
+}
+public final class com.tencent.qgame.animplayer.AudioPlayer$Companion {
+  public com.tencent.qgame.animplayer.AudioPlayer$Companion(kotlin.jvm.internal.DefaultConstructorMarker);
+    descriptor: (Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+}
+final class com.tencent.qgame.animplayer.AudioPlayer$IdleAction {
+  public com.tencent.qgame.animplayer.AudioPlayer$IdleAction(kotlin.jvm.functions.Function0<kotlin.Unit>);
+    descriptor: (Lkotlin/jvm/functions/Function0;)V
+
+  public final kotlin.jvm.functions.Function0<kotlin.Unit> getAction();
+    descriptor: ()Lkotlin/jvm/functions/Function0;
+
+  public final java.util.concurrent.atomic.AtomicBoolean getCompleted();
+    descriptor: ()Ljava/util/concurrent/atomic/AtomicBoolean;
+}
+public final class com.tencent.qgame.animplayer.Constant {
+  public static final com.tencent.qgame.animplayer.Constant INSTANCE;
+    descriptor: Lcom/tencent/qgame/animplayer/Constant;
+  public static final java.lang.String TAG = "AnimPlayer";
+    descriptor: Ljava/lang/String;
+  public static final int ORIEN_DEFAULT = 0;
+    descriptor: I
+  public static final int ORIEN_PORTRAIT = 1;
+    descriptor: I
+  public static final int ORIEN_LANDSCAPE = 2;
+    descriptor: I
+  public static final int VIDEO_MODE_SPLIT_HORIZONTAL = 1;
+    descriptor: I
+  public static final int VIDEO_MODE_SPLIT_VERTICAL = 2;
+    descriptor: I
+  public static final int VIDEO_MODE_SPLIT_HORIZONTAL_REVERSE = 3;
+    descriptor: I
+  public static final int VIDEO_MODE_SPLIT_VERTICAL_REVERSE = 4;
+    descriptor: I
+  public static final int OK = 0;
+    descriptor: I
+  public static final int REPORT_ERROR_TYPE_EXTRACTOR_EXC = 10001;
+    descriptor: I
+  public static final int REPORT_ERROR_TYPE_DECODE_EXC = 10002;
+    descriptor: I
+  public static final int REPORT_ERROR_TYPE_CREATE_THREAD = 10003;
+    descriptor: I
+  public static final int REPORT_ERROR_TYPE_CREATE_RENDER = 10004;
+    descriptor: I
+  public static final int REPORT_ERROR_TYPE_PARSE_CONFIG = 10005;
+    descriptor: I
+  public static final int REPORT_ERROR_TYPE_CONFIG_PLUGIN_MIX = 10006;
+    descriptor: I
+  public static final int REPORT_ERROR_TYPE_FILE_ERROR = 10007;
+    descriptor: I
+  public static final int REPORT_ERROR_TYPE_HEVC_NOT_SUPPORT = 10008;
+    descriptor: I
+  public static final int REPORT_ERROR_TYPE_RENDER_EXC = 10009;
+    descriptor: I
+  public static final java.lang.String ERROR_MSG_EXTRACTOR_EXC = "0x1 MediaExtractor exception";
+    descriptor: Ljava/lang/String;
+  public static final java.lang.String ERROR_MSG_DECODE_EXC = "0x2 MediaCodec exception";
+    descriptor: Ljava/lang/String;
+  public static final java.lang.String ERROR_MSG_CREATE_THREAD = "0x3 thread create fail";
+    descriptor: Ljava/lang/String;
+  public static final java.lang.String ERROR_MSG_CREATE_RENDER = "0x4 render create fail";
+    descriptor: Ljava/lang/String;
+  public static final java.lang.String ERROR_MSG_PARSE_CONFIG = "0x5 parse config fail";
+    descriptor: Ljava/lang/String;
+  public static final java.lang.String ERROR_MSG_CONFIG_PLUGIN_MIX = "0x6 vapx fail";
+    descriptor: Ljava/lang/String;
+  public static final java.lang.String ERROR_MSG_FILE_ERROR = "0x7 file can't read";
+    descriptor: Ljava/lang/String;
+  public static final java.lang.String ERROR_MSG_HEVC_NOT_SUPPORT = "0x8 hevc not support";
+    descriptor: Ljava/lang/String;
+  public static final java.lang.String ERROR_MSG_RENDER_EXC = "0x9 render exception";
+    descriptor: Ljava/lang/String;
+  public static void getVIDEO_MODE_SPLIT_HORIZONTAL$annotations();
+    descriptor: ()V
+
+  public static void getVIDEO_MODE_SPLIT_VERTICAL$annotations();
+    descriptor: ()V
+
+  public static void getVIDEO_MODE_SPLIT_HORIZONTAL_REVERSE$annotations();
+    descriptor: ()V
+
+  public static void getVIDEO_MODE_SPLIT_VERTICAL_REVERSE$annotations();
+    descriptor: ()V
+
+  public final java.lang.String getErrorMsg(int, java.lang.String);
+    descriptor: (ILjava/lang/String;)Ljava/lang/String;
+
+  public static java.lang.String getErrorMsg$default(com.tencent.qgame.animplayer.Constant, int, java.lang.String, int, java.lang.Object);
+    descriptor: (Lcom/tencent/qgame/animplayer/Constant;ILjava/lang/String;ILjava/lang/Object;)Ljava/lang/String;
+}
+public abstract class com.tencent.qgame.animplayer.Decoder implements com.tencent.qgame.animplayer.inter.IAnimListener {
+  public static final com.tencent.qgame.animplayer.Decoder$Companion Companion;
+    descriptor: Lcom/tencent/qgame/animplayer/Decoder$Companion;
+  public com.tencent.qgame.animplayer.Decoder(com.tencent.qgame.animplayer.AnimPlayer);
+    descriptor: (Lcom/tencent/qgame/animplayer/AnimPlayer;)V
+
+  public final com.tencent.qgame.animplayer.AnimPlayer getPlayer();
+    descriptor: ()Lcom/tencent/qgame/animplayer/AnimPlayer;
+
+  public final com.tencent.qgame.animplayer.IRenderListener getRender();
+    descriptor: ()Lcom/tencent/qgame/animplayer/IRenderListener;
+
+  public final void setRender(com.tencent.qgame.animplayer.IRenderListener);
+    descriptor: (Lcom/tencent/qgame/animplayer/IRenderListener;)V
+
+  public final com.tencent.qgame.animplayer.HandlerHolder getRenderThread();
+    descriptor: ()Lcom/tencent/qgame/animplayer/HandlerHolder;
+
+  public final com.tencent.qgame.animplayer.HandlerHolder getDecodeThread();
+    descriptor: ()Lcom/tencent/qgame/animplayer/HandlerHolder;
+
+  public final int getFps();
+    descriptor: ()I
+
+  public final void setFps(int);
+    descriptor: (I)V
+
+  public final int getPlayLoop();
+    descriptor: ()I
+
+  public final void setPlayLoop(int);
+    descriptor: (I)V
+
+  public final boolean isRunning();
+    descriptor: ()Z
+
+  public final void setRunning(boolean);
+    descriptor: (Z)V
+
+  public final boolean isStopReq();
+    descriptor: ()Z
+
+  public final void setStopReq(boolean);
+    descriptor: (Z)V
+
+  public final com.tencent.qgame.animplayer.util.SpeedControlUtil getSpeedControlUtil();
+    descriptor: ()Lcom/tencent/qgame/animplayer/util/SpeedControlUtil;
+
+  public abstract void start(com.tencent.qgame.animplayer.file.IFileContainer);
+    descriptor: (Lcom/tencent/qgame/animplayer/file/IFileContainer;)V
+
+  public final void stop();
+    descriptor: ()V
+
+  public abstract void destroy();
+    descriptor: ()V
+
+  public void releaseSurfaceWhenDone(kotlin.jvm.functions.Function0<kotlin.Unit>);
+    descriptor: (Lkotlin/jvm/functions/Function0;)V
+
+  public final boolean prepareThread();
+    descriptor: ()Z
+
+  public final boolean prepareRender(boolean);
+    descriptor: (Z)Z
+
+  public final void preparePlay(int, int);
+    descriptor: (II)V
+
+  public final void videoSizeChange(int, int);
+    descriptor: (II)V
+
+  public final void destroyThread();
+    descriptor: ()V
+
+  public final void destroyThread$animplayer_release(long);
+    descriptor: (J)V
+
+  public final void onSurfaceSizeChanged(int, int);
+    descriptor: (II)V
+
+  public void onVideoStart();
+    descriptor: ()V
+
+  public void onVideoRender(int, com.tencent.qgame.animplayer.AnimConfig);
+    descriptor: (ILcom/tencent/qgame/animplayer/AnimConfig;)V
+
+  public void onVideoComplete();
+    descriptor: ()V
+
+  public void onVideoDestroy();
+    descriptor: ()V
+
+  public void onFailed(int, java.lang.String);
+    descriptor: (ILjava/lang/String;)V
+
+  public boolean onVideoConfigReady(com.tencent.qgame.animplayer.AnimConfig);
+    descriptor: (Lcom/tencent/qgame/animplayer/AnimConfig;)Z
+}
+public final class com.tencent.qgame.animplayer.Decoder$Companion {
+  public final boolean createThread(com.tencent.qgame.animplayer.HandlerHolder, java.lang.String);
+    descriptor: (Lcom/tencent/qgame/animplayer/HandlerHolder;Ljava/lang/String;)Z
+
+  public final android.os.HandlerThread quitSafely(android.os.HandlerThread);
+    descriptor: (Landroid/os/HandlerThread;)Landroid/os/HandlerThread;
+
+  public com.tencent.qgame.animplayer.Decoder$Companion(kotlin.jvm.internal.DefaultConstructorMarker);
+    descriptor: (Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+}
+public final class com.tencent.qgame.animplayer.EGLUtil {
+  public static final com.tencent.qgame.animplayer.EGLUtil$Companion Companion;
+    descriptor: Lcom/tencent/qgame/animplayer/EGLUtil$Companion;
+  public com.tencent.qgame.animplayer.EGLUtil();
+    descriptor: ()V
+
+  public final void start(android.graphics.SurfaceTexture);
+    descriptor: (Landroid/graphics/SurfaceTexture;)V
+
+  public final void swapBuffers();
+    descriptor: ()V
+
+  public final void release();
+    descriptor: ()V
+}
+public final class com.tencent.qgame.animplayer.EGLUtil$Companion {
+  public com.tencent.qgame.animplayer.EGLUtil$Companion(kotlin.jvm.internal.DefaultConstructorMarker);
+    descriptor: (Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+}
+public final class com.tencent.qgame.animplayer.HandlerHolder {
+  public com.tencent.qgame.animplayer.HandlerHolder(android.os.HandlerThread, android.os.Handler);
+    descriptor: (Landroid/os/HandlerThread;Landroid/os/Handler;)V
+
+  public final android.os.HandlerThread getThread();
+    descriptor: ()Landroid/os/HandlerThread;
+
+  public final void setThread(android.os.HandlerThread);
+    descriptor: (Landroid/os/HandlerThread;)V
+
+  public final android.os.Handler getHandler();
+    descriptor: ()Landroid/os/Handler;
+
+  public final void setHandler(android.os.Handler);
+    descriptor: (Landroid/os/Handler;)V
+
+  public final android.os.HandlerThread component1();
+    descriptor: ()Landroid/os/HandlerThread;
+
+  public final android.os.Handler component2();
+    descriptor: ()Landroid/os/Handler;
+
+  public final com.tencent.qgame.animplayer.HandlerHolder copy(android.os.HandlerThread, android.os.Handler);
+    descriptor: (Landroid/os/HandlerThread;Landroid/os/Handler;)Lcom/tencent/qgame/animplayer/HandlerHolder;
+
+  public static com.tencent.qgame.animplayer.HandlerHolder copy$default(com.tencent.qgame.animplayer.HandlerHolder, android.os.HandlerThread, android.os.Handler, int, java.lang.Object);
+    descriptor: (Lcom/tencent/qgame/animplayer/HandlerHolder;Landroid/os/HandlerThread;Landroid/os/Handler;ILjava/lang/Object;)Lcom/tencent/qgame/animplayer/HandlerHolder;
+
+  public java.lang.String toString();
+    descriptor: ()Ljava/lang/String;
+
+  public int hashCode();
+    descriptor: ()I
+
+  public boolean equals(java.lang.Object);
+    descriptor: (Ljava/lang/Object;)Z
+}
+public final class com.tencent.qgame.animplayer.HardDecoder extends com.tencent.qgame.animplayer.Decoder implements android.graphics.SurfaceTexture$OnFrameAvailableListener {
+  public static final com.tencent.qgame.animplayer.HardDecoder$Companion Companion;
+    descriptor: Lcom/tencent/qgame/animplayer/HardDecoder$Companion;
+  public com.tencent.qgame.animplayer.HardDecoder(com.tencent.qgame.animplayer.AnimPlayer);
+    descriptor: (Lcom/tencent/qgame/animplayer/AnimPlayer;)V
+
+  public void start(com.tencent.qgame.animplayer.file.IFileContainer);
+    descriptor: (Lcom/tencent/qgame/animplayer/file/IFileContainer;)V
+
+  public void onFrameAvailable(android.graphics.SurfaceTexture);
+    descriptor: (Landroid/graphics/SurfaceTexture;)V
+
+  public void destroy();
+    descriptor: ()V
+
+  public void releaseSurfaceWhenDone(kotlin.jvm.functions.Function0<kotlin.Unit>);
+    descriptor: (Lkotlin/jvm/functions/Function0;)V
+}
+public final class com.tencent.qgame.animplayer.HardDecoder$Companion {
+  public com.tencent.qgame.animplayer.HardDecoder$Companion(kotlin.jvm.internal.DefaultConstructorMarker);
+    descriptor: (Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+}
+final class com.tencent.qgame.animplayer.HardDecoder$release$1$10 extends kotlin.jvm.internal.FunctionReferenceImpl implements kotlin.jvm.functions.Function0<kotlin.Unit> {
+  public final void invoke();
+    descriptor: ()V
+
+  public java.lang.Object invoke();
+    descriptor: ()Ljava/lang/Object;
+}
+public interface com.tencent.qgame.animplayer.IAnimView {
+  public abstract void prepareTextureView();
+    descriptor: ()V
+
+  public abstract android.graphics.SurfaceTexture getSurfaceTexture();
+    descriptor: ()Landroid/graphics/SurfaceTexture;
+
+  public abstract void setAnimListener(com.tencent.qgame.animplayer.inter.IAnimListener);
+    descriptor: (Lcom/tencent/qgame/animplayer/inter/IAnimListener;)V
+
+  public abstract void setFetchResource(com.tencent.qgame.animplayer.inter.IFetchResource);
+    descriptor: (Lcom/tencent/qgame/animplayer/inter/IFetchResource;)V
+
+  public abstract void setOnResourceClickListener(com.tencent.qgame.animplayer.inter.OnResourceClickListener);
+    descriptor: (Lcom/tencent/qgame/animplayer/inter/OnResourceClickListener;)V
+
+  public abstract void setLoop(int);
+    descriptor: (I)V
+
+  public abstract void supportMask(boolean, boolean);
+    descriptor: (ZZ)V
+
+  public abstract void updateMaskConfig(com.tencent.qgame.animplayer.mask.MaskConfig);
+    descriptor: (Lcom/tencent/qgame/animplayer/mask/MaskConfig;)V
+
+  public abstract void setFps(int);
+    descriptor: (I)V
+
+  public abstract void setScaleType(com.tencent.qgame.animplayer.util.ScaleType);
+    descriptor: (Lcom/tencent/qgame/animplayer/util/ScaleType;)V
+
+  public abstract void setScaleType(com.tencent.qgame.animplayer.util.IScaleType);
+    descriptor: (Lcom/tencent/qgame/animplayer/util/IScaleType;)V
+
+  public abstract void setMute(boolean);
+    descriptor: (Z)V
+
+  public abstract void startPlay(java.io.File);
+    descriptor: (Ljava/io/File;)V
+
+  public abstract void startPlay(android.content.res.AssetManager, java.lang.String);
+    descriptor: (Landroid/content/res/AssetManager;Ljava/lang/String;)V
+
+  public abstract void startPlay(com.tencent.qgame.animplayer.file.IFileContainer);
+    descriptor: (Lcom/tencent/qgame/animplayer/file/IFileContainer;)V
+
+  public abstract void stopPlay();
+    descriptor: ()V
+
+  public abstract boolean isRunning();
+    descriptor: ()Z
+
+  public abstract kotlin.Pair<java.lang.Integer, java.lang.Integer> getRealSize();
+    descriptor: ()Lkotlin/Pair;
+}
+public interface com.tencent.qgame.animplayer.IRenderListener {
+  public abstract void initRender();
+    descriptor: ()V
+
+  public abstract void renderFrame();
+    descriptor: ()V
+
+  public abstract void clearFrame();
+    descriptor: ()V
+
+  public abstract void destroyRender();
+    descriptor: ()V
+
+  public abstract void setAnimConfig(com.tencent.qgame.animplayer.AnimConfig);
+    descriptor: (Lcom/tencent/qgame/animplayer/AnimConfig;)V
+
+  public default void updateViewPort(int, int);
+    descriptor: (II)V
+
+  public abstract int getExternalTexture();
+    descriptor: ()I
+
+  public abstract void releaseTexture();
+    descriptor: ()V
+
+  public abstract void swapBuffers();
+    descriptor: ()V
+
+  public default void setYUVData(int, int, byte[], byte[], byte[]);
+    descriptor: (II[B[B[B)V
+
+  public static void access$updateViewPort$jd(com.tencent.qgame.animplayer.IRenderListener, int, int);
+    descriptor: (Lcom/tencent/qgame/animplayer/IRenderListener;II)V
+
+  public static void access$setYUVData$jd(com.tencent.qgame.animplayer.IRenderListener, int, int, byte[], byte[], byte[]);
+    descriptor: (Lcom/tencent/qgame/animplayer/IRenderListener;II[B[B[B)V
+}
+public final class com.tencent.qgame.animplayer.IRenderListener$DefaultImpls {
+  public static void updateViewPort(com.tencent.qgame.animplayer.IRenderListener, int, int);
+    descriptor: (Lcom/tencent/qgame/animplayer/IRenderListener;II)V
+
+  public static void setYUVData(com.tencent.qgame.animplayer.IRenderListener, int, int, byte[], byte[], byte[]);
+    descriptor: (Lcom/tencent/qgame/animplayer/IRenderListener;II[B[B[B)V
+}
+public final class com.tencent.qgame.animplayer.PointRect {
+  public com.tencent.qgame.animplayer.PointRect(int, int, int, int);
+    descriptor: (IIII)V
+
+  public final int getX();
+    descriptor: ()I
+
+  public final int getY();
+    descriptor: ()I
+
+  public final int getW();
+    descriptor: ()I
+
+  public final int getH();
+    descriptor: ()I
+
+  public final int component1();
+    descriptor: ()I
+
+  public final int component2();
+    descriptor: ()I
+
+  public final int component3();
+    descriptor: ()I
+
+  public final int component4();
+    descriptor: ()I
+
+  public final com.tencent.qgame.animplayer.PointRect copy(int, int, int, int);
+    descriptor: (IIII)Lcom/tencent/qgame/animplayer/PointRect;
+
+  public static com.tencent.qgame.animplayer.PointRect copy$default(com.tencent.qgame.animplayer.PointRect, int, int, int, int, int, java.lang.Object);
+    descriptor: (Lcom/tencent/qgame/animplayer/PointRect;IIIIILjava/lang/Object;)Lcom/tencent/qgame/animplayer/PointRect;
+
+  public java.lang.String toString();
+    descriptor: ()Ljava/lang/String;
+
+  public int hashCode();
+    descriptor: ()I
+
+  public boolean equals(java.lang.Object);
+    descriptor: (Ljava/lang/Object;)Z
+}
+public final class com.tencent.qgame.animplayer.RefVec2 {
+  public com.tencent.qgame.animplayer.RefVec2(int, int);
+    descriptor: (II)V
+
+  public final int getW();
+    descriptor: ()I
+
+  public final int getH();
+    descriptor: ()I
+
+  public final int component1();
+    descriptor: ()I
+
+  public final int component2();
+    descriptor: ()I
+
+  public final com.tencent.qgame.animplayer.RefVec2 copy(int, int);
+    descriptor: (II)Lcom/tencent/qgame/animplayer/RefVec2;
+
+  public static com.tencent.qgame.animplayer.RefVec2 copy$default(com.tencent.qgame.animplayer.RefVec2, int, int, int, java.lang.Object);
+    descriptor: (Lcom/tencent/qgame/animplayer/RefVec2;IIILjava/lang/Object;)Lcom/tencent/qgame/animplayer/RefVec2;
+
+  public java.lang.String toString();
+    descriptor: ()Ljava/lang/String;
+
+  public int hashCode();
+    descriptor: ()I
+
+  public boolean equals(java.lang.Object);
+    descriptor: (Ljava/lang/Object;)Z
+}
+public final class com.tencent.qgame.animplayer.Render implements com.tencent.qgame.animplayer.IRenderListener {
+  public static final com.tencent.qgame.animplayer.Render$Companion Companion;
+    descriptor: Lcom/tencent/qgame/animplayer/Render$Companion;
+  public com.tencent.qgame.animplayer.Render(android.graphics.SurfaceTexture);
+    descriptor: (Landroid/graphics/SurfaceTexture;)V
+
+  public void initRender();
+    descriptor: ()V
+
+  public void renderFrame();
+    descriptor: ()V
+
+  public void clearFrame();
+    descriptor: ()V
+
+  public void destroyRender();
+    descriptor: ()V
+
+  public void releaseTexture();
+    descriptor: ()V
+
+  public void setAnimConfig(com.tencent.qgame.animplayer.AnimConfig);
+    descriptor: (Lcom/tencent/qgame/animplayer/AnimConfig;)V
+
+  public void updateViewPort(int, int);
+    descriptor: (II)V
+
+  public void swapBuffers();
+    descriptor: ()V
+
+  public int getExternalTexture();
+    descriptor: ()I
+
+  public final void updateTextureTransform$animplayer_release(android.graphics.SurfaceTexture);
+    descriptor: (Landroid/graphics/SurfaceTexture;)V
+
+  public final void bindTextureTransform$animplayer_release(int);
+    descriptor: (I)V
+
+  public void setYUVData(int, int, byte[], byte[], byte[]);
+    descriptor: (II[B[B[B)V
+}
+public final class com.tencent.qgame.animplayer.Render$Companion {
+  public com.tencent.qgame.animplayer.Render$Companion(kotlin.jvm.internal.DefaultConstructorMarker);
+    descriptor: (Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+}
+public final class com.tencent.qgame.animplayer.RenderConstant {
+  public static final com.tencent.qgame.animplayer.RenderConstant INSTANCE;
+    descriptor: Lcom/tencent/qgame/animplayer/RenderConstant;
+  public static final java.lang.String VIDEO_TEXTURE_COORDS = "uniform mat4 uVideoTransform;\nvec2 videoTexCoord(vec2 uv) {\n    return (uVideoTransform * vec4(uv.x, 1.0 - uv.y, 0.0, 1.0)).xy;\n}\n";
+    descriptor: Ljava/lang/String;
+  public static final java.lang.String VERTEX_SHADER = "attribute vec4 vPosition;\nattribute vec4 vTexCoordinateAlpha;\nattribute vec4 vTexCoordinateRgb;\nvarying vec2 v_TexCoordinateAlpha;\nvarying vec2 v_TexCoordinateRgb;\nuniform mat4 uVideoTransform;\nvec2 videoTexCoord(vec2 uv) {\n    return (uVideoTransform * vec4(uv.x, 1.0 - uv.y, 0.0, 1.0)).xy;\n}\nvoid main() {\n    v_TexCoordinateAlpha = videoTexCoord(vTexCoordinateAlpha.xy);\n    v_TexCoordinateRgb = videoTexCoord(vTexCoordinateRgb.xy);\n    gl_Position = vPosition;\n}";
+    descriptor: Ljava/lang/String;
+  public static final java.lang.String FRAGMENT_SHADER = "#extension GL_OES_EGL_image_external : require\nprecision mediump float;\nuniform samplerExternalOES texture;\nvarying vec2 v_TexCoordinateAlpha;\nvarying vec2 v_TexCoordinateRgb;\n\nvoid main () {\n    vec4 alphaColor = texture2D(texture, v_TexCoordinateAlpha);\n    vec4 rgbColor = texture2D(texture, v_TexCoordinateRgb);\n    gl_FragColor = vec4(rgbColor.r, rgbColor.g, rgbColor.b, alphaColor.r);\n}";
+    descriptor: Ljava/lang/String;
+}
+public final class com.tencent.qgame.animplayer.SurfaceFrameTracker {
+  public com.tencent.qgame.animplayer.SurfaceFrameTracker();
+    descriptor: ()V
+
+  public final long submit(long, int);
+    descriptor: (JI)J
+
+  public final java.lang.Integer latch(long, boolean);
+    descriptor: (JZ)Ljava/lang/Integer;
+
+  public final boolean awaitLatest(kotlin.jvm.functions.Function0<java.lang.Boolean>);
+    descriptor: (Lkotlin/jvm/functions/Function0;)Z
+}
+public final class com.tencent.qgame.animplayer.YUVRender implements com.tencent.qgame.animplayer.IRenderListener {
+  public static final com.tencent.qgame.animplayer.YUVRender$Companion Companion;
+    descriptor: Lcom/tencent/qgame/animplayer/YUVRender$Companion;
+  public com.tencent.qgame.animplayer.YUVRender(android.graphics.SurfaceTexture);
+    descriptor: (Landroid/graphics/SurfaceTexture;)V
+
+  public void initRender();
+    descriptor: ()V
+
+  public void renderFrame();
+    descriptor: ()V
+
+  public final void renderFrame$animplayer_release(com.tencent.qgame.animplayer.YuvFrame);
+    descriptor: (Lcom/tencent/qgame/animplayer/YuvFrame;)V
+
+  public void clearFrame();
+    descriptor: ()V
+
+  public void destroyRender();
+    descriptor: ()V
+
+  public void setAnimConfig(com.tencent.qgame.animplayer.AnimConfig);
+    descriptor: (Lcom/tencent/qgame/animplayer/AnimConfig;)V
+
+  public void updateViewPort(int, int);
+    descriptor: (II)V
+
+  public int getExternalTexture();
+    descriptor: ()I
+
+  public void releaseTexture();
+    descriptor: ()V
+
+  public void swapBuffers();
+    descriptor: ()V
+
+  public void setYUVData(int, int, byte[], byte[], byte[]);
+    descriptor: (II[B[B[B)V
+}
+public final class com.tencent.qgame.animplayer.YUVRender$Companion {
+  public com.tencent.qgame.animplayer.YUVRender$Companion(kotlin.jvm.internal.DefaultConstructorMarker);
+    descriptor: (Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+}
+public final class com.tencent.qgame.animplayer.YUVShader {
+  public static final com.tencent.qgame.animplayer.YUVShader INSTANCE;
+    descriptor: Lcom/tencent/qgame/animplayer/YUVShader;
+  public static final java.lang.String VERTEX_SHADER = "attribute vec4 v_Position;\nattribute vec2 vTexCoordinateAlpha;\nattribute vec2 vTexCoordinateRgb;\nvarying vec2 v_TexCoordinateAlpha;\nvarying vec2 v_TexCoordinateRgb;\n\nvoid main() {\n    v_TexCoordinateAlpha = vTexCoordinateAlpha;\n    v_TexCoordinateRgb = vTexCoordinateRgb;\n    gl_Position = v_Position;\n}";
+    descriptor: Ljava/lang/String;
+  public static final java.lang.String FRAGMENT_SHADER = "precision mediump float;\nuniform sampler2D sampler_y;\nuniform sampler2D sampler_u;\nuniform sampler2D sampler_v;\nvarying vec2 v_TexCoordinateAlpha;\nvarying vec2 v_TexCoordinateRgb;\nuniform mat3 convertMatrix;\nuniform vec3 offset;\n\nvoid main() {\n   highp vec3 yuvColorAlpha;\n   highp vec3 yuvColorRGB;\n   highp vec3 rgbColorAlpha;\n   highp vec3 rgbColorRGB;\n   yuvColorAlpha.x = texture2D(sampler_y,v_TexCoordinateAlpha).r;\n   yuvColorRGB.x = texture2D(sampler_y,v_TexCoordinateRgb).r;\n   yuvColorAlpha.y = texture2D(sampler_u,v_TexCoordinateAlpha).r;\n   yuvColorAlpha.z = texture2D(sampler_v,v_TexCoordinateAlpha).r;\n   yuvColorRGB.y = texture2D(sampler_u,v_TexCoordinateRgb).r;\n   yuvColorRGB.z = texture2D(sampler_v,v_TexCoordinateRgb).r;\n   yuvColorAlpha += offset;\n   yuvColorRGB += offset;\n   rgbColorAlpha = convertMatrix * yuvColorAlpha; \n   rgbColorRGB = convertMatrix * yuvColorRGB; \n   gl_FragColor=vec4(rgbColorRGB, rgbColorAlpha.r);\n}";
+    descriptor: Ljava/lang/String;
+}
+public final class com.tencent.qgame.animplayer.YuvFrame {
+  public com.tencent.qgame.animplayer.YuvFrame(int, int);
+    descriptor: (II)V
+
+  public final int getWidth();
+    descriptor: ()I
+
+  public final int getHeight();
+    descriptor: ()I
+
+  public final int getChromaWidth();
+    descriptor: ()I
+
+  public final int getChromaHeight();
+    descriptor: ()I
+
+  public final java.nio.ByteBuffer getY();
+    descriptor: ()Ljava/nio/ByteBuffer;
+
+  public final java.nio.ByteBuffer getU();
+    descriptor: ()Ljava/nio/ByteBuffer;
+
+  public final java.nio.ByteBuffer getV();
+    descriptor: ()Ljava/nio/ByteBuffer;
+
+  public final int getIndex();
+    descriptor: ()I
+
+  public final void setIndex(int);
+    descriptor: (I)V
+
+  public final long getPresentationTimeUs();
+    descriptor: ()J
+
+  public final void setPresentationTimeUs(long);
+    descriptor: (J)V
+}
+public final class com.tencent.qgame.animplayer.YuvFramePool {
+  public com.tencent.qgame.animplayer.YuvFramePool(int, int);
+    descriptor: (II)V
+
+  public final int getAllocated();
+    descriptor: ()I
+
+  public final int getDropped();
+    descriptor: ()I
+
+  public final int getRendered();
+    descriptor: ()I
+
+  public final void setRendered(int);
+    descriptor: (I)V
+
+  public final synchronized com.tencent.qgame.animplayer.YuvFrame acquire();
+    descriptor: ()Lcom/tencent/qgame/animplayer/YuvFrame;
+
+  public final synchronized void recycle(com.tencent.qgame.animplayer.YuvFrame);
+    descriptor: (Lcom/tencent/qgame/animplayer/YuvFrame;)V
+}
+public final class com.tencent.qgame.animplayer.YuvPlaneCopy {
+  public static final com.tencent.qgame.animplayer.YuvPlaneCopy INSTANCE;
+    descriptor: Lcom/tencent/qgame/animplayer/YuvPlaneCopy;
+  public final void copyPacked(java.nio.ByteBuffer, int, int, int, int, int, int, boolean, com.tencent.qgame.animplayer.YuvFrame);
+    descriptor: (Ljava/nio/ByteBuffer;IIIIIIZLcom/tencent/qgame/animplayer/YuvFrame;)V
+
+  public final void copy(java.nio.ByteBuffer, long, long, int, int, int, int, int, int, java.nio.ByteBuffer);
+    descriptor: (Ljava/nio/ByteBuffer;JJIIIIIILjava/nio/ByteBuffer;)V
+}
+public final class com.tencent.qgame.animplayer.file.AssetsFileContainer implements com.tencent.qgame.animplayer.file.IFileContainer {
+  public static final com.tencent.qgame.animplayer.file.AssetsFileContainer$Companion Companion;
+    descriptor: Lcom/tencent/qgame/animplayer/file/AssetsFileContainer$Companion;
+  public com.tencent.qgame.animplayer.file.AssetsFileContainer(android.content.res.AssetManager, java.lang.String);
+    descriptor: (Landroid/content/res/AssetManager;Ljava/lang/String;)V
+
+  public void setDataSource(android.media.MediaExtractor);
+    descriptor: (Landroid/media/MediaExtractor;)V
+
+  public void startRandomRead();
+    descriptor: ()V
+
+  public int read(byte[], int, int);
+    descriptor: ([BII)I
+
+  public void skip(long);
+    descriptor: (J)V
+
+  public long getLength();
+    descriptor: ()J
+
+  public void skipFully(long);
+    descriptor: (J)V
+
+  public void closeRandomRead();
+    descriptor: ()V
+
+  public void close();
+    descriptor: ()V
+}
+public final class com.tencent.qgame.animplayer.file.AssetsFileContainer$Companion {
+  public com.tencent.qgame.animplayer.file.AssetsFileContainer$Companion(kotlin.jvm.internal.DefaultConstructorMarker);
+    descriptor: (Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+}
+public final class com.tencent.qgame.animplayer.file.FileContainer implements com.tencent.qgame.animplayer.file.IFileContainer {
+  public static final com.tencent.qgame.animplayer.file.FileContainer$Companion Companion;
+    descriptor: Lcom/tencent/qgame/animplayer/file/FileContainer$Companion;
+  public com.tencent.qgame.animplayer.file.FileContainer(java.io.File);
+    descriptor: (Ljava/io/File;)V
+
+  public void setDataSource(android.media.MediaExtractor);
+    descriptor: (Landroid/media/MediaExtractor;)V
+
+  public void startRandomRead();
+    descriptor: ()V
+
+  public int read(byte[], int, int);
+    descriptor: ([BII)I
+
+  public void skip(long);
+    descriptor: (J)V
+
+  public long getLength();
+    descriptor: ()J
+
+  public void skipFully(long);
+    descriptor: (J)V
+
+  public void closeRandomRead();
+    descriptor: ()V
+
+  public void close();
+    descriptor: ()V
+}
+public final class com.tencent.qgame.animplayer.file.FileContainer$Companion {
+  public com.tencent.qgame.animplayer.file.FileContainer$Companion(kotlin.jvm.internal.DefaultConstructorMarker);
+    descriptor: (Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+}
+public interface com.tencent.qgame.animplayer.file.IFileContainer {
+  public abstract void setDataSource(android.media.MediaExtractor);
+    descriptor: (Landroid/media/MediaExtractor;)V
+
+  public abstract void startRandomRead();
+    descriptor: ()V
+
+  public abstract int read(byte[], int, int);
+    descriptor: ([BII)I
+
+  public abstract void skip(long);
+    descriptor: (J)V
+
+  public default long getLength();
+    descriptor: ()J
+
+  public default void skipFully(long);
+    descriptor: (J)V
+
+  public abstract void closeRandomRead();
+    descriptor: ()V
+
+  public abstract void close();
+    descriptor: ()V
+
+  public static long access$getLength$jd(com.tencent.qgame.animplayer.file.IFileContainer);
+    descriptor: (Lcom/tencent/qgame/animplayer/file/IFileContainer;)J
+
+  public static void access$skipFully$jd(com.tencent.qgame.animplayer.file.IFileContainer, long);
+    descriptor: (Lcom/tencent/qgame/animplayer/file/IFileContainer;J)V
+}
+public final class com.tencent.qgame.animplayer.file.IFileContainer$DefaultImpls {
+  public static long getLength(com.tencent.qgame.animplayer.file.IFileContainer);
+    descriptor: (Lcom/tencent/qgame/animplayer/file/IFileContainer;)J
+
+  public static void skipFully(com.tencent.qgame.animplayer.file.IFileContainer, long);
+    descriptor: (Lcom/tencent/qgame/animplayer/file/IFileContainer;J)V
+}
+public final class com.tencent.qgame.animplayer.file.StreamContainer implements com.tencent.qgame.animplayer.file.IFileContainer {
+  public com.tencent.qgame.animplayer.file.StreamContainer(byte[]);
+    descriptor: ([B)V
+
+  public void setDataSource(android.media.MediaExtractor);
+    descriptor: (Landroid/media/MediaExtractor;)V
+
+  public void startRandomRead();
+    descriptor: ()V
+
+  public int read(byte[], int, int);
+    descriptor: ([BII)I
+
+  public void skip(long);
+    descriptor: (J)V
+
+  public long getLength();
+    descriptor: ()J
+
+  public void skipFully(long);
+    descriptor: (J)V
+
+  public void closeRandomRead();
+    descriptor: ()V
+
+  public void close();
+    descriptor: ()V
+}
+public final class com.tencent.qgame.animplayer.file.StreamMediaDataSource extends android.media.MediaDataSource {
+  public com.tencent.qgame.animplayer.file.StreamMediaDataSource(byte[]);
+    descriptor: ([B)V
+
+  public final byte[] getBytes();
+    descriptor: ()[B
+
+  public void close();
+    descriptor: ()V
+
+  public int readAt(long, byte[], int, int);
+    descriptor: (J[BII)I
+
+  public long getSize();
+    descriptor: ()J
+}
+public final class com.tencent.qgame.animplayer.file.VapcBoxReader {
+  public static final com.tencent.qgame.animplayer.file.VapcBoxReader INSTANCE;
+    descriptor: Lcom/tencent/qgame/animplayer/file/VapcBoxReader;
+  public static final int MAX_CONFIG_BYTES = 8388608;
+    descriptor: I
+  public final byte[] read(com.tencent.qgame.animplayer.file.IFileContainer);
+    descriptor: (Lcom/tencent/qgame/animplayer/file/IFileContainer;)[B
+}
+public interface com.tencent.qgame.animplayer.inter.IAnimListener {
+  public default boolean onVideoConfigReady(com.tencent.qgame.animplayer.AnimConfig);
+    descriptor: (Lcom/tencent/qgame/animplayer/AnimConfig;)Z
+
+  public abstract void onVideoStart();
+    descriptor: ()V
+
+  public abstract void onVideoRender(int, com.tencent.qgame.animplayer.AnimConfig);
+    descriptor: (ILcom/tencent/qgame/animplayer/AnimConfig;)V
+
+  public abstract void onVideoComplete();
+    descriptor: ()V
+
+  public abstract void onVideoDestroy();
+    descriptor: ()V
+
+  public abstract void onFailed(int, java.lang.String);
+    descriptor: (ILjava/lang/String;)V
+
+  public static boolean access$onVideoConfigReady$jd(com.tencent.qgame.animplayer.inter.IAnimListener, com.tencent.qgame.animplayer.AnimConfig);
+    descriptor: (Lcom/tencent/qgame/animplayer/inter/IAnimListener;Lcom/tencent/qgame/animplayer/AnimConfig;)Z
+}
+public final class com.tencent.qgame.animplayer.inter.IAnimListener$DefaultImpls {
+  public static boolean onVideoConfigReady(com.tencent.qgame.animplayer.inter.IAnimListener, com.tencent.qgame.animplayer.AnimConfig);
+    descriptor: (Lcom/tencent/qgame/animplayer/inter/IAnimListener;Lcom/tencent/qgame/animplayer/AnimConfig;)Z
+}
+public interface com.tencent.qgame.animplayer.inter.IFetchResource {
+  public abstract void fetchImage(com.tencent.qgame.animplayer.mix.Resource, kotlin.jvm.functions.Function1<? super android.graphics.Bitmap, kotlin.Unit>);
+    descriptor: (Lcom/tencent/qgame/animplayer/mix/Resource;Lkotlin/jvm/functions/Function1;)V
+
+  public abstract void fetchText(com.tencent.qgame.animplayer.mix.Resource, kotlin.jvm.functions.Function1<? super java.lang.String, kotlin.Unit>);
+    descriptor: (Lcom/tencent/qgame/animplayer/mix/Resource;Lkotlin/jvm/functions/Function1;)V
+
+  public abstract void releaseResource(java.util.List<com.tencent.qgame.animplayer.mix.Resource>);
+    descriptor: (Ljava/util/List;)V
+}
+public interface com.tencent.qgame.animplayer.inter.OnResourceClickListener {
+  public abstract void onClick(com.tencent.qgame.animplayer.mix.Resource);
+    descriptor: (Lcom/tencent/qgame/animplayer/mix/Resource;)V
+}
+public final class com.tencent.qgame.animplayer.mask.MaskAnimPlugin implements com.tencent.qgame.animplayer.plugin.IAnimPlugin {
+  public static final com.tencent.qgame.animplayer.mask.MaskAnimPlugin$Companion Companion;
+    descriptor: Lcom/tencent/qgame/animplayer/mask/MaskAnimPlugin$Companion;
+  public com.tencent.qgame.animplayer.mask.MaskAnimPlugin(com.tencent.qgame.animplayer.AnimPlayer);
+    descriptor: (Lcom/tencent/qgame/animplayer/AnimPlayer;)V
+
+  public final com.tencent.qgame.animplayer.AnimPlayer getPlayer();
+    descriptor: ()Lcom/tencent/qgame/animplayer/AnimPlayer;
+
+  public int onConfigCreate(com.tencent.qgame.animplayer.AnimConfig);
+    descriptor: (Lcom/tencent/qgame/animplayer/AnimConfig;)I
+
+  public void onRenderCreate();
+    descriptor: ()V
+
+  public void onRendering(int);
+    descriptor: (I)V
+
+  public void onRelease();
+    descriptor: ()V
+
+  public void onDestroy();
+    descriptor: ()V
+
+  public void onDecoding(int);
+    descriptor: (I)V
+
+  public boolean onDispatchTouchEvent(android.view.MotionEvent);
+    descriptor: (Landroid/view/MotionEvent;)Z
+}
+public final class com.tencent.qgame.animplayer.mask.MaskAnimPlugin$Companion {
+  public com.tencent.qgame.animplayer.mask.MaskAnimPlugin$Companion(kotlin.jvm.internal.DefaultConstructorMarker);
+    descriptor: (Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+}
+public final class com.tencent.qgame.animplayer.mask.MaskConfig {
+  public com.tencent.qgame.animplayer.mask.MaskConfig();
+    descriptor: ()V
+
+  public final kotlin.Pair<com.tencent.qgame.animplayer.PointRect, com.tencent.qgame.animplayer.RefVec2> getMaskTexPair();
+    descriptor: ()Lkotlin/Pair;
+
+  public final void setMaskTexPair(kotlin.Pair<com.tencent.qgame.animplayer.PointRect, com.tencent.qgame.animplayer.RefVec2>);
+    descriptor: (Lkotlin/Pair;)V
+
+  public final kotlin.Pair<com.tencent.qgame.animplayer.PointRect, com.tencent.qgame.animplayer.RefVec2> getMaskPositionPair();
+    descriptor: ()Lkotlin/Pair;
+
+  public final void setMaskPositionPair(kotlin.Pair<com.tencent.qgame.animplayer.PointRect, com.tencent.qgame.animplayer.RefVec2>);
+    descriptor: (Lkotlin/Pair;)V
+
+  public com.tencent.qgame.animplayer.mask.MaskConfig(android.graphics.Bitmap, kotlin.Pair<com.tencent.qgame.animplayer.PointRect, com.tencent.qgame.animplayer.RefVec2>, kotlin.Pair<com.tencent.qgame.animplayer.PointRect, com.tencent.qgame.animplayer.RefVec2>);
+    descriptor: (Landroid/graphics/Bitmap;Lkotlin/Pair;Lkotlin/Pair;)V
+
+  public final int getMaskTexId();
+    descriptor: ()I
+
+  public final int updateMaskTex();
+    descriptor: ()I
+
+  public final android.graphics.Bitmap getAlphaMaskBitmap();
+    descriptor: ()Landroid/graphics/Bitmap;
+
+  public final void safeSetMaskBitmapAndReleasePre(android.graphics.Bitmap);
+    descriptor: (Landroid/graphics/Bitmap;)V
+
+  public final void release();
+    descriptor: ()V
+
+  public boolean equals(java.lang.Object);
+    descriptor: (Ljava/lang/Object;)Z
+
+  public int hashCode();
+    descriptor: ()I
+}
+public final class com.tencent.qgame.animplayer.mask.MaskRender {
+  public static final com.tencent.qgame.animplayer.mask.MaskRender$Companion Companion;
+    descriptor: Lcom/tencent/qgame/animplayer/mask/MaskRender$Companion;
+  public com.tencent.qgame.animplayer.mask.MaskRender(com.tencent.qgame.animplayer.mask.MaskAnimPlugin);
+    descriptor: (Lcom/tencent/qgame/animplayer/mask/MaskAnimPlugin;)V
+
+  public final com.tencent.qgame.animplayer.mask.MaskShader getMaskShader();
+    descriptor: ()Lcom/tencent/qgame/animplayer/mask/MaskShader;
+
+  public final void setMaskShader(com.tencent.qgame.animplayer.mask.MaskShader);
+    descriptor: (Lcom/tencent/qgame/animplayer/mask/MaskShader;)V
+
+  public final com.tencent.qgame.animplayer.util.GlFloatArray getVertexArray();
+    descriptor: ()Lcom/tencent/qgame/animplayer/util/GlFloatArray;
+
+  public final void setVertexArray(com.tencent.qgame.animplayer.util.GlFloatArray);
+    descriptor: (Lcom/tencent/qgame/animplayer/util/GlFloatArray;)V
+
+  public final void initMaskShader(boolean);
+    descriptor: (Z)V
+
+  public final void renderFrame(com.tencent.qgame.animplayer.AnimConfig);
+    descriptor: (Lcom/tencent/qgame/animplayer/AnimConfig;)V
+
+  public final void release();
+    descriptor: ()V
+}
+public final class com.tencent.qgame.animplayer.mask.MaskRender$Companion {
+  public com.tencent.qgame.animplayer.mask.MaskRender$Companion(kotlin.jvm.internal.DefaultConstructorMarker);
+    descriptor: (Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+}
+public final class com.tencent.qgame.animplayer.mask.MaskShader {
+  public static final com.tencent.qgame.animplayer.mask.MaskShader$Companion Companion;
+    descriptor: Lcom/tencent/qgame/animplayer/mask/MaskShader$Companion;
+  public com.tencent.qgame.animplayer.mask.MaskShader(boolean);
+    descriptor: (Z)V
+
+  public final int getUTextureMaskUnitLocation();
+    descriptor: ()I
+
+  public final int getAPositionLocation();
+    descriptor: ()I
+
+  public final int getATextureMaskCoordinatesLocation();
+    descriptor: ()I
+
+  public final void useProgram();
+    descriptor: ()V
+
+  public final void release();
+    descriptor: ()V
+}
+public final class com.tencent.qgame.animplayer.mask.MaskShader$Companion {
+  public com.tencent.qgame.animplayer.mask.MaskShader$Companion(kotlin.jvm.internal.DefaultConstructorMarker);
+    descriptor: (Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+}
+public final class com.tencent.qgame.animplayer.mix.Frame {
+  public com.tencent.qgame.animplayer.mix.Frame(int, org.json.JSONObject);
+    descriptor: (ILorg/json/JSONObject;)V
+
+  public final int getIndex();
+    descriptor: ()I
+
+  public final java.lang.String getSrcId();
+    descriptor: ()Ljava/lang/String;
+
+  public final void setSrcId(java.lang.String);
+    descriptor: (Ljava/lang/String;)V
+
+  public final int getZ();
+    descriptor: ()I
+
+  public final void setZ(int);
+    descriptor: (I)V
+
+  public final com.tencent.qgame.animplayer.PointRect getFrame();
+    descriptor: ()Lcom/tencent/qgame/animplayer/PointRect;
+
+  public final void setFrame(com.tencent.qgame.animplayer.PointRect);
+    descriptor: (Lcom/tencent/qgame/animplayer/PointRect;)V
+
+  public final com.tencent.qgame.animplayer.PointRect getMFrame();
+    descriptor: ()Lcom/tencent/qgame/animplayer/PointRect;
+
+  public final void setMFrame(com.tencent.qgame.animplayer.PointRect);
+    descriptor: (Lcom/tencent/qgame/animplayer/PointRect;)V
+
+  public final int getMt();
+    descriptor: ()I
+
+  public final void setMt(int);
+    descriptor: (I)V
+}
+public final class com.tencent.qgame.animplayer.mix.FrameAll {
+  public com.tencent.qgame.animplayer.mix.FrameAll(org.json.JSONObject);
+    descriptor: (Lorg/json/JSONObject;)V
+
+  public final android.util.SparseArray<com.tencent.qgame.animplayer.mix.FrameSet> getMap();
+    descriptor: ()Landroid/util/SparseArray;
+}
+public final class com.tencent.qgame.animplayer.mix.FrameSet {
+  public com.tencent.qgame.animplayer.mix.FrameSet(org.json.JSONObject);
+    descriptor: (Lorg/json/JSONObject;)V
+
+  public final int getIndex();
+    descriptor: ()I
+
+  public final void setIndex(int);
+    descriptor: (I)V
+
+  public final java.util.ArrayList<com.tencent.qgame.animplayer.mix.Frame> getList();
+    descriptor: ()Ljava/util/ArrayList;
+}
+public final class com.tencent.qgame.animplayer.mix.FrameSet$special$$inlined$sortBy$1<T> implements java.util.Comparator {
+  public com.tencent.qgame.animplayer.mix.FrameSet$special$$inlined$sortBy$1();
+    descriptor: ()V
+
+  public final int compare(T, T);
+    descriptor: (Ljava/lang/Object;Ljava/lang/Object;)I
+}
+public final class com.tencent.qgame.animplayer.mix.MixAnimPlugin implements com.tencent.qgame.animplayer.plugin.IAnimPlugin {
+  public static final com.tencent.qgame.animplayer.mix.MixAnimPlugin$Companion Companion;
+    descriptor: Lcom/tencent/qgame/animplayer/mix/MixAnimPlugin$Companion;
+  public com.tencent.qgame.animplayer.mix.MixAnimPlugin(com.tencent.qgame.animplayer.AnimPlayer);
+    descriptor: (Lcom/tencent/qgame/animplayer/AnimPlayer;)V
+
+  public final com.tencent.qgame.animplayer.AnimPlayer getPlayer();
+    descriptor: ()Lcom/tencent/qgame/animplayer/AnimPlayer;
+
+  public final com.tencent.qgame.animplayer.inter.IFetchResource getResourceRequest();
+    descriptor: ()Lcom/tencent/qgame/animplayer/inter/IFetchResource;
+
+  public final void setResourceRequest(com.tencent.qgame.animplayer.inter.IFetchResource);
+    descriptor: (Lcom/tencent/qgame/animplayer/inter/IFetchResource;)V
+
+  public final com.tencent.qgame.animplayer.inter.OnResourceClickListener getResourceClickListener();
+    descriptor: ()Lcom/tencent/qgame/animplayer/inter/OnResourceClickListener;
+
+  public final void setResourceClickListener(com.tencent.qgame.animplayer.inter.OnResourceClickListener);
+    descriptor: (Lcom/tencent/qgame/animplayer/inter/OnResourceClickListener;)V
+
+  public final com.tencent.qgame.animplayer.mix.SrcMap getSrcMap();
+    descriptor: ()Lcom/tencent/qgame/animplayer/mix/SrcMap;
+
+  public final void setSrcMap(com.tencent.qgame.animplayer.mix.SrcMap);
+    descriptor: (Lcom/tencent/qgame/animplayer/mix/SrcMap;)V
+
+  public final com.tencent.qgame.animplayer.mix.FrameAll getFrameAll();
+    descriptor: ()Lcom/tencent/qgame/animplayer/mix/FrameAll;
+
+  public final void setFrameAll(com.tencent.qgame.animplayer.mix.FrameAll);
+    descriptor: (Lcom/tencent/qgame/animplayer/mix/FrameAll;)V
+
+  public final int getCurFrameIndex();
+    descriptor: ()I
+
+  public final void setCurFrameIndex(int);
+    descriptor: (I)V
+
+  public final boolean getAutoTxtColorFill();
+    descriptor: ()Z
+
+  public final void setAutoTxtColorFill(boolean);
+    descriptor: (Z)V
+
+  public final long getResourceTimeoutMs();
+    descriptor: ()J
+
+  public final void setResourceTimeoutMs(long);
+    descriptor: (J)V
+
+  public int onConfigCreate(com.tencent.qgame.animplayer.AnimConfig);
+    descriptor: (Lcom/tencent/qgame/animplayer/AnimConfig;)I
+
+  public final void fetchResources(long, kotlin.jvm.functions.Function1<? super java.lang.Integer, kotlin.Unit>);
+    descriptor: (JLkotlin/jvm/functions/Function1;)V
+
+  public final void cancelResourceRequests(java.lang.Long);
+    descriptor: (Ljava/lang/Long;)V
+
+  public static void cancelResourceRequests$default(com.tencent.qgame.animplayer.mix.MixAnimPlugin, java.lang.Long, int, java.lang.Object);
+    descriptor: (Lcom/tencent/qgame/animplayer/mix/MixAnimPlugin;Ljava/lang/Long;ILjava/lang/Object;)V
+
+  public void onRenderCreate();
+    descriptor: ()V
+
+  public void onRendering(int);
+    descriptor: (I)V
+
+  public void onRelease();
+    descriptor: ()V
+
+  public void onDestroy();
+    descriptor: ()V
+
+  public boolean onDispatchTouchEvent(android.view.MotionEvent);
+    descriptor: (Landroid/view/MotionEvent;)Z
+
+  public void onDecoding(int);
+    descriptor: (I)V
+}
+public final class com.tencent.qgame.animplayer.mix.MixAnimPlugin$Companion {
+  public com.tencent.qgame.animplayer.mix.MixAnimPlugin$Companion(kotlin.jvm.internal.DefaultConstructorMarker);
+    descriptor: (Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+}
+public final class com.tencent.qgame.animplayer.mix.MixAnimPlugin$WhenMappings {
+  public static final int[] $EnumSwitchMapping$0;
+    descriptor: [I
+}
+public final class com.tencent.qgame.animplayer.mix.MixRender {
+  public static final com.tencent.qgame.animplayer.mix.MixRender$Companion Companion;
+    descriptor: Lcom/tencent/qgame/animplayer/mix/MixRender$Companion;
+  public com.tencent.qgame.animplayer.mix.MixRender(com.tencent.qgame.animplayer.mix.MixAnimPlugin);
+    descriptor: (Lcom/tencent/qgame/animplayer/mix/MixAnimPlugin;)V
+
+  public final com.tencent.qgame.animplayer.mix.MixShader getShader();
+    descriptor: ()Lcom/tencent/qgame/animplayer/mix/MixShader;
+
+  public final void setShader(com.tencent.qgame.animplayer.mix.MixShader);
+    descriptor: (Lcom/tencent/qgame/animplayer/mix/MixShader;)V
+
+  public final com.tencent.qgame.animplayer.util.GlFloatArray getVertexArray();
+    descriptor: ()Lcom/tencent/qgame/animplayer/util/GlFloatArray;
+
+  public final void setVertexArray(com.tencent.qgame.animplayer.util.GlFloatArray);
+    descriptor: (Lcom/tencent/qgame/animplayer/util/GlFloatArray;)V
+
+  public final com.tencent.qgame.animplayer.util.GlFloatArray getSrcArray();
+    descriptor: ()Lcom/tencent/qgame/animplayer/util/GlFloatArray;
+
+  public final void setSrcArray(com.tencent.qgame.animplayer.util.GlFloatArray);
+    descriptor: (Lcom/tencent/qgame/animplayer/util/GlFloatArray;)V
+
+  public final com.tencent.qgame.animplayer.util.GlFloatArray getMaskArray();
+    descriptor: ()Lcom/tencent/qgame/animplayer/util/GlFloatArray;
+
+  public final void setMaskArray(com.tencent.qgame.animplayer.util.GlFloatArray);
+    descriptor: (Lcom/tencent/qgame/animplayer/util/GlFloatArray;)V
+
+  public final void init();
+    descriptor: ()V
+
+  public final void renderFrame(com.tencent.qgame.animplayer.AnimConfig, com.tencent.qgame.animplayer.mix.Frame, com.tencent.qgame.animplayer.mix.Src);
+    descriptor: (Lcom/tencent/qgame/animplayer/AnimConfig;Lcom/tencent/qgame/animplayer/mix/Frame;Lcom/tencent/qgame/animplayer/mix/Src;)V
+
+  public final void release(int);
+    descriptor: (I)V
+}
+public final class com.tencent.qgame.animplayer.mix.MixRender$Companion {
+  public com.tencent.qgame.animplayer.mix.MixRender$Companion(kotlin.jvm.internal.DefaultConstructorMarker);
+    descriptor: (Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+}
+public final class com.tencent.qgame.animplayer.mix.MixShader {
+  public static final com.tencent.qgame.animplayer.mix.MixShader$Companion Companion;
+    descriptor: Lcom/tencent/qgame/animplayer/mix/MixShader$Companion;
+  public com.tencent.qgame.animplayer.mix.MixShader();
+    descriptor: ()V
+
+  public final int getProgram();
+    descriptor: ()I
+
+  public final int getUTextureSrcUnitLocation();
+    descriptor: ()I
+
+  public final int getUTextureMaskUnitLocation();
+    descriptor: ()I
+
+  public final int getUVideoTransformLocation();
+    descriptor: ()I
+
+  public final int getUIsFillLocation();
+    descriptor: ()I
+
+  public final int getUColorLocation();
+    descriptor: ()I
+
+  public final int getAPositionLocation();
+    descriptor: ()I
+
+  public final int getATextureSrcCoordinatesLocation();
+    descriptor: ()I
+
+  public final int getATextureMaskCoordinatesLocation();
+    descriptor: ()I
+
+  public final void useProgram();
+    descriptor: ()V
+}
+public final class com.tencent.qgame.animplayer.mix.MixShader$Companion {
+  public com.tencent.qgame.animplayer.mix.MixShader$Companion(kotlin.jvm.internal.DefaultConstructorMarker);
+    descriptor: (Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+}
+public final class com.tencent.qgame.animplayer.mix.MixTouch {
+  public com.tencent.qgame.animplayer.mix.MixTouch(com.tencent.qgame.animplayer.mix.MixAnimPlugin);
+    descriptor: (Lcom/tencent/qgame/animplayer/mix/MixAnimPlugin;)V
+
+  public final com.tencent.qgame.animplayer.mix.Resource onTouchEvent(android.view.MotionEvent);
+    descriptor: (Landroid/view/MotionEvent;)Lcom/tencent/qgame/animplayer/mix/Resource;
+}
+public final class com.tencent.qgame.animplayer.mix.Resource {
+  public com.tencent.qgame.animplayer.mix.Resource(com.tencent.qgame.animplayer.mix.Src);
+    descriptor: (Lcom/tencent/qgame/animplayer/mix/Src;)V
+
+  public final java.lang.String getId();
+    descriptor: ()Ljava/lang/String;
+
+  public final void setId(java.lang.String);
+    descriptor: (Ljava/lang/String;)V
+
+  public final com.tencent.qgame.animplayer.mix.Src$SrcType getType();
+    descriptor: ()Lcom/tencent/qgame/animplayer/mix/Src$SrcType;
+
+  public final void setType(com.tencent.qgame.animplayer.mix.Src$SrcType);
+    descriptor: (Lcom/tencent/qgame/animplayer/mix/Src$SrcType;)V
+
+  public final com.tencent.qgame.animplayer.mix.Src$LoadType getLoadType();
+    descriptor: ()Lcom/tencent/qgame/animplayer/mix/Src$LoadType;
+
+  public final void setLoadType(com.tencent.qgame.animplayer.mix.Src$LoadType);
+    descriptor: (Lcom/tencent/qgame/animplayer/mix/Src$LoadType;)V
+
+  public final java.lang.String getTag();
+    descriptor: ()Ljava/lang/String;
+
+  public final void setTag(java.lang.String);
+    descriptor: (Ljava/lang/String;)V
+
+  public final android.graphics.Bitmap getBitmap();
+    descriptor: ()Landroid/graphics/Bitmap;
+
+  public final void setBitmap(android.graphics.Bitmap);
+    descriptor: (Landroid/graphics/Bitmap;)V
+
+  public final com.tencent.qgame.animplayer.PointRect getCurPoint();
+    descriptor: ()Lcom/tencent/qgame/animplayer/PointRect;
+
+  public final void setCurPoint(com.tencent.qgame.animplayer.PointRect);
+    descriptor: (Lcom/tencent/qgame/animplayer/PointRect;)V
+
+  public final int getTargetWidth();
+    descriptor: ()I
+
+  public final void setTargetWidth$animplayer_release(int);
+    descriptor: (I)V
+
+  public final int getTargetHeight();
+    descriptor: ()I
+
+  public final void setTargetHeight$animplayer_release(int);
+    descriptor: (I)V
+}
+public final class com.tencent.qgame.animplayer.mix.Src {
+  public static final com.tencent.qgame.animplayer.mix.Src$Companion Companion;
+    descriptor: Lcom/tencent/qgame/animplayer/mix/Src$Companion;
+  public final java.lang.String getSrcId();
+    descriptor: ()Ljava/lang/String;
+
+  public final void setSrcId(java.lang.String);
+    descriptor: (Ljava/lang/String;)V
+
+  public final int getW();
+    descriptor: ()I
+
+  public final void setW(int);
+    descriptor: (I)V
+
+  public final int getH();
+    descriptor: ()I
+
+  public final void setH(int);
+    descriptor: (I)V
+
+  public final int getDrawWidth();
+    descriptor: ()I
+
+  public final void setDrawWidth(int);
+    descriptor: (I)V
+
+  public final int getDrawHeight();
+    descriptor: ()I
+
+  public final void setDrawHeight(int);
+    descriptor: (I)V
+
+  public final com.tencent.qgame.animplayer.mix.Src$SrcType getSrcType();
+    descriptor: ()Lcom/tencent/qgame/animplayer/mix/Src$SrcType;
+
+  public final void setSrcType(com.tencent.qgame.animplayer.mix.Src$SrcType);
+    descriptor: (Lcom/tencent/qgame/animplayer/mix/Src$SrcType;)V
+
+  public final com.tencent.qgame.animplayer.mix.Src$LoadType getLoadType();
+    descriptor: ()Lcom/tencent/qgame/animplayer/mix/Src$LoadType;
+
+  public final void setLoadType(com.tencent.qgame.animplayer.mix.Src$LoadType);
+    descriptor: (Lcom/tencent/qgame/animplayer/mix/Src$LoadType;)V
+
+  public final java.lang.String getSrcTag();
+    descriptor: ()Ljava/lang/String;
+
+  public final void setSrcTag(java.lang.String);
+    descriptor: (Ljava/lang/String;)V
+
+  public final java.lang.String getTxt();
+    descriptor: ()Ljava/lang/String;
+
+  public final void setTxt(java.lang.String);
+    descriptor: (Ljava/lang/String;)V
+
+  public final com.tencent.qgame.animplayer.mix.Src$Style getStyle();
+    descriptor: ()Lcom/tencent/qgame/animplayer/mix/Src$Style;
+
+  public final void setStyle(com.tencent.qgame.animplayer.mix.Src$Style);
+    descriptor: (Lcom/tencent/qgame/animplayer/mix/Src$Style;)V
+
+  public final int getColor();
+    descriptor: ()I
+
+  public final void setColor(int);
+    descriptor: (I)V
+
+  public final com.tencent.qgame.animplayer.mix.Src$FitType getFitType();
+    descriptor: ()Lcom/tencent/qgame/animplayer/mix/Src$FitType;
+
+  public final void setFitType(com.tencent.qgame.animplayer.mix.Src$FitType);
+    descriptor: (Lcom/tencent/qgame/animplayer/mix/Src$FitType;)V
+
+  public final int getSrcTextureId();
+    descriptor: ()I
+
+  public final void setSrcTextureId(int);
+    descriptor: (I)V
+
+  public final android.graphics.Bitmap getBitmap();
+    descriptor: ()Landroid/graphics/Bitmap;
+
+  public final void setBitmap(android.graphics.Bitmap);
+    descriptor: (Landroid/graphics/Bitmap;)V
+
+  public com.tencent.qgame.animplayer.mix.Src(org.json.JSONObject);
+    descriptor: (Lorg/json/JSONObject;)V
+
+  public java.lang.String toString();
+    descriptor: ()Ljava/lang/String;
+}
+public final class com.tencent.qgame.animplayer.mix.Src$Companion {
+  public com.tencent.qgame.animplayer.mix.Src$Companion(kotlin.jvm.internal.DefaultConstructorMarker);
+    descriptor: (Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+}
+public final class com.tencent.qgame.animplayer.mix.Src$FitType extends java.lang.Enum<com.tencent.qgame.animplayer.mix.Src$FitType> {
+  public static final com.tencent.qgame.animplayer.mix.Src$FitType FIT_XY;
+    descriptor: Lcom/tencent/qgame/animplayer/mix/Src$FitType;
+  public static final com.tencent.qgame.animplayer.mix.Src$FitType CENTER_FULL;
+    descriptor: Lcom/tencent/qgame/animplayer/mix/Src$FitType;
+  public final java.lang.String getType();
+    descriptor: ()Ljava/lang/String;
+
+  public static com.tencent.qgame.animplayer.mix.Src$FitType[] values();
+    descriptor: ()[Lcom/tencent/qgame/animplayer/mix/Src$FitType;
+
+  public static com.tencent.qgame.animplayer.mix.Src$FitType valueOf(java.lang.String);
+    descriptor: (Ljava/lang/String;)Lcom/tencent/qgame/animplayer/mix/Src$FitType;
+
+  public static kotlin.enums.EnumEntries<com.tencent.qgame.animplayer.mix.Src$FitType> getEntries();
+    descriptor: ()Lkotlin/enums/EnumEntries;
+}
+public final class com.tencent.qgame.animplayer.mix.Src$LoadType extends java.lang.Enum<com.tencent.qgame.animplayer.mix.Src$LoadType> {
+  public static final com.tencent.qgame.animplayer.mix.Src$LoadType UNKNOWN;
+    descriptor: Lcom/tencent/qgame/animplayer/mix/Src$LoadType;
+  public static final com.tencent.qgame.animplayer.mix.Src$LoadType NET;
+    descriptor: Lcom/tencent/qgame/animplayer/mix/Src$LoadType;
+  public static final com.tencent.qgame.animplayer.mix.Src$LoadType LOCAL;
+    descriptor: Lcom/tencent/qgame/animplayer/mix/Src$LoadType;
+  public final java.lang.String getType();
+    descriptor: ()Ljava/lang/String;
+
+  public static com.tencent.qgame.animplayer.mix.Src$LoadType[] values();
+    descriptor: ()[Lcom/tencent/qgame/animplayer/mix/Src$LoadType;
+
+  public static com.tencent.qgame.animplayer.mix.Src$LoadType valueOf(java.lang.String);
+    descriptor: (Ljava/lang/String;)Lcom/tencent/qgame/animplayer/mix/Src$LoadType;
+
+  public static kotlin.enums.EnumEntries<com.tencent.qgame.animplayer.mix.Src$LoadType> getEntries();
+    descriptor: ()Lkotlin/enums/EnumEntries;
+}
+public final class com.tencent.qgame.animplayer.mix.Src$SrcType extends java.lang.Enum<com.tencent.qgame.animplayer.mix.Src$SrcType> {
+  public static final com.tencent.qgame.animplayer.mix.Src$SrcType UNKNOWN;
+    descriptor: Lcom/tencent/qgame/animplayer/mix/Src$SrcType;
+  public static final com.tencent.qgame.animplayer.mix.Src$SrcType IMG;
+    descriptor: Lcom/tencent/qgame/animplayer/mix/Src$SrcType;
+  public static final com.tencent.qgame.animplayer.mix.Src$SrcType TXT;
+    descriptor: Lcom/tencent/qgame/animplayer/mix/Src$SrcType;
+  public final java.lang.String getType();
+    descriptor: ()Ljava/lang/String;
+
+  public static com.tencent.qgame.animplayer.mix.Src$SrcType[] values();
+    descriptor: ()[Lcom/tencent/qgame/animplayer/mix/Src$SrcType;
+
+  public static com.tencent.qgame.animplayer.mix.Src$SrcType valueOf(java.lang.String);
+    descriptor: (Ljava/lang/String;)Lcom/tencent/qgame/animplayer/mix/Src$SrcType;
+
+  public static kotlin.enums.EnumEntries<com.tencent.qgame.animplayer.mix.Src$SrcType> getEntries();
+    descriptor: ()Lkotlin/enums/EnumEntries;
+}
+public final class com.tencent.qgame.animplayer.mix.Src$Style extends java.lang.Enum<com.tencent.qgame.animplayer.mix.Src$Style> {
+  public static final com.tencent.qgame.animplayer.mix.Src$Style DEFAULT;
+    descriptor: Lcom/tencent/qgame/animplayer/mix/Src$Style;
+  public static final com.tencent.qgame.animplayer.mix.Src$Style BOLD;
+    descriptor: Lcom/tencent/qgame/animplayer/mix/Src$Style;
+  public final java.lang.String getStyle();
+    descriptor: ()Ljava/lang/String;
+
+  public static com.tencent.qgame.animplayer.mix.Src$Style[] values();
+    descriptor: ()[Lcom/tencent/qgame/animplayer/mix/Src$Style;
+
+  public static com.tencent.qgame.animplayer.mix.Src$Style valueOf(java.lang.String);
+    descriptor: (Ljava/lang/String;)Lcom/tencent/qgame/animplayer/mix/Src$Style;
+
+  public static kotlin.enums.EnumEntries<com.tencent.qgame.animplayer.mix.Src$Style> getEntries();
+    descriptor: ()Lkotlin/enums/EnumEntries;
+}
+public final class com.tencent.qgame.animplayer.mix.SrcMap {
+  public com.tencent.qgame.animplayer.mix.SrcMap(org.json.JSONObject);
+    descriptor: (Lorg/json/JSONObject;)V
+
+  public final java.util.HashMap<java.lang.String, com.tencent.qgame.animplayer.mix.Src> getMap();
+    descriptor: ()Ljava/util/HashMap;
+}
+public final class com.tencent.qgame.animplayer.plugin.AnimPluginManager {
+  public static final com.tencent.qgame.animplayer.plugin.AnimPluginManager$Companion Companion;
+    descriptor: Lcom/tencent/qgame/animplayer/plugin/AnimPluginManager$Companion;
+  public com.tencent.qgame.animplayer.plugin.AnimPluginManager(com.tencent.qgame.animplayer.AnimPlayer);
+    descriptor: (Lcom/tencent/qgame/animplayer/AnimPlayer;)V
+
+  public final com.tencent.qgame.animplayer.AnimPlayer getPlayer();
+    descriptor: ()Lcom/tencent/qgame/animplayer/AnimPlayer;
+
+  public final com.tencent.qgame.animplayer.mix.MixAnimPlugin getMixAnimPlugin();
+    descriptor: ()Lcom/tencent/qgame/animplayer/mix/MixAnimPlugin;
+
+  public final com.tencent.qgame.animplayer.mask.MaskAnimPlugin getMaskAnimPlugin();
+    descriptor: ()Lcom/tencent/qgame/animplayer/mask/MaskAnimPlugin;
+
+  public final int onConfigCreate(com.tencent.qgame.animplayer.AnimConfig);
+    descriptor: (Lcom/tencent/qgame/animplayer/AnimConfig;)I
+
+  public final void onRenderCreate();
+    descriptor: ()V
+
+  public final void onDecoding(int);
+    descriptor: (I)V
+
+  public final void onRendering$animplayer_release(int);
+    descriptor: (I)V
+
+  public final void onRelease();
+    descriptor: ()V
+
+  public final void onDestroy();
+    descriptor: ()V
+
+  public final boolean onDispatchTouchEvent(android.view.MotionEvent);
+    descriptor: (Landroid/view/MotionEvent;)Z
+}
+public final class com.tencent.qgame.animplayer.plugin.AnimPluginManager$Companion {
+  public com.tencent.qgame.animplayer.plugin.AnimPluginManager$Companion(kotlin.jvm.internal.DefaultConstructorMarker);
+    descriptor: (Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+}
+public interface com.tencent.qgame.animplayer.plugin.IAnimPlugin {
+  public default int onConfigCreate(com.tencent.qgame.animplayer.AnimConfig);
+    descriptor: (Lcom/tencent/qgame/animplayer/AnimConfig;)I
+
+  public default void onRenderCreate();
+    descriptor: ()V
+
+  public default void onDecoding(int);
+    descriptor: (I)V
+
+  public default void onRendering(int);
+    descriptor: (I)V
+
+  public default void onRelease();
+    descriptor: ()V
+
+  public default void onDestroy();
+    descriptor: ()V
+
+  public default boolean onDispatchTouchEvent(android.view.MotionEvent);
+    descriptor: (Landroid/view/MotionEvent;)Z
+
+  public static int access$onConfigCreate$jd(com.tencent.qgame.animplayer.plugin.IAnimPlugin, com.tencent.qgame.animplayer.AnimConfig);
+    descriptor: (Lcom/tencent/qgame/animplayer/plugin/IAnimPlugin;Lcom/tencent/qgame/animplayer/AnimConfig;)I
+
+  public static void access$onRenderCreate$jd(com.tencent.qgame.animplayer.plugin.IAnimPlugin);
+    descriptor: (Lcom/tencent/qgame/animplayer/plugin/IAnimPlugin;)V
+
+  public static void access$onDecoding$jd(com.tencent.qgame.animplayer.plugin.IAnimPlugin, int);
+    descriptor: (Lcom/tencent/qgame/animplayer/plugin/IAnimPlugin;I)V
+
+  public static void access$onRendering$jd(com.tencent.qgame.animplayer.plugin.IAnimPlugin, int);
+    descriptor: (Lcom/tencent/qgame/animplayer/plugin/IAnimPlugin;I)V
+
+  public static void access$onRelease$jd(com.tencent.qgame.animplayer.plugin.IAnimPlugin);
+    descriptor: (Lcom/tencent/qgame/animplayer/plugin/IAnimPlugin;)V
+
+  public static void access$onDestroy$jd(com.tencent.qgame.animplayer.plugin.IAnimPlugin);
+    descriptor: (Lcom/tencent/qgame/animplayer/plugin/IAnimPlugin;)V
+
+  public static boolean access$onDispatchTouchEvent$jd(com.tencent.qgame.animplayer.plugin.IAnimPlugin, android.view.MotionEvent);
+    descriptor: (Lcom/tencent/qgame/animplayer/plugin/IAnimPlugin;Landroid/view/MotionEvent;)Z
+}
+public final class com.tencent.qgame.animplayer.plugin.IAnimPlugin$DefaultImpls {
+  public static int onConfigCreate(com.tencent.qgame.animplayer.plugin.IAnimPlugin, com.tencent.qgame.animplayer.AnimConfig);
+    descriptor: (Lcom/tencent/qgame/animplayer/plugin/IAnimPlugin;Lcom/tencent/qgame/animplayer/AnimConfig;)I
+
+  public static void onRenderCreate(com.tencent.qgame.animplayer.plugin.IAnimPlugin);
+    descriptor: (Lcom/tencent/qgame/animplayer/plugin/IAnimPlugin;)V
+
+  public static void onDecoding(com.tencent.qgame.animplayer.plugin.IAnimPlugin, int);
+    descriptor: (Lcom/tencent/qgame/animplayer/plugin/IAnimPlugin;I)V
+
+  public static void onRendering(com.tencent.qgame.animplayer.plugin.IAnimPlugin, int);
+    descriptor: (Lcom/tencent/qgame/animplayer/plugin/IAnimPlugin;I)V
+
+  public static void onRelease(com.tencent.qgame.animplayer.plugin.IAnimPlugin);
+    descriptor: (Lcom/tencent/qgame/animplayer/plugin/IAnimPlugin;)V
+
+  public static void onDestroy(com.tencent.qgame.animplayer.plugin.IAnimPlugin);
+    descriptor: (Lcom/tencent/qgame/animplayer/plugin/IAnimPlugin;)V
+
+  public static boolean onDispatchTouchEvent(com.tencent.qgame.animplayer.plugin.IAnimPlugin, android.view.MotionEvent);
+    descriptor: (Lcom/tencent/qgame/animplayer/plugin/IAnimPlugin;Landroid/view/MotionEvent;)Z
+}
+public final class com.tencent.qgame.animplayer.textureview.InnerTextureView extends android.view.TextureView {
+  public com.tencent.qgame.animplayer.textureview.InnerTextureView(android.content.Context, android.util.AttributeSet, int);
+    descriptor: (Landroid/content/Context;Landroid/util/AttributeSet;I)V
+
+  public com.tencent.qgame.animplayer.textureview.InnerTextureView(android.content.Context, android.util.AttributeSet, int, int, kotlin.jvm.internal.DefaultConstructorMarker);
+    descriptor: (Landroid/content/Context;Landroid/util/AttributeSet;IILkotlin/jvm/internal/DefaultConstructorMarker;)V
+
+  public final com.tencent.qgame.animplayer.AnimPlayer getPlayer();
+    descriptor: ()Lcom/tencent/qgame/animplayer/AnimPlayer;
+
+  public final void setPlayer(com.tencent.qgame.animplayer.AnimPlayer);
+    descriptor: (Lcom/tencent/qgame/animplayer/AnimPlayer;)V
+
+  public boolean dispatchTouchEvent(android.view.MotionEvent);
+    descriptor: (Landroid/view/MotionEvent;)Z
+
+  public com.tencent.qgame.animplayer.textureview.InnerTextureView(android.content.Context, android.util.AttributeSet);
+    descriptor: (Landroid/content/Context;Landroid/util/AttributeSet;)V
+
+  public com.tencent.qgame.animplayer.textureview.InnerTextureView(android.content.Context);
+    descriptor: (Landroid/content/Context;)V
+}
+public final class com.tencent.qgame.animplayer.util.ALog {
+  public static final com.tencent.qgame.animplayer.util.ALog INSTANCE;
+    descriptor: Lcom/tencent/qgame/animplayer/util/ALog;
+  public final boolean isDebug();
+    descriptor: ()Z
+
+  public final void setDebug(boolean);
+    descriptor: (Z)V
+
+  public final com.tencent.qgame.animplayer.util.IALog getLog();
+    descriptor: ()Lcom/tencent/qgame/animplayer/util/IALog;
+
+  public final void setLog(com.tencent.qgame.animplayer.util.IALog);
+    descriptor: (Lcom/tencent/qgame/animplayer/util/IALog;)V
+
+  public final void i(java.lang.String, java.lang.String);
+    descriptor: (Ljava/lang/String;Ljava/lang/String;)V
+
+  public final void d(java.lang.String, java.lang.String);
+    descriptor: (Ljava/lang/String;Ljava/lang/String;)V
+
+  public final void e(java.lang.String, java.lang.String);
+    descriptor: (Ljava/lang/String;Ljava/lang/String;)V
+
+  public final void e(java.lang.String, java.lang.String, java.lang.Throwable);
+    descriptor: (Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)V
+}
+public final class com.tencent.qgame.animplayer.util.BitmapUtil {
+  public static final com.tencent.qgame.animplayer.util.BitmapUtil INSTANCE;
+    descriptor: Lcom/tencent/qgame/animplayer/util/BitmapUtil;
+  public final android.graphics.Bitmap createEmptyBitmap();
+    descriptor: ()Landroid/graphics/Bitmap;
+
+  public final android.graphics.Bitmap createTxtBitmap(com.tencent.qgame.animplayer.mix.Src);
+    descriptor: (Lcom/tencent/qgame/animplayer/mix/Src;)Landroid/graphics/Bitmap;
+}
+public final class com.tencent.qgame.animplayer.util.GlFloatArray {
+  public com.tencent.qgame.animplayer.util.GlFloatArray();
+    descriptor: ()V
+
+  public final float[] getArray();
+    descriptor: ()[F
+
+  public final void setArray(float[]);
+    descriptor: ([F)V
+
+  public final void setVertexAttribPointer(int);
+    descriptor: (I)V
+}
+public interface com.tencent.qgame.animplayer.util.IALog {
+  public default void i(java.lang.String, java.lang.String);
+    descriptor: (Ljava/lang/String;Ljava/lang/String;)V
+
+  public default void d(java.lang.String, java.lang.String);
+    descriptor: (Ljava/lang/String;Ljava/lang/String;)V
+
+  public default void e(java.lang.String, java.lang.String);
+    descriptor: (Ljava/lang/String;Ljava/lang/String;)V
+
+  public default void e(java.lang.String, java.lang.String, java.lang.Throwable);
+    descriptor: (Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)V
+
+  public static void access$i$jd(com.tencent.qgame.animplayer.util.IALog, java.lang.String, java.lang.String);
+    descriptor: (Lcom/tencent/qgame/animplayer/util/IALog;Ljava/lang/String;Ljava/lang/String;)V
+
+  public static void access$d$jd(com.tencent.qgame.animplayer.util.IALog, java.lang.String, java.lang.String);
+    descriptor: (Lcom/tencent/qgame/animplayer/util/IALog;Ljava/lang/String;Ljava/lang/String;)V
+
+  public static void access$e$jd(com.tencent.qgame.animplayer.util.IALog, java.lang.String, java.lang.String);
+    descriptor: (Lcom/tencent/qgame/animplayer/util/IALog;Ljava/lang/String;Ljava/lang/String;)V
+
+  public static void access$e$jd(com.tencent.qgame.animplayer.util.IALog, java.lang.String, java.lang.String, java.lang.Throwable);
+    descriptor: (Lcom/tencent/qgame/animplayer/util/IALog;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)V
+}
+public final class com.tencent.qgame.animplayer.util.IALog$DefaultImpls {
+  public static void i(com.tencent.qgame.animplayer.util.IALog, java.lang.String, java.lang.String);
+    descriptor: (Lcom/tencent/qgame/animplayer/util/IALog;Ljava/lang/String;Ljava/lang/String;)V
+
+  public static void d(com.tencent.qgame.animplayer.util.IALog, java.lang.String, java.lang.String);
+    descriptor: (Lcom/tencent/qgame/animplayer/util/IALog;Ljava/lang/String;Ljava/lang/String;)V
+
+  public static void e(com.tencent.qgame.animplayer.util.IALog, java.lang.String, java.lang.String);
+    descriptor: (Lcom/tencent/qgame/animplayer/util/IALog;Ljava/lang/String;Ljava/lang/String;)V
+
+  public static void e(com.tencent.qgame.animplayer.util.IALog, java.lang.String, java.lang.String, java.lang.Throwable);
+    descriptor: (Lcom/tencent/qgame/animplayer/util/IALog;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)V
+}
+public interface com.tencent.qgame.animplayer.util.IScaleType {
+  public abstract android.widget.FrameLayout$LayoutParams getLayoutParam(int, int, int, int, android.widget.FrameLayout$LayoutParams);
+    descriptor: (IIIILandroid/widget/FrameLayout$LayoutParams;)Landroid/widget/FrameLayout$LayoutParams;
+
+  public abstract kotlin.Pair<java.lang.Integer, java.lang.Integer> getRealSize();
+    descriptor: ()Lkotlin/Pair;
+}
+public final class com.tencent.qgame.animplayer.util.MediaUtil {
+  public static final com.tencent.qgame.animplayer.util.MediaUtil INSTANCE;
+    descriptor: Lcom/tencent/qgame/animplayer/util/MediaUtil;
+  public static final java.lang.String MIME_HEVC = "video/hevc";
+    descriptor: Ljava/lang/String;
+  public final android.media.MediaExtractor getExtractor(com.tencent.qgame.animplayer.file.IFileContainer);
+    descriptor: (Lcom/tencent/qgame/animplayer/file/IFileContainer;)Landroid/media/MediaExtractor;
+
+  public final boolean checkIsHevc(android.media.MediaFormat);
+    descriptor: (Landroid/media/MediaFormat;)Z
+
+  public final int selectVideoTrack(android.media.MediaExtractor);
+    descriptor: (Landroid/media/MediaExtractor;)I
+
+  public final int selectAudioTrack(android.media.MediaExtractor);
+    descriptor: (Landroid/media/MediaExtractor;)I
+
+  public final synchronized boolean checkSupportCodec(java.lang.String);
+    descriptor: (Ljava/lang/String;)Z
+}
+public final class com.tencent.qgame.animplayer.util.SafeCallKt {
+  public static final void safeCall(java.lang.String, kotlin.jvm.functions.Function0<kotlin.Unit>);
+    descriptor: (Ljava/lang/String;Lkotlin/jvm/functions/Function0;)V
+}
+public final class com.tencent.qgame.animplayer.util.ScaleType extends java.lang.Enum<com.tencent.qgame.animplayer.util.ScaleType> {
+  public static final com.tencent.qgame.animplayer.util.ScaleType FIT_XY;
+    descriptor: Lcom/tencent/qgame/animplayer/util/ScaleType;
+  public static final com.tencent.qgame.animplayer.util.ScaleType FIT_CENTER;
+    descriptor: Lcom/tencent/qgame/animplayer/util/ScaleType;
+  public static final com.tencent.qgame.animplayer.util.ScaleType CENTER_CROP;
+    descriptor: Lcom/tencent/qgame/animplayer/util/ScaleType;
+  public static com.tencent.qgame.animplayer.util.ScaleType[] values();
+    descriptor: ()[Lcom/tencent/qgame/animplayer/util/ScaleType;
+
+  public static com.tencent.qgame.animplayer.util.ScaleType valueOf(java.lang.String);
+    descriptor: (Ljava/lang/String;)Lcom/tencent/qgame/animplayer/util/ScaleType;
+
+  public static kotlin.enums.EnumEntries<com.tencent.qgame.animplayer.util.ScaleType> getEntries();
+    descriptor: ()Lkotlin/enums/EnumEntries;
+}
+public final class com.tencent.qgame.animplayer.util.ScaleTypeCenterCrop implements com.tencent.qgame.animplayer.util.IScaleType {
+  public com.tencent.qgame.animplayer.util.ScaleTypeCenterCrop();
+    descriptor: ()V
+
+  public android.widget.FrameLayout$LayoutParams getLayoutParam(int, int, int, int, android.widget.FrameLayout$LayoutParams);
+    descriptor: (IIIILandroid/widget/FrameLayout$LayoutParams;)Landroid/widget/FrameLayout$LayoutParams;
+
+  public kotlin.Pair<java.lang.Integer, java.lang.Integer> getRealSize();
+    descriptor: ()Lkotlin/Pair;
+
+  public final kotlin.Pair<java.lang.Integer, java.lang.Integer> getCenterCropSize$animplayer_release(int, int, int, int);
+    descriptor: (IIII)Lkotlin/Pair;
+}
+public final class com.tencent.qgame.animplayer.util.ScaleTypeFitCenter implements com.tencent.qgame.animplayer.util.IScaleType {
+  public com.tencent.qgame.animplayer.util.ScaleTypeFitCenter();
+    descriptor: ()V
+
+  public android.widget.FrameLayout$LayoutParams getLayoutParam(int, int, int, int, android.widget.FrameLayout$LayoutParams);
+    descriptor: (IIIILandroid/widget/FrameLayout$LayoutParams;)Landroid/widget/FrameLayout$LayoutParams;
+
+  public kotlin.Pair<java.lang.Integer, java.lang.Integer> getRealSize();
+    descriptor: ()Lkotlin/Pair;
+
+  public final kotlin.Pair<java.lang.Integer, java.lang.Integer> getFitCenterSize$animplayer_release(int, int, int, int);
+    descriptor: (IIII)Lkotlin/Pair;
+}
+public final class com.tencent.qgame.animplayer.util.ScaleTypeFitXY implements com.tencent.qgame.animplayer.util.IScaleType {
+  public com.tencent.qgame.animplayer.util.ScaleTypeFitXY();
+    descriptor: ()V
+
+  public android.widget.FrameLayout$LayoutParams getLayoutParam(int, int, int, int, android.widget.FrameLayout$LayoutParams);
+    descriptor: (IIIILandroid/widget/FrameLayout$LayoutParams;)Landroid/widget/FrameLayout$LayoutParams;
+
+  public kotlin.Pair<java.lang.Integer, java.lang.Integer> getRealSize();
+    descriptor: ()Lkotlin/Pair;
+}
+public final class com.tencent.qgame.animplayer.util.ScaleTypeUtil {
+  public static final com.tencent.qgame.animplayer.util.ScaleTypeUtil$Companion Companion;
+    descriptor: Lcom/tencent/qgame/animplayer/util/ScaleTypeUtil$Companion;
+  public com.tencent.qgame.animplayer.util.ScaleTypeUtil();
+    descriptor: ()V
+
+  public final com.tencent.qgame.animplayer.util.ScaleType getCurrentScaleType();
+    descriptor: ()Lcom/tencent/qgame/animplayer/util/ScaleType;
+
+  public final void setCurrentScaleType(com.tencent.qgame.animplayer.util.ScaleType);
+    descriptor: (Lcom/tencent/qgame/animplayer/util/ScaleType;)V
+
+  public final com.tencent.qgame.animplayer.util.IScaleType getScaleTypeImpl();
+    descriptor: ()Lcom/tencent/qgame/animplayer/util/IScaleType;
+
+  public final void setScaleTypeImpl(com.tencent.qgame.animplayer.util.IScaleType);
+    descriptor: (Lcom/tencent/qgame/animplayer/util/IScaleType;)V
+
+  public final void setLayoutSize(int, int);
+    descriptor: (II)V
+
+  public final void setVideoSize(int, int);
+    descriptor: (II)V
+
+  public final kotlin.Pair<java.lang.Integer, java.lang.Integer> getRealSize();
+    descriptor: ()Lkotlin/Pair;
+
+  public final kotlin.Pair<java.lang.Integer, java.lang.Integer> estimateVideoSize$animplayer_release(int, int);
+    descriptor: (II)Lkotlin/Pair;
+
+  public final android.widget.FrameLayout$LayoutParams getLayoutParam(android.view.View);
+    descriptor: (Landroid/view/View;)Landroid/widget/FrameLayout$LayoutParams;
+}
+public final class com.tencent.qgame.animplayer.util.ScaleTypeUtil$Companion {
+  public com.tencent.qgame.animplayer.util.ScaleTypeUtil$Companion(kotlin.jvm.internal.DefaultConstructorMarker);
+    descriptor: (Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+}
+public final class com.tencent.qgame.animplayer.util.ScaleTypeUtil$WhenMappings {
+  public static final int[] $EnumSwitchMapping$0;
+    descriptor: [I
+}
+public final class com.tencent.qgame.animplayer.util.ShaderUtil {
+  public static final com.tencent.qgame.animplayer.util.ShaderUtil INSTANCE;
+    descriptor: Lcom/tencent/qgame/animplayer/util/ShaderUtil;
+  public final int createProgram(java.lang.String, java.lang.String);
+    descriptor: (Ljava/lang/String;Ljava/lang/String;)I
+}
+public final class com.tencent.qgame.animplayer.util.SpeedControlUtil {
+  public static final com.tencent.qgame.animplayer.util.SpeedControlUtil$Companion Companion;
+    descriptor: Lcom/tencent/qgame/animplayer/util/SpeedControlUtil$Companion;
+  public com.tencent.qgame.animplayer.util.SpeedControlUtil();
+    descriptor: ()V
+
+  public final void setFixedPlaybackRate(int);
+    descriptor: (I)V
+
+  public final void preRender(long, kotlin.jvm.functions.Function0<java.lang.Boolean>);
+    descriptor: (JLkotlin/jvm/functions/Function0;)V
+
+  public static void preRender$default(com.tencent.qgame.animplayer.util.SpeedControlUtil, long, kotlin.jvm.functions.Function0, int, java.lang.Object);
+    descriptor: (Lcom/tencent/qgame/animplayer/util/SpeedControlUtil;JLkotlin/jvm/functions/Function0;ILjava/lang/Object;)V
+
+  public final void reset();
+    descriptor: ()V
+}
+public final class com.tencent.qgame.animplayer.util.SpeedControlUtil$Companion {
+  public com.tencent.qgame.animplayer.util.SpeedControlUtil$Companion(kotlin.jvm.internal.DefaultConstructorMarker);
+    descriptor: (Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+}
+public final class com.tencent.qgame.animplayer.util.TexCoordsUtil {
+  public static final com.tencent.qgame.animplayer.util.TexCoordsUtil INSTANCE;
+    descriptor: Lcom/tencent/qgame/animplayer/util/TexCoordsUtil;
+  public final float[] create(int, int, com.tencent.qgame.animplayer.PointRect, float[]);
+    descriptor: (IILcom/tencent/qgame/animplayer/PointRect;[F)[F
+
+  public final float[] rotate90(float[]);
+    descriptor: ([F)[F
+}
+public final class com.tencent.qgame.animplayer.util.TextureLoadUtil {
+  public static final com.tencent.qgame.animplayer.util.TextureLoadUtil INSTANCE;
+    descriptor: Lcom/tencent/qgame/animplayer/util/TextureLoadUtil;
+  public final int loadTexture(android.graphics.Bitmap);
+    descriptor: (Landroid/graphics/Bitmap;)I
+
+  public final void releaseTexure(int);
+    descriptor: (I)V
+}
+public final class com.tencent.qgame.animplayer.util.VertexUtil {
+  public static final com.tencent.qgame.animplayer.util.VertexUtil INSTANCE;
+    descriptor: Lcom/tencent/qgame/animplayer/util/VertexUtil;
+  public final float[] create(int, int, com.tencent.qgame.animplayer.PointRect, float[]);
+    descriptor: (IILcom/tencent/qgame/animplayer/PointRect;[F)[F
+}

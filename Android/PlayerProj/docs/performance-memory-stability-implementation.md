@@ -17,10 +17,11 @@
 
 ## 自动化验证
 
-构建与 JVM 检查命令（项目目录）：
+当前在 `Android/PlayerProj` 构建统一 Demo。它保留旧 View 调试入口，应用的最低系统版本为 API 23。以下历史结果仍对应当时的 APK。
 
 ```sh
 rtk proxy ./gradlew :app:assembleDebug :app:testDebugUnitTest :animplayer:testDebugUnitTest --offline
+rtk proxy adb install -r app/build/outputs/apk/debug/app-debug.apk
 ```
 
 共 19 个 JVM 测试通过，其中新增 17 个有效回归：10 个 MP4 box/短读/边界/重开，4 个文件校验/原子替换/取消，3 个遮罩 equals/hashCode/幂等空资源释放。另有原项目 2 个算术示例测试。

@@ -19,8 +19,8 @@ import android.os.SystemClock
 import com.tencent.qgame.animplayer.file.IFileContainer
 import com.tencent.qgame.animplayer.file.VapcBoxReader
 import com.tencent.qgame.animplayer.util.ALog
-import org.json.JSONObject
-import java.nio.charset.Charset
+import com.tencent.qgame.vap.core.spi.decodeVapConfig
+import com.tencent.qgame.vap.core.spi.splitLegacyVideo
 
 /**
  * 配置管理
@@ -68,45 +68,20 @@ class AnimConfigManager(val player: AnimPlayer) {
     fun defaultConfig(_videoWidth: Int, _videoHeight: Int) {
         if (config?.isDefaultConfig == false) return
         config?.apply {
-            videoWidth = _videoWidth
-            videoHeight = _videoHeight
-            when (defaultVideoMode) {
-                Constant.VIDEO_MODE_SPLIT_HORIZONTAL -> {
-                    // 视频左右对齐（alpha左\rgb右）
-                    width = _videoWidth / 2
-                    height = _videoHeight
-                    alphaPointRect = PointRect(0, 0, width, height)
-                    rgbPointRect = PointRect(width, 0, width, height)
-                }
-                Constant.VIDEO_MODE_SPLIT_VERTICAL -> {
-                    // 视频上下对齐（alpha上\rgb下）
-                    width = _videoWidth
-                    height = _videoHeight / 2
-                    alphaPointRect = PointRect(0, 0, width, height)
-                    rgbPointRect = PointRect(0, height, width, height)
-                }
-                Constant.VIDEO_MODE_SPLIT_HORIZONTAL_REVERSE -> {
-                    // 视频左右对齐（rgb左\alpha右）
-                    width = _videoWidth / 2
-                    height = _videoHeight
-                    rgbPointRect = PointRect(0, 0, width, height)
-                    alphaPointRect = PointRect(width, 0, width, height)
-                }
-                Constant.VIDEO_MODE_SPLIT_VERTICAL_REVERSE -> {
-                    // 视频上下对齐（rgb上\alpha下）
-                    width = _videoWidth
-                    height = _videoHeight / 2
-                    rgbPointRect = PointRect(0, 0, width, height)
-                    alphaPointRect = PointRect(0, height, width, height)
-                }
-                else -> {
-                    // 默认视频左右对齐（alpha左\rgb右）
-                    width = _videoWidth / 2
-                    height = _videoHeight
-                    alphaPointRect = PointRect(0, 0, width, height)
-                    rgbPointRect = PointRect(width, 0, width, height)
-                }
-            }
+            val layout = splitLegacyVideo(
+                _videoWidth,
+                _videoHeight,
+                vertical = defaultVideoMode == Constant.VIDEO_MODE_SPLIT_VERTICAL ||
+                    defaultVideoMode == Constant.VIDEO_MODE_SPLIT_VERTICAL_REVERSE,
+                rgbFirst = defaultVideoMode == Constant.VIDEO_MODE_SPLIT_HORIZONTAL_REVERSE ||
+                    defaultVideoMode == Constant.VIDEO_MODE_SPLIT_VERTICAL_REVERSE
+            )
+            videoWidth = layout.videoWidth
+            videoHeight = layout.videoHeight
+            width = layout.width
+            height = layout.height
+            alphaPointRect = layout.alpha.toPointRect()
+            rgbPointRect = layout.rgb.toPointRect()
         }
     }
 
@@ -130,8 +105,7 @@ class AnimConfigManager(val player: AnimPlayer) {
             return true
         }
 
-        val json = String(vapcBuf, 0, vapcBuf.size, Charset.forName("UTF-8"))
-        val jsonObj = JSONObject(json)
+        val jsonObj = decodeVapConfig(vapcBuf)
         config.jsonConfig = jsonObj
         val result = config.parse(jsonObj)
         if (defaultFps > 0) {

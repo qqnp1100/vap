@@ -10,6 +10,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:8.12.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:compose-compiler-gradle-plugin:$kotlin_version"
         // classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
         // classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
         // NOTE: Do not place your application dependencies here; they belong
@@ -29,3 +30,15 @@ allprojects {
 tasks.register('clean', Delete) {
     delete rootProject.layout.buildDirectory
 }
+
+tasks.register('publishVapToVerificationRepository') {
+    group = 'publishing'
+    description = 'Publishes the three unsigned VAP artifacts to the local verification repository.'
+    dependsOn(
+        ':vap-core:publishVerificationPublicationToVerificationRepository',
+        ':animplayer:publishVerificationPublicationToVerificationRepository',
+        ':vap-compose:publishVerificationPublicationToVerificationRepository'
+    )
+}
+
+apply from: 'publish-mavencentral.gradle'

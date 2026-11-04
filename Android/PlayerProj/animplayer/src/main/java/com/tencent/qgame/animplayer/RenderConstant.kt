@@ -15,35 +15,10 @@
  */
 package com.tencent.qgame.animplayer
 
+import com.tencent.qgame.vap.core.spi.PackedVideoShaders
 
 object RenderConstant {
-
-    // VAP rectangles start at the top left, while SurfaceTexture takes GL coordinates.
-    internal const val VIDEO_TEXTURE_COORDS = "uniform mat4 uVideoTransform;\n" +
-            "vec2 videoTexCoord(vec2 uv) {\n" +
-            "    return (uVideoTransform * vec4(uv.x, 1.0 - uv.y, 0.0, 1.0)).xy;\n" +
-            "}\n"
-
-    const val VERTEX_SHADER = "attribute vec4 vPosition;\n" +
-            "attribute vec4 vTexCoordinateAlpha;\n" +
-            "attribute vec4 vTexCoordinateRgb;\n" +
-            "varying vec2 v_TexCoordinateAlpha;\n" +
-            "varying vec2 v_TexCoordinateRgb;\n" +
-            VIDEO_TEXTURE_COORDS +
-            "void main() {\n" +
-            "    v_TexCoordinateAlpha = videoTexCoord(vTexCoordinateAlpha.xy);\n" +
-            "    v_TexCoordinateRgb = videoTexCoord(vTexCoordinateRgb.xy);\n" +
-            "    gl_Position = vPosition;\n" +
-            "}"
-    const val FRAGMENT_SHADER = "#extension GL_OES_EGL_image_external : require\n" +
-            "precision mediump float;\n" +
-            "uniform samplerExternalOES texture;\n" +
-            "varying vec2 v_TexCoordinateAlpha;\n" +
-            "varying vec2 v_TexCoordinateRgb;\n" +
-            "\n" +
-            "void main () {\n" +
-            "    vec4 alphaColor = texture2D(texture, v_TexCoordinateAlpha);\n" +
-            "    vec4 rgbColor = texture2D(texture, v_TexCoordinateRgb);\n" +
-            "    gl_FragColor = vec4(rgbColor.r, rgbColor.g, rgbColor.b, alphaColor.r);\n" +
-            "}"
+    internal const val VIDEO_TEXTURE_COORDS = PackedVideoShaders.VIDEO_TEXTURE_COORDS
+    const val VERTEX_SHADER = PackedVideoShaders.VERTEX_SHADER
+    const val FRAGMENT_SHADER = PackedVideoShaders.FRAGMENT_SHADER
 }

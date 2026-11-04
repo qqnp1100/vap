@@ -16,7 +16,7 @@
 package com.tencent.qgame.animplayer.mix
 
 import android.view.MotionEvent
-import com.tencent.qgame.animplayer.PointRect
+import com.tencent.qgame.vap.core.spi.MixGeometry
 
 /**
  * 触摸事件
@@ -24,33 +24,15 @@ import com.tencent.qgame.animplayer.PointRect
 class MixTouch(private val mixAnimPlugin: MixAnimPlugin) {
 
     fun onTouchEvent(ev: MotionEvent): Resource? {
-        val (viewWith, viewHeight) = mixAnimPlugin.player.animView.getRealSize()
-        val videoWith = mixAnimPlugin.player.configManager.config?.width ?: return null
-        val videoHeight = mixAnimPlugin.player.configManager.config?.height ?: return null
-
-        if (viewWith == 0 || viewHeight == 0) return null
-
-        when(ev.action) {
-            MotionEvent.ACTION_UP -> {
-                val x = ev.x * videoWith / viewWith.toFloat()
-                val y = ev.y * videoHeight / viewHeight.toFloat()
-                val list = mixAnimPlugin.frameAll?.map?.get(mixAnimPlugin.curFrameIndex)?.list
-                list?.forEach {frame ->
-                    val src = mixAnimPlugin.srcMap?.map?.get(frame.srcId) ?: return@forEach
-                    if (calClick(x.toInt(), y.toInt(), frame.frame)) {
-                        return Resource(src).apply {
-                            curPoint = frame.frame
-                        }
-                    }
-                }
-            }
-        }
-        return null
-    }
-
-
-    private fun calClick(x: Int, y: Int, frame: PointRect): Boolean {
-        return x >= frame.x && x <= (frame.x + frame.w)
-                && y >= frame.y && y <= (frame.y + frame.h)
+        if (ev.action != MotionEvent.ACTION_UP) return null
+        val (viewWidth, viewHeight) = mixAnimPlugin.player.animView.getRealSize()
+        val config = mixAnimPlugin.player.configManager.config ?: return null
+        val layers = mixAnimPlugin.frameAll?.map?.get(mixAnimPlugin.curFrameIndex)?.list ?: return null
+        val sources = mixAnimPlugin.srcMap?.map ?: return null
+        val frame = MixGeometry.hitLayer(
+            ev.x, ev.y, viewWidth, viewHeight, config.width, config.height, layers
+        ) { layer -> layer.renderRect.takeIf { sources[layer.srcId] != null } } ?: return null
+        val src = sources[frame.srcId] ?: return null
+        return Resource(src).apply { curPoint = frame.frame }
     }
 }

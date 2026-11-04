@@ -1,0 +1,33 @@
+import org.gradle.api.initialization.resolve.RepositoriesMode
+
+rootProject.name = 'vap-maven-consumers'
+include ':view-only', ':compose-only', ':coexist'
+
+def repositoryPath = providers.gradleProperty('vapRepository').getOrNull()
+if (repositoryPath == null || !new File(repositoryPath).isAbsolute()) {
+    throw new GradleException('Set -PvapRepository to the absolute local Maven repository path.')
+}
+def pomOnly = providers.gradleProperty('vapPomOnly').map { it.toBoolean() }.getOrElse(false)
+
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        exclusiveContent {
+            forRepository {
+                maven {
+                    name = 'VapLocalVerification'
+                    url = uri(repositoryPath)
+                    if (pomOnly) {
+                        metadataSources {
+                            mavenPom()
+                            ignoreGradleMetadataRedirection()
+                        }
+                    }
+                }
+            }
+            filter { includeGroup('io.github.qqnp1100') }
+        }
+        google()
+        mavenCentral()
+    }
+}

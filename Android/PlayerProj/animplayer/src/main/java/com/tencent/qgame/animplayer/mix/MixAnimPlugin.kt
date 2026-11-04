@@ -18,7 +18,6 @@ package com.tencent.qgame.animplayer.mix
 import android.graphics.Bitmap
 import android.os.Handler
 import android.os.Looper
-import android.os.SystemClock
 import android.view.MotionEvent
 import com.tencent.qgame.animplayer.AnimConfig
 import com.tencent.qgame.animplayer.AnimPlayer
@@ -30,9 +29,8 @@ import com.tencent.qgame.animplayer.plugin.IAnimPlugin
 import com.tencent.qgame.animplayer.util.ALog
 import com.tencent.qgame.animplayer.util.BitmapUtil
 import com.tencent.qgame.animplayer.util.safeCall
-import java.util.concurrent.atomic.AtomicBoolean
-import java.util.concurrent.atomic.AtomicLong
-import kotlin.math.ceil
+import com.tencent.qgame.vap.core.spi.MixGeometry
+import com.tencent.qgame.vap.core.spi.MixResourceLoader
 
 class MixAnimPlugin(val player: AnimPlayer): IAnimPlugin {
 
@@ -50,11 +48,7 @@ class MixAnimPlugin(val player: AnimPlayer): IAnimPlugin {
     private val mixTouch by lazy { MixTouch(this) }
     var autoTxtColorFill = true // 是否启动自动文字填充 默认开启
 
-    private val loadGeneration = AtomicLong()
-    @Volatile private var timeoutTask: Runnable? = null
-    private val pendingImageLock = Any()
-    private var resourceSession = 0L
-    private val pendingImages = HashSet<() -> Unit>()
+    private val resourceLoader = MixResourceLoader()
     /** Upper bound for application resource callbacks, including callbacks that never arrive. */
     var resourceTimeoutMs = 10_000L
 
@@ -76,102 +70,34 @@ class MixAnimPlugin(val player: AnimPlayer): IAnimPlugin {
         }
         val handler = player.decoder?.renderThread?.handler ?: return
         val imageRequests = prepareImageRequests(sources)
-        val generation = synchronized(pendingImageLock) {
-            resourceSession = session
-            loadGeneration.incrementAndGet()
-        }
-        var remaining = sources.size
-        var finished = false
-        fun current() = generation == loadGeneration.get() && player.isSessionActive(session)
-        fun finish(result: Int) {
-            if (finished || !current()) return
-            finished = true
-            timeoutTask?.let { handler.removeCallbacks(it) }
-            timeoutTask = null
-            // Invalidate callbacks arriving after failure/timeout.
-            if (result != Constant.OK) cancelResourceRequests()
-            complete(result)
-        }
-        fun received(valid: Boolean) {
-            if (!current() || finished) return
-            if (!valid) {
-                finish(Constant.REPORT_ERROR_TYPE_CONFIG_PLUGIN_MIX)
-                return
+        val requests = sources.map { src ->
+            when (src.srcType) {
+                Src.SrcType.IMG -> MixResourceLoader.Request.Image(
+                    fetch = { callback -> request.fetchImage(imageRequests.getValue(src.srcId), callback) },
+                    accept = { src.bitmap = it },
+                    discard = { bitmap ->
+                        safeCall("release late image") {
+                            request.releaseResource(listOf(Resource(src).apply { this.bitmap = bitmap }))
+                        }
+                    }
+                )
+                Src.SrcType.TXT -> MixResourceLoader.Request.Text(
+                    fetch = { callback -> request.fetchText(Resource(src), callback) },
+                    accept = { src.txt = it }
+                )
+                else -> MixResourceLoader.Request.Invalid
             }
-            remaining--
-            if (remaining == 0) {
-                val validBitmaps = createBitmap() && sources.all {
+        }
+        resourceLoader.load(
+            session, handler, requests, resourceTimeoutMs, player::isSessionActive,
+            prepareBitmaps = {
+                createBitmap() && sources.all {
                     it.bitmap != null && it.bitmap?.isRecycled == false && it.bitmap?.config != Bitmap.Config.ALPHA_8
                 }
-                finish(if (validBitmaps) Constant.OK else Constant.REPORT_ERROR_TYPE_CONFIG_PLUGIN_MIX)
-            }
-        }
-        timeoutTask = Runnable { finish(Constant.REPORT_ERROR_TYPE_CONFIG_PLUGIN_MIX) }.also {
-            handler.postDelayed(it, resourceTimeoutMs.coerceAtLeast(1L))
-        }
-        sources.forEach { src ->
-            if (!current() || finished) return@forEach
-            val once = AtomicBoolean()
-            val seenBitmaps = java.util.IdentityHashMap<Bitmap, Boolean>()
-            try {
-                when (src.srcType) {
-                    Src.SrcType.IMG -> request.fetchImage(imageRequests.getValue(src.srcId)) { bitmap ->
-                        // A duplicate carrying the same object must never recycle an accepted image.
-                        val firstObject = bitmap == null || synchronized(seenBitmaps) {
-                            seenBitmaps.put(bitmap, true) == null
-                        }
-                        if (!firstObject) return@fetchImage
-                        val first = once.compareAndSet(false, true)
-                        fun releaseUnused() {
-                            if (bitmap != null) safeCall("release late image") {
-                                request.releaseResource(listOf(Resource(src).apply { this.bitmap = bitmap }))
-                            }
-                        }
-                        val delivered = AtomicBoolean()
-                        lateinit var discard: () -> Unit
-                        discard = {
-                            if (delivered.compareAndSet(false, true)) {
-                                synchronized(pendingImageLock) { pendingImages.remove(discard) }
-                                releaseUnused()
-                            }
-                        }
-                        val enqueue = synchronized(pendingImageLock) {
-                            if (first && current()) {
-                                pendingImages.add(discard)
-                                true
-                            } else false
-                        }
-                        if (!enqueue) {
-                            discard()
-                        } else if (!handler.post {
-                            if (delivered.compareAndSet(false, true)) {
-                                synchronized(pendingImageLock) { pendingImages.remove(discard) }
-                                if (!current() || finished) {
-                                    releaseUnused()
-                                } else {
-                                    src.bitmap = bitmap
-                                    received(bitmap == null || !bitmap.isRecycled)
-                                }
-                            }
-                        }) {
-                            discard()
-                        }
-                    }
-                    Src.SrcType.TXT -> request.fetchText(Resource(src)) { text ->
-                        if (once.compareAndSet(false, true)) handler.post {
-                            if (current() && !finished) {
-                                src.txt = text ?: ""
-                                received(true)
-                            }
-                        }
-                    }
-                    else -> received(false)
-                }
-            } catch (error: Throwable) {
-                ALog.e(TAG, "fetch resource ${src.srcId}", error)
-                finish(Constant.REPORT_ERROR_TYPE_CONFIG_PLUGIN_MIX)
-            }
-        }
+            },
+            onError = { ALog.e(TAG, "fetch resource", it) },
+            complete = { complete(if (it) Constant.OK else Constant.REPORT_ERROR_TYPE_CONFIG_PLUGIN_MIX) }
+        )
     }
 
     private fun prepareImageRequests(sources: List<Src>): Map<String, Resource> {
@@ -185,35 +111,22 @@ class MixAnimPlugin(val player: AnimPlayer): IAnimPlugin {
         val (videoWidth, videoHeight) = view.estimateVideoSize(config.width, config.height) ?: return requests
         if (videoWidth <= 0 || videoHeight <= 0) return requests
         val frames = frameAll?.map ?: return requests
-        for (index in 0 until frames.size()) {
-            for (layer in frames.valueAt(index).list) {
-                val request = requests[layer.srcId] ?: continue
-                request.targetWidth = maxOf(request.targetWidth, layer.frame.w)
-                request.targetHeight = maxOf(request.targetHeight, layer.frame.h)
-            }
+        val layers = (0 until frames.size()).asSequence().flatMap { index ->
+            frames.valueAt(index).list.asSequence().map { it.srcId to it.renderRect }
         }
-        val scaleX = videoWidth.toDouble() / config.width
-        val scaleY = videoHeight.toDouble() / config.height
-        for (request in requests.values) {
-            request.targetWidth = ceil(request.targetWidth * scaleX).toInt()
-            request.targetHeight = ceil(request.targetHeight * scaleY).toInt()
+        val targetSizes = MixGeometry.targetSizes(
+            layers, requests.keys, config.width, config.height, videoWidth, videoHeight
+        )
+        for ((sourceId, size) in targetSizes) {
+            val request = requests.getValue(sourceId)
+            request.targetWidth = size.first
+            request.targetHeight = size.second
         }
         return requests
     }
 
     fun cancelResourceRequests(expectedSession: Long? = null) {
-        val timeout: Runnable?
-        val pending: List<() -> Unit>
-        synchronized(pendingImageLock) {
-            if (expectedSession != null && resourceSession != expectedSession) return
-            loadGeneration.incrementAndGet()
-            timeout = timeoutTask
-            timeoutTask = null
-            pending = pendingImages.toList()
-            pendingImages.clear()
-        }
-        timeout?.let { player.decoder?.renderThread?.handler?.removeCallbacks(it) }
-        pending.forEach { it() }
+        resourceLoader.cancel(expectedSession)
     }
 
     override fun onRenderCreate() {
@@ -279,9 +192,7 @@ class MixAnimPlugin(val player: AnimPlayer): IAnimPlugin {
             }
             src.bitmap = null
         }
-        renderer?.shader?.program?.let { program ->
-            safeCall("release mix shader") { android.opengl.GLES20.glDeleteProgram(program) }
-        }
+        safeCall("release mix shader") { renderer?.releaseShader() }
         if (resources.isNotEmpty()) safeCall("releaseResource") { owner?.releaseResource(resources) }
     }
 

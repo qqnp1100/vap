@@ -1,0 +1,9 @@
+--------- beginning of main
+11-03 18:17:48.357 28447 28447 I VAP-Compose-Demo: M2 SUITE STARTED scenario=legacy cycles=8
+11-03 18:17:48.358 28447 28447 E VAP-Compose-Demo: M2 failed failures=1
+11-03 18:17:48.358 28447 28447 E VAP-Compose-Demo: java.lang.IllegalArgumentException: This prototype requires a VAP v2 vapc box
+11-03 18:17:48.358 28447 28447 E VAP-Compose-Demo: 	at com.tencent.qgame.vap.core.internal.engine.SurfacePlaybackController$Session.prepare(SurfacePlaybackController.kt:172)
+11-03 18:17:48.358 28447 28447 E VAP-Compose-Demo: 	at com.tencent.qgame.vap.core.internal.engine.SurfacePlaybackController$Session.access$prepare(SurfacePlaybackController.kt:96)
+11-03 18:17:48.358 28447 28447 E VAP-Compose-Demo: 	at com.tencent.qgame.vap.core.internal.engine.SurfacePlaybackController$Session$startDecodeWorker$worker$1.onLooperPrepared(SurfacePlaybackController.kt:154)
+11-03 18:17:48.358 28447 28447 E VAP-Compose-Demo: 	at android.os.HandlerThread.run(HandlerThread.java:138)
+11-03 18:17:48.359 28447 28447 I VAP-Compose-Demo: M2 SUITE PASSED scenario=legacy starts=0 completes=0 failures=1
